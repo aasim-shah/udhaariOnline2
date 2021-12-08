@@ -388,10 +388,6 @@ router.get('/repayment/approved/:id' , tokenauth , ensureAdmin , async(req , res
   }
 })
 
-router.get('/repayment' , tokenauth , async(req , res) =>{
-  res.render('repayment');
-})
-
 
 
 
@@ -453,6 +449,10 @@ router.post('/admin/addBalance' , tokenauth , ensureAdmin , async(req , res) => 
 })
 
 
+router.get('/repayment' , tokenauth , async(req , res) =>{
+  res.render('repayment');
+})
+
 
 
 
@@ -464,7 +464,7 @@ router.post('/repayment' , tokenauth , async(req , res) => {
       })
       let used_id = await PaymentModel.findOne({order_id : req.body.order_id});
   if(used_id){
-    res.send('user id used by someone try next time')
+   res.render('repayment' , {alert : "alert"})
   }else{
       let saved_pay = await pay.save();
       console.log(saved_pay);

@@ -462,6 +462,10 @@ router.post('/repayment' , tokenauth , async(req , res) => {
         phone : req.body.phone ,
         order_id : req.body.order_id
       })
+      let used_id = await PaymentModel.findOne({order_id : req.body.order_id});
+  if(used_id){
+    res.send('user id used by someone try next time')
+  }else{
       let saved_pay = await pay.save();
       console.log(saved_pay);
   
@@ -469,7 +473,7 @@ router.post('/repayment' , tokenauth , async(req , res) => {
       res.send('hogya repayment ');
     }else{
       res.send('failed to repay ! better luck next time');
-    }
+    }  }
 })
 
 router.get('/otp' ,  (req , res)=> {

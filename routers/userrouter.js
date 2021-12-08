@@ -175,8 +175,9 @@ res.redirect('/user/package')
 })
 router.get('/package' , tokenauth , async(req ,res)=> {
   let phone = req.user.phone;
+  let id = '61b0f52ff28a0a6319dd3ee2';
   let checkapps = await ApplicationModel.findOne({phone : phone});
-  let adminData = await AdmindataModel.find();
+  let adminData = await AdmindataModel.findById(id);
   if(checkapps ){
     switch (checkapps.application_status) {
       case 'pending':
@@ -206,9 +207,10 @@ if(checkapps ){
 }else{
   let amount = req.body.amount;
   let duration = req.body.duration;
+  let charges = req.body.charges;
   let user_info = await Usermodel.findOne({phone : phone})
   if(user_info.email && user_info.bank_name){
-    res.render('signature' , {user : req.user , amount : amount , duration : duration})
+    res.render('signature' , {user : req.user , amount : amount , duration : duration , charges : charges})
   }else{
    res.redirect('/user/info')
   }
@@ -222,6 +224,7 @@ router.post('/sign' , tokenauth, async (req , res) => {
 const app = new ApplicationModel({
   amount : req.body.amount ,
   duration : req.body.duration ,
+  charges :req.body.charges,
   phone : req.body.phone , 
   repayment_date : '',
   application_status : 'pending'
@@ -244,7 +247,7 @@ router.get('/admin' ,tokenauth, ensureAdmin, async(req , res)=> {
   let approved  =await ApplicationModel.count({application_status : 'approved'})
 let repaid  =await ApplicationModel.count({application_status : 'repaid'})
 let rejected  = await ApplicationModel.count({application_status : 'rejected'})
-let id = '61a4f8dce645cdd8ef3fd141';
+let id = '61b0f52ff28a0a6319dd3ee2';
     let total_bal = await AdmindataModel.findById(id)
 
   let repay = await PaymentModel.count();
@@ -277,7 +280,7 @@ router.post('/approve' , tokenauth , ensureAdmin , async(req , res) =>{
   console.log(loan_amount);
   let funds = await AdmindataModel.find({total_funds : {$gt : loan_amount}})
   console.log(funds);
-   let idd = '61a4f8dce645cdd8ef3fd141';
+   let idd = '61b0f52ff28a0a6319dd3ee2';
   let admin_total_bal = await AdmindataModel.findById(idd);
   let admin_bal = admin_total_bal.total_funds;
   if(admin_bal > loan_amount){
@@ -409,7 +412,7 @@ router.get('/adminRepayments' , tokenauth , ensureAdmin , async(req ,res)=> {
 
 
 router.get('/admin/addBalance' , tokenauth , ensureAdmin , async(req , res) => {
-    let id = '61a4f8dce645cdd8ef3fd141';
+    let id = '61b0f52ff28a0a6319dd3ee2';
     let total_bal = await AdmindataModel.findById(id);
   res.render('adminaddbalance' , {total : total_bal})
 })
@@ -420,7 +423,7 @@ router.post('/admin/addBalance' , tokenauth , ensureAdmin , async(req , res) => 
   let amount = req.body.plan_amount;
   let duration = req.body.plan_duration;
   let charges = req.body.plan_charges;
-  let id = '61a4f8dce645cdd8ef3fd141';
+  let id = '61b0f52ff28a0a6319dd3ee2';
   let updated_bal = await AdmindataModel.findByIdAndUpdate(id ,{total_funds:bal , plan_amount : amount , plan_duration : duration , plan_charges : charges})
   res.redirect('addBalance')
 })

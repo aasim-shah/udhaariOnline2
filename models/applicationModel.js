@@ -6,6 +6,7 @@ const applicationSchema = mongoose.Schema({
    amount : String, 
    phone : String , 
    duration : String ,
+    charges : String,
    application_status :String,
    approved_date : {type :Date },
     repayment_date : String,

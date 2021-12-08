@@ -265,13 +265,6 @@ router.post('/admin/data' , tokenauth , ensureAdmin , async(req , res)=> {
 
 
 
-router.get('/updatePlan' , tokenauth , ensureAdmin , async(req , res) => {
-  res.render('adminUpdatePlan')
-})
-
-
-
-
 router.post('/approve' , tokenauth , ensureAdmin , async(req , res) =>{
   let id  = req.body.app_id;
   let phone = req.user.phone;
@@ -421,8 +414,11 @@ router.get('/admin/addBalance' , tokenauth , ensureAdmin , async(req , res) => {
 })
 
 
-router.post('/addBalance' , tokenauth , ensureAdmin , async(req , res) => {
+router.post('/admin/addBalance' , tokenauth , ensureAdmin , async(req , res) => {
   let bal = req.body.addBalance;
+  let amount = req.body.plan_amount;
+  let duration = req.body.plan_duration;
+  let charges = req.body.plan_charges;
   let id = '61a4f8dce645cdd8ef3fd141';
   let updated_bal = await AdmindataModel.findByIdAndUpdate(id ,{total_funds:bal})
   res.redirect('addBalance')

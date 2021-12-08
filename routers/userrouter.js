@@ -450,7 +450,7 @@ router.post('/admin/addBalance' , tokenauth , ensureAdmin , async(req , res) => 
 
 
 router.get('/repayment' , tokenauth , async(req , res) =>{
-  res.render('repayment');
+  res.render('repayment' , {alert : ''});
 })
 
 

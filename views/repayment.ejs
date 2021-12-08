@@ -6,16 +6,20 @@
   background: linear-gradient(90deg, rgba(91, 88, 139, 0.479) 0%, rgba(9, 9, 121, 0.445) 35%, rgba(0, 213, 255, 0.438) 100%);}
   
 </style>
+  <% if(alert === 'alert'){ %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>OHH Sorry ! </strong> This selected userid is reserved try something better.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<% } else{ %>
+   
+<% } %>
 <div class="container mt-4">
   <div class="col-10 col-md-8 mx-auto ">
     <h4>
    Repayment Section    
     </h4>
-  <% if(alert === 'alert'){ %>
-    <p>Super alert</p>
-<% } else{ %>
-    <p>no alert</p>
-<% } %>
+
     <div class="text-center"> <img src="https://cdn.glitch.me/3ba201fb-d584-4df2-b150-01867434d57d%2Fqr.png?v=1638729432720" alt="" style="width: 160px;" class="align-middle"> </div>
     <h6 class="text-center text-light mt-3">
       Pay Using any UPI app to this QR

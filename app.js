@@ -75,62 +75,10 @@ app.get('/contacts' , (req, res) => {
 
 
 
-//socket.io
-io.on("connection",socket => {
+app.get('/terms_and_conditions' , (req, res) => {
+  res.render('terms_and_conditions')
+})
 
-    socket.on("join room", roomName => {
-        socket.join(roomName);
-    });
-
-    socket.on("new message",async message => {
-
-        var chat = new Chat({
-            username: message.username,
-            message:message.message,
-            fromAdmin: message.fromAdmin, 
-        });
-
-        chat.save();
-
-
-        if(message.fromAdmin){
-            await Usermodel.updateOne({username: message.username},{$set:{unreadMessages: true}});
-        }else{
-            await Usermodel.updateOne({username: message.username},{$set:{newMessages: true}});
-        }
-
-        io.sockets.in(message.username).emit("new message",chat);
-        if(!chat.fromAdmin){
-            io.sockets.in('admin').emit("new message",chat);
-        }
-    });
-
-    socket.on("mark seen",async data =>{
-        if(data.isAdmin){
-            await Usermodel.updateOne({username: data.username},{$set: {newMessages: false}});
-        }else{
-            await Usermodel.updateOne({username: data.username},{$set: {unreadMessages: false}});
-        }
-
-        if(data.isAdmin){
-            io.sockets.in('admin').emit("mark seen",data.username);
-        }
-    });
-
-});
-
-app.get('/support',async(req,res)=>{
-    if(req.isAuthenticated()){
-        if(!req.user.isAdmin){
-            var messages = await Chat.find({username: req.user.username});
-            res.render('support',{messages: messages, username: req.user.username, isAdmin: false});
-        }else{
-            res.redirect('/admin/support');
-        }
-    }else{
-        res.redirect('/login');
-    }
-});
 
 
 var server = http.listen(process.env.PORT || 3000, () => {

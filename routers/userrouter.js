@@ -265,6 +265,13 @@ router.post('/admin/data' , tokenauth , ensureAdmin , async(req , res)=> {
 
 
 
+router.get('/updatePlan' , tokenauth , ensureAdmin , async(req , res) => {
+  res.render('adminUpdatePlan')
+})
+
+
+
+
 router.post('/approve' , tokenauth , ensureAdmin , async(req , res) =>{
   let id  = req.body.app_id;
   let phone = req.user.phone;

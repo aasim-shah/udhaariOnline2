@@ -3,6 +3,9 @@ const conn = require('../db/conn')
 
 const adminSchema = mongoose.Schema({
    total_funds : String, 
+    plan_amount : String,
+  plan_duration : String,
+  plan_charges : String
 
 })
 

@@ -1,0 +1,17 @@
+<%- include('./partials/header.ejs') %>
+<%- include('./partials/navbar.ejs') %>
+<style>
+  .main{
+    margin-top:30%;
+  }
+</style>
+<div class="container main" >
+    <div class="col-10 col-md-7 mx-auto">
+        <form action="/user/verify/otp" method="post">
+            <input type="text" name="verify_otp" id="" placeholder="Verify OTP " class="form-control mt-2">
+            <div class="d-flex justify-content-center mt-3">  <button type="submit" class="btn btn-sm btn-success w-100 py-2" style="font-weight:600;">VERIFY OTP</button>
+            </div>
+        </form>
+    </div>
+</div>
+<%- include('./partials/footer.ejs') %>

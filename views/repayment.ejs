@@ -1,0 +1,29 @@
+<%- include('./partials/header.ejs') %>
+<%- include('./partials/navbar.ejs') %>
+<style>
+  body{
+    background: rgba(2, 0, 36, 0.568);
+  background: linear-gradient(90deg, rgba(91, 88, 139, 0.479) 0%, rgba(9, 9, 121, 0.445) 35%, rgba(0, 213, 255, 0.438) 100%);}
+  
+</style>
+<div class="container mt-4">
+  <div class="col-10 col-md-8 mx-auto ">
+    <h4>
+   Repayment Section    
+    </h4>
+    <div class="text-center"> <img src="https://cdn.glitch.me/3ba201fb-d584-4df2-b150-01867434d57d%2Fqr.png?v=1638729432720" alt="" style="width: 160px;" class="align-middle"> </div>
+    <h6 class="text-center text-light mt-3">
+      Pay Using any UPI app to this QR
+    </h6>
+      <form action="/user/repayment" method="post">
+<!--           <label for="phone">Phone :</label> -->
+          <input type="text" name="phone" id="phone" class="form-control mt-5" placeholder="Phone Number*">
+<!--           <label for="order_id">Order Id</label> -->
+          <input type="text" name="order_id" id="order_id" class="form-control mt-2" placeholder="Order Id">
+        <div class="text-center">
+          <button type="submit" class="btn btn-sm btn-success w-100 py-2 mt-3">SUBMIT</button></div>
+      </form>
+  </div>
+</div>
+
+<%- include('./partials/footer.ejs') %>

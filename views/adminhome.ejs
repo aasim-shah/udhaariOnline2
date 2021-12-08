@@ -1,0 +1,62 @@
+<%- include('./partials/header.ejs') %>
+<%- include('./partials/adminHeader.ejs') %>
+<style>
+  body{
+    background: rgba(2, 0, 36, 0.568);
+  background: linear-gradient(90deg, rgba(91, 88, 139, 0.479) 0%, rgba(9, 9, 121, 0.445) 35%, rgba(0, 213, 255, 0.438) 100%);}
+</style>
+<div class="container" style="margin-top:22%;">
+   <div class="reqcard text-light mx-2 text-center  py-3 px-1 rounded bg-dark"><a href="" class="text-light text-decoration-none">
+
+            <p class="card-title">Wallet </p>
+     <h2><%= total.total_funds %></h2></a>
+        </div>
+  <div class="container my-3 col-12 col-sm-12 col-md-5">
+    <div class="d-flex justify-content-center">
+    <div class="reqcard mx-2 text-light w-50 text-center rounded py-3 px-2 bg-dark"><a href="/user/adminTotal" class="text-light text-decoration-none">
+            <p class="card-title">Totall </p>
+            <h2><%= apps %></h2></a>
+        </div>
+        <div class="reqcard text-light mx-2 w-50 text-center py-3 px-1 rounded bg-dark"><a href="/user/adminApproved" class="text-light text-decoration-none">
+            <p class="card-title">Approved </p>
+           <h2><%= approved %></h2></a>
+        </div>
+    </div>
+</div>
+  <div class="container my-3 col-12 col-sm-12 col-md-5">
+    <div class="d-flex justify-content-center">
+    <div class="reqcard mx-2 text-light w-50 text-center rounded py-3 px-2 bg-dark"><a href="/user/adminPending" class="text-light text-decoration-none">
+            <p class="card-title">Pending </p>
+            <h2><%= pending %></h2></a>
+        </div>
+        <div class="reqcard text-light mx-2 w-50 text-center py-3 px-1 rounded bg-dark"><a href="" class="text-light text-decoration-none">
+            <p class="card-title">Rejected </p>
+           <h2><%= rejected %></h2></a>
+      </div>
+    </div>
+</div>
+    <div class="container my-3 col-12 col-sm-12 col-md-5">
+    <div class="d-flex justify-content-center">
+    <div class="reqcard mx-2 text-light w-50 text-center rounded py-3 px-2 bg-dark"><a href="" class="text-light text-decoration-none">
+            <p class="card-title">Repaid </p>
+            <h2><%= repaid %></h2></a>
+        </div>
+        <div class="reqcard text-light mx-2 w-50 text-center py-3 px-1 rounded bg-dark"><a href="/user/adminRepayments" class="text-light text-decoration-none">
+            <p class="card-title">Repayment Requests </p>
+           <h2><%= repay %></h2></a>
+      </div>
+    </div>
+</div>
+  <div class="reqcard text-light mx-2 my-3 text-center py-3 px-1 rounded bg-dark"><a href="" class="text-light text-decoration-none">
+            <p class="card-title">Follow UP </p>
+           <h2>Follow up bro please</h2></a>
+        </div>
+  <div class="reqcard text-light mx-2 mb-4 text-center py-3 px-1 rounded bg-dark"><a href="" class="text-light text-decoration-none">
+            <p class="card-title">Due Date </p>
+    <h2>Hn due honey do majjy karo </h2></a>
+        </div>
+</div>
+
+
+
+<%- include('./partials/footer.ejs') %>

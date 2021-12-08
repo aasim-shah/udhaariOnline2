@@ -1,0 +1,25 @@
+<%- include('./partials/header.ejs') %>
+<%- include('./partials/navbar.ejs') %>
+<style>
+  body{
+    background: rgba(2, 0, 36, 0.568);
+  background: linear-gradient(90deg, rgba(91, 88, 139, 0.479) 0%, rgba(9, 9, 121, 0.445) 35%, rgba(0, 213, 255, 0.438) 100%);}
+  
+</style>
+<div class="container-fluid " style="margin-top:22%;" >
+   <div class="col-10 col-md-7 text-center mt-4 mx-auto">
+       <form action="/user/package" method="post">
+           <input type="text" name="amount" value="25k" readonly class="form-control mt-2">
+           <input type="text" name="duration" value="7 Days" readonly class="form-control mt-2">
+              <input type="text" name="charges" value="4%" readonly class="form-control mt-2">
+
+           <button type="submit" class="btn btn-success btn-sm rounded mt-3 py-2 w-100">APPLY NOW</button>
+       </form>
+   </div>
+</div>
+
+<%- include('./partials/footer.ejs') %>
+
+
+
+

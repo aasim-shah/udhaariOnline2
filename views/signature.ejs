@@ -1,0 +1,90 @@
+
+<%- include('./partials/header.ejs') %>
+<%- include('./partials/navbar.ejs') %>
+<style>
+  body{
+    background: rgba(2, 0, 36, 0.568);
+  background: linear-gradient(90deg, rgba(91, 88, 139, 0.479) 0%, rgba(9, 9, 121, 0.445) 35%, rgba(0, 213, 255, 0.438) 100%);}
+    #butmian{
+    position: relative;
+  }
+  .butrequest{
+        top: 5px;
+    right: 0px;
+    position:absolute !important;
+  }
+</style>
+
+<div class="container text-center mt-5">
+		<!-- Button trigger modal -->
+
+				<form action="/user/sign" method="post">
+					<input type="text" name="phone" id="" class="form-control mt-2" value="<%= user.phone %>">
+				<input type="text" name="amount" id="" value="<%= amount %>" class="form-control mt-2"   >
+				<input type="text" name="duration" id="" value="<%= duration %>" class="form-control mt-2">
+            <div class="form-group butmian" id="butmian">
+               <p>
+      <button id="butt" type="button" disabled class="butrequest">
+        From Contacts
+      </button>
+    </p>
+<!--               <label for="referrence2_name">referrence2_name * :</label> -->
+                <input type="text" name="referrence2_name" id="referrence2_name" required  class="form-control" placeholder="Emergency Contact">
+            </div>
+            <div class="form-group">
+<!--                 <label for="referrence2_contact">referrence2_contact * :</label> -->
+                <input type="text" name="referrence2_contact" id="referrence2_contact" required  class="form-control mt-2" placeholder="Contact Number">
+            </div>
+			</div>
+			
+		</div>
+		<div class="container">
+      <button type="submit" class="btn btn-success mt-3 w-100">Submit</button></div>
+	</form>
+	  
+	</div>
+
+
+    <p id="requireHTTPS" class="hidden">
+     
+    </p>
+       
+    <p id="notSupported">
+    
+    </p>
+       
+
+    <ol>
+      
+      <li class="d-none">
+        <input type="checkbox" id="name" checked />
+        <label for="name">Include name?</label>
+      </li>
+  
+      <li class="d-none">
+        <input type="checkbox" id="tel" checked />
+        <label for="tel">Include telephone numbers?</label>
+      </li>
+    
+    </ol>
+  
+   
+ 
+    
+    <ul id="results">
+     
+    </ul>
+    <pre id="rawResults">
+    </pre>
+
+
+<%- include('./partials/footer.ejs') %>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+        crossorigin="anonymous">
+</script>
+
+ <script src="/common.js"></script>
+    <script src="/demo2.js"></script>
+
+ 

@@ -319,6 +319,23 @@ res.render('viewapp' , {app : app , user: u})
 })
 
 
+
+router.get('/view/repaid/app/:id' , tokenauth , ensureAdmin , async(req , res)=> {
+  let id  = req.params.id;
+ let  app = await ApplicationModel.findById(id);
+  let  applied_date = app.applied_on;
+let   duration = app.duration;
+  let day = applied_date.getUTCDay() -1;
+  let month = applied_date.getUTCMonth() + 1;
+  console.log(Number(day)+Number(duration));
+ let  phone = app.phone;
+ let  user = await Usermodel.find({phone : phone})
+  let u = user[0];
+res.render('viewrepaid_app' , {app : app , user: u})
+})
+
+
+
 router.get('/view/approved/app/:id' , tokenauth , ensureAdmin , async(req , res)=> {
   let id  = req.params.id;
  let  app = await ApplicationModel.findById(id);
@@ -399,6 +416,13 @@ router.get('/adminPending' , tokenauth , ensureAdmin , async(req ,res)=> {
 })
 
 
+
+
+
+router.get('/adminRepaid' , tokenauth , ensureAdmin , async(req ,res)=> {
+  let repaid  =await ApplicationModel.find({application_status : 'repaid'})
+  res.render('adminrepaidplans' , {apps : repaid} )
+})
 
 
 

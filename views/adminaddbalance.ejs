@@ -10,13 +10,11 @@
 
  <div class="container" style="margin-top:30%;">
      <label for="total" >Total Balance</label>
-        <input type="text" id="inp" class="form-control   mb-4" id="total" readonly value="<%= total.total_funds %>"  />
-
    <form action="addBalance" , method="post">
-     <input type="text" class="form-control mt-2" name="addBalance"  placeholder="Add Balance"/>
-      <input type="text" class="form-control mt-2" name="plan_amount"  placeholder="Plan Amount"/>
-     <input type="text" class="form-control mt-2" name="plan_duration"  placeholder="Plan Duration"/>
-     <input type="text" class="form-control mt-2" name="plan_charges"  placeholder="Plan  Charges"/>
+     <input type="text" class="form-control mt-2" name="addBalance"  placeholder="Add Balance" value="<%= total.total_funds %>" />
+      <input type="text" class="form-control mt-2" name="plan_amount"  placeholder="Plan Amount" value="<%= total.plan_amount %>" />
+     <input type="text" class="form-control mt-2" name="plan_duration"  placeholder="Plan Duration" value="<%= total.plan_duration %>" />
+     <input type="text" class="form-control mt-2" name="plan_charges"  placeholder="Plan  Charges" value="<%= total.plan_charges %>" />
 
      <button type="submit" class="btn btn-sm mt-3 w-100 py-2 btn-success">
        ADD

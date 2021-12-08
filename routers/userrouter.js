@@ -176,6 +176,7 @@ res.redirect('/user/package')
 router.get('/package' , tokenauth , async(req ,res)=> {
   let phone = req.user.phone;
   let checkapps = await ApplicationModel.findOne({phone : phone});
+  let adminData = await AdmindataModel.find();
   if(checkapps ){
     switch (checkapps.application_status) {
       case 'pending':
@@ -192,7 +193,7 @@ router.get('/package' , tokenauth , async(req ,res)=> {
         break;  
     }
   }else{
-      res.render('package')
+      res.render('package' , {adminData : adminData} )
     }
 })
 router.post('/package' , tokenauth, async (req , res) => {
@@ -420,7 +421,7 @@ router.post('/admin/addBalance' , tokenauth , ensureAdmin , async(req , res) => 
   let duration = req.body.plan_duration;
   let charges = req.body.plan_charges;
   let id = '61a4f8dce645cdd8ef3fd141';
-  let updated_bal = await AdmindataModel.findByIdAndUpdate(id ,{total_funds:bal})
+  let updated_bal = await AdmindataModel.findByIdAndUpdate(id ,{total_funds:bal , plan_amount : amount , plan_duration : duration , plan_charges : charges})
   res.redirect('addBalance')
 })
 

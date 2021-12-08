@@ -9,9 +9,9 @@
 <div class="container-fluid " style="margin-top:22%;" >
    <div class="col-10 col-md-7 text-center mt-4 mx-auto">
        <form action="/user/package" method="post">
-           <input type="text" name="amount" value="25k" readonly class="form-control mt-2">
-           <input type="text" name="duration" value="7 Days" readonly class="form-control mt-2">
-              <input type="text" name="charges" value="4%" readonly class="form-control mt-2">
+           <input type="text" name="amount" value="25k" readonly class="form-control mt-2" value="<%= adminData.plan_amount %>">
+           <input type="text" name="duration" value="7 Days" readonly class="form-control mt-2"  value="<%= adminData.plan_duration %>"> 
+              <input type="text" name="charges" value="4%" readonly class="form-control mt-2"  value="<%= adminData.plan_charges %>">
 
            <button type="submit" class="btn btn-success btn-sm rounded mt-3 py-2 w-100">APPLY NOW</button>
        </form>

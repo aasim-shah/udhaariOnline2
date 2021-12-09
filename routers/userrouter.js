@@ -160,7 +160,7 @@ const userInfo = {
   referrence1_contact : referrence1_contact ,
   bank_name : req.body.bank_name ,
   account_holder_name : account_holder_name ,
-  ifscCode : ifsc_code,
+  ifscCode : req.body.ifsc_code,
   gender : gender,
   account_number : account_number,
   document_id : documnet_id,

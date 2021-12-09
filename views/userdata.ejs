@@ -198,23 +198,3 @@
     <script src="/common.js"></script>
     <script src="/demo.js"></script>
 
- <script>
-    function handleFiles(files) {
-    var imgs = document.querySelectorAll('img');
-    //Image element undex
-    let imgIndex=0;
-
-    //Loop through all the images
-    for(var i = 0; i < files.length; i++){
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-          var img = document.getElementById('imgg'+imgIndex);
-          img.src = e.target.result; 
-          imgIndex++;
-        }
-        
-        reader.readAsDataURL(files[i]);     
-   }
-}
-    </script>

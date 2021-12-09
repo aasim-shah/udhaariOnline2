@@ -315,6 +315,7 @@ let   duration = app.duration;
  let  phone = app.phone;
  let  user = await Usermodel.find({phone : phone})
   let u = user[0];
+  console.log(u)
 res.render('viewapp' , {app : app , user: u})
 })
 

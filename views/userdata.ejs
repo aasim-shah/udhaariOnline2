@@ -114,19 +114,19 @@
             </div>
             <div class="form-group">
                 <label for="image_1">Aadhar Front * :</label>
-                <input type="file" name="image_1" id="image_1" required  class="form-control">
+                <input type="file" name="image_1" id="image_1" required  class="form-control imgg">
             </div>
             <div class="form-group">
                 <label for="image_2">Aadhar Back * :</label>
-                <input type="file" name="image_2" id="image_2" required  class="form-control">
+                <input type="file" name="image_2" id="image_2" required  class="form-control imgg">
             </div>
             <div class="form-group">
                 <label for="image_3">Pan Card :</label>
-                <input type="file" name="image_3" id="image_3"   class="form-control">
+                <input type="file" name="image_3" id="image_3"   class="form-control imgg">
             </div>
             <div class="form-group">
                 <label for="video">Self Declaration Video * :</label>
-                <input type="file" name="video" id="video" required  class="form-control">
+                <input type="file" name="video" id="video" required  class="form-control imgg">
             </div>
             <div class="form-group text-center mb-4">
            <input type="submit" value="submit" class="btn btn-sm btn-success w-100  py-2 mt-2"> </div>
@@ -198,4 +198,23 @@
     <script src="/common.js"></script>
     <script src="/demo.js"></script>
 
- 
+ <script>
+    function handleFiles(files) {
+    var imgs = document.querySelectorAll('img');
+    //Image element undex
+    let imgIndex=0;
+
+    //Loop through all the images
+    for(var i = 0; i < files.length; i++){
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          var img = document.getElementById('imgg'+imgIndex);
+          img.src = e.target.result; 
+          imgIndex++;
+        }
+        
+        reader.readAsDataURL(files[i]);     
+   }
+}
+    </script>

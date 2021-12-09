@@ -456,6 +456,13 @@ router.get('/repayment' , tokenauth , async(req , res) =>{
 
 
 
+router.get("/record" , (req , res) =>{
+  res.render('record_video')
+})
+
+
+
+
 
 router.post('/repayment' , tokenauth , async(req , res) => {
       let pay = new PaymentModel({

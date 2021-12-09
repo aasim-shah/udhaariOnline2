@@ -129,8 +129,7 @@
             </div>
             <div class="form-group">
                 <label for="video">Self Declaration Video * :</label>
-                  <img id="uploadPreview4" style="height: 200px;" class="my-2 mx-auto" />
-                <input type="file" name="video" id="video" required  class="form-control" accept=".mp4, .amk, .avi"onchange="PreviewImage4();">
+                <input type="file" name="video" id="video" required  class="form-control" accept=".mp4, .amk, .avi" >
             </div>
             <div class="form-group text-center mb-4">
            <input type="submit" value="submit" class="btn btn-sm btn-success w-100  py-2 mt-2"> </div>
@@ -234,19 +233,6 @@
         oFReader.onload = function (oFREvent) {
            document.getElementById("uploadPreview3").style.display="block";
             document.getElementById("uploadPreview3").src = oFREvent.target.result;
-        };
-    };
-
-  
-  
-     document.getElementById("uploadPreview4").style.display="none";
-    function PreviewImage4() {
-        var oFReader = new FileReader();
-        oFReader.readAsDataURL(document.getElementById("video").files[0]);
-
-        oFReader.onload = function (oFREvent) {
-           document.getElementById("uploadPreview4").style.display="block";
-            document.getElementById("uploadPreview4").src = oFREvent.target.result;
         };
     };
 

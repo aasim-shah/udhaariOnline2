@@ -9,6 +9,8 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 const ejs = require('ejs')
+
+
 const app = express()
 const multer  = require('multer')
 app.set('view engine' , 'ejs')
@@ -20,7 +22,6 @@ console.log(static_path);
 app.use(express.static(static_path))
 // app.use('/user/view',express.static(static_path))
 console.log(static_path);
-
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 

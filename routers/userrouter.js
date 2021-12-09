@@ -407,7 +407,7 @@ router.get('/adminTotal' , tokenauth , ensureAdmin , async(req ,res)=> {
 
 
 router.get('/adminPending' , tokenauth , ensureAdmin , async(req ,res)=> {
-  let pending  =await ApplicationModel.find({application_status : 'pending'})
+  let pending  = await ApplicationModel.find({application_status : 'pending'})
   res.render('adminpendingplans' , {apps : pending} )
 })
 

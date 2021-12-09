@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
     first_name : {type : String   },
     middle_name :  {type : String  } ,
     last_name :  {type : String   },
-    phone : {type : Number },
+    phone : {type : String },
     father_name :{type : String   },
     mother_name :{type : String   },
     dob : {type : String  },

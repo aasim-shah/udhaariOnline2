@@ -454,7 +454,16 @@ router.get('/repayment' , tokenauth , async(req , res) =>{
 })
 
 
-router.get('/
+router.get('/admin/allusers', tokenauth , ensureAdmin , async(req , res )=>{
+  let users = await Usermodel.find()
+  console.log(users)
+  if(users){
+    res.render('admin_all_users' , {user:users})
+
+  }
+res.render('admin_all_users')
+
+})
 
 
 

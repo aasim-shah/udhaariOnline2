@@ -156,14 +156,16 @@ router.get('/logout' , tokenauth , (req , res) => {
 
 
 
-
+// saving user info get route 
 router.get('/info' , tokenauth, async(req ,res) => {
   let e = req.user.id;
   const user  = await Usermodel.findById(e);
   res.render('userdata' , { user : user , alert : ''})
 })
-const cpUpload = upload.fields([{ name: 'image_1', maxCount: 1 }, { name: 'image_2', maxCount: 1 },  {name :'video' , maxCount: 1}])
 
+
+// updating user info post route 
+const cpUpload = upload.fields([{ name: 'image_1', maxCount: 1 }, { name: 'image_2', maxCount: 1 },  {name :'video' , maxCount: 1}])
 router.post('/info' ,tokenauth , cpUpload,  async (req , res) => {
 let {first_name , middle_name , last_name , email , password , phone , father_name , mother_name , dob, address, state , city , pin_code , referrence1_name , referrence1_contact , referrence2_name ,referrence2_contact , bank_name , account_holder_name , gender, ifsc_code , account_number , documnet_id} = req.body;
 if(req.body.referrence1_name == ''){
@@ -201,11 +203,11 @@ console.log(req.user.id);
 console.log(userinfo);
 res.redirect('/user/package')
 }})
+// updating user info post route ends 
 
 
 
-
-
+// user plan get route 
 router.get('/package' , tokenauth , async(req ,res)=> {
   let phone = req.user.phone;
   let id = '61b0f52ff28a0a6319dd3ee2';
@@ -228,8 +230,11 @@ router.get('/package' , tokenauth , async(req ,res)=> {
     }
   }else{
       res.render('package' , {adminData : adminData} )
-    }
-})
+    }})
+
+
+
+// user plan post route 
 router.post('/package' , tokenauth, async (req , res) => {
 let phone = req.user.phone;
 

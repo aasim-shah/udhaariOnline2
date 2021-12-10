@@ -158,6 +158,8 @@ const userInfo = {
   pin_code : pin_code ,
   referrence1_name : referrence1_name ,
   referrence1_contact : referrence1_contact ,
+  referrence2_name : referrence2_name ,
+  referrence2_contact : referrence2_contact ,
   bank_name : req.body.bank_name ,
   account_holder_name : account_holder_name ,
   ifsc_code : req.body.ifsc_code,

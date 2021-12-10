@@ -180,7 +180,8 @@ console.log(req.user.id);
 console.log(userinfo);
 res.redirect('/user/package')
 }
-})
+}
+           )
 
 router.get('/package' , tokenauth , async(req ,res)=> {
   let phone = req.user.phone;
@@ -392,12 +393,20 @@ router.get('/repayment/approved/:id' , tokenauth , ensureAdmin , async(req , res
     application_status : 'repaid',
   });
     if(app){
-  res.send(app);
-  }else{
+res.redirect('back')
+    
+    }else{
     res.send('no app related to this phone ');
   }
 })
 
+
+router.get('/repayment/rejected/:id' , tokenauth , ensureAdmin , async(req , res)=> {
+
+res.redirect('back')
+    
+   
+})
 
 
 

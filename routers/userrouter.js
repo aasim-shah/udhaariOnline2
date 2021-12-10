@@ -2,6 +2,8 @@ const express = require('express')
 const conn = require('../db/conn')
 const bcrpyt = require('bcrypt')
 // const userController = require('../models/userModel')
+var flash = require('connect-flash');
+
 const passport = require('passport')
 const local = require('../passport/passportconfig')
 const tokenauth = require('../passport/authuser')
@@ -25,6 +27,11 @@ router.use(express.urlencoded({extended : false}))
 router.use(express.json())
 router.use(session({ secret: "cats" }));
 router.use(cookieParser())
+
+  router.use(flash());
+
+
+
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -143,7 +150,8 @@ const cpUpload = upload.fields([{ name: 'image_1', maxCount: 1 }, { name: 'image
 router.post('/info' ,tokenauth , cpUpload,  async (req , res) => {
 let {first_name , middle_name , last_name , email , password , phone , father_name , mother_name , dob, address, state , city , pin_code , referrence1_name , referrence1_contact , referrence2_name ,referrence2_contact , bank_name , account_holder_name , gender, ifsc_code , account_number , documnet_id} = req.body;
 if(req.body.referrence1_name == ''){
-  res.redirect('back')
+   req.flash('info', 'Flash is back!')
+  res.render('userdata' ,{message : req.flash('info')} )
 }else{
   res.send('hogya info save')
 }

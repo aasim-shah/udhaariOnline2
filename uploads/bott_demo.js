@@ -1,6 +1,6 @@
 
-const butReq = document.getElementById('bott');
-butReq.addEventListener('click', getContactsd);
+const butReqd = document.getElementById('bott');
+butReqd.addEventListener('click', getContactsd);
 
 const cbName = document.getElementById('name');
 const cbTel = document.getElementById('tel');
@@ -14,7 +14,7 @@ const supportedd = ('contacts' in navigator && 'ContactsManager' in window);
 if (supportedd) {
   const divNotSupported = document.getElementById('notSupported');
   divNotSupported.classList.toggle('hidden', true);
-  butReq.removeAttribute('disabled');
+  butReqd.removeAttribute('disabled');
   checkProperties();
 }
 
@@ -36,7 +36,7 @@ async function getContactsd() {
 
   
   try {
-    const contactsd = await navigator.contacts.select(propsd);
+    const contactsd = await navigator.contacts.select(props);
     handleResults(contactsd);
   } catch (ex) {
     ulResults.classList.toggle('error', true);

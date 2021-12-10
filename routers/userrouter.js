@@ -142,7 +142,11 @@ const cpUpload = upload.fields([{ name: 'image_1', maxCount: 1 }, { name: 'image
 
 router.post('/info' ,tokenauth , cpUpload,  async (req , res) => {
 let {first_name , middle_name , last_name , email , password , phone , father_name , mother_name , dob, address, state , city , pin_code , referrence1_name , referrence1_contact , referrence2_name ,referrence2_contact , bank_name , account_holder_name , gender, ifsc_code , account_number , documnet_id} = req.body;
-
+if(req.body.referrence1_name == ''){
+  res.redirect('back')
+}else{
+  res.send('hogya info save')
+}
 const userInfo = {
   first_name : first_name ,
   middle_name : middle_name,

@@ -306,6 +306,12 @@ router.post('/approve' , tokenauth , ensureAdmin , async(req , res) =>{
   res.redirect('/user/admin')
   
 })
+
+
+
+// =========***** admin update user plan status route started ****==========
+
+// rejecting user plan 
 router.get('/reject/app/:id' , tokenauth , ensureAdmin , async(req , res) =>{
   let id  = req.params.id;
   let approved = await ApplicationModel.findByIdAndUpdate(id , {application_status : 'rejected'});
@@ -313,7 +319,7 @@ router.get('/reject/app/:id' , tokenauth , ensureAdmin , async(req , res) =>{
   res.redirect('/user/admin')
 })
 
-
+// viewing user plan 
 router.get('/view/app/:id' , tokenauth , ensureAdmin , async(req , res)=> {
   let id  = req.params.id;
  let  app = await ApplicationModel.findById(id);
@@ -330,7 +336,7 @@ res.render('viewapp' , {app : app , user: u})
 })
 
 
-
+// repaying user plan 
 router.get('/view/repaid/app/:id' , tokenauth , ensureAdmin , async(req , res)=> {
   let id  = req.params.id;
  let  app = await ApplicationModel.findById(id);
@@ -346,7 +352,7 @@ res.render('viewrepaid_app' , {app : app , user: u})
 })
 
 
-
+// render approved  plan  
 router.get('/view/approved/app/:id' , tokenauth , ensureAdmin , async(req , res)=> {
   let id  = req.params.id;
  let  app = await ApplicationModel.findById(id);
@@ -360,6 +366,10 @@ let   duration = app.duration;
   let u = user[0];
 res.render('viewapproved_app' , {app : app , user: u})
 })
+// =========***** admin update user plan status route started ****==========
+
+
+// =========***** user landing according to plan status route started ****==========
 
 router.get('/dashboard' , tokenauth , async (req , res)=> {
   let user = req.user.phone;
@@ -385,6 +395,113 @@ router.get('/approvedapp' ,tokenauth , async(req , res)=> {
   res.render('approvedapp' , {app : data})
 })
 
+// =========***** user landing according to plan status route ended ****==========
+
+// =========***** admin fetch according to plan status  route started ****==========
+
+router.get('/adminApproved' , tokenauth , ensureAdmin , async(req ,res)=> {
+  let approved  =await ApplicationModel.find({application_status : 'approved'})
+  res.render('adminapprovedplans' , {apps : approved} )
+})
+
+router.get('/adminTotal' , tokenauth , ensureAdmin , async(req ,res)=> {
+  let total  =await ApplicationModel.find();
+  res.render('admintotalplans' , {apps : total} )
+})
+
+
+router.get('/adminPending' , tokenauth , ensureAdmin , async(req ,res)=> {
+  let pending  = await ApplicationModel.find({application_status : 'pending'})
+  res.render('adminpendingplans' , {apps : pending} )
+})
+
+
+router.get('/adminRepaid' , tokenauth , ensureAdmin , async(req ,res)=> {
+  let repaid  =await ApplicationModel.find({application_status : 'repaid'})
+  res.render('adminrepaidplans' , {apps : repaid} )
+})
+
+// =========***** admin fetch according to plan status  route ended ****==========
+
+
+
+
+
+
+
+// =========***** add balance  route started ****==========
+
+router.get('/admin/addBalance' , tokenauth , ensureAdmin , async(req , res) => {
+    let id = '61b0f52ff28a0a6319dd3ee2';
+    let total_bal = await AdmindataModel.findById(id);
+  res.render('adminaddbalance' , {total : total_bal})
+})
+
+
+router.post('/admin/addBalance' , tokenauth , ensureAdmin , async(req , res) => {
+  let bal = req.body.addBalance;
+  let amount = req.body.plan_amount;
+  let duration = req.body.plan_duration;
+  let charges = req.body.plan_charges;
+  let id = '61b0f52ff28a0a6319dd3ee2';
+  let updated_bal = await AdmindataModel.findByIdAndUpdate(id ,{total_funds:bal , plan_amount : amount , plan_duration : duration , plan_charges : charges})
+  res.redirect('addBalance')
+})
+// =========***** admmin add balance route ended ****==========
+
+
+// =========***** admin_all users route started ****==========
+
+
+router.get('/admin/allusers', tokenauth , ensureAdmin , async(req , res )=>{
+  let users = await Usermodel.find()
+  console.log(users)
+  if(users){
+    res.render('admin_all_users' , {user: users})
+
+  }else{
+    res.send('no users')
+  }
+
+})
+// =========***** admin all users route ended ****==========
+
+
+// =========***** repayment route started ****==========
+router.get('/repayment' , tokenauth , async(req , res) =>{
+  res.render('repayment' , {alert : ''});
+})
+
+
+router.post('/repayment' , tokenauth , async(req , res) => {
+      let pay = new PaymentModel({
+        phone : req.body.phone ,
+        order_id : req.body.order_id
+      })
+      let used_id = await PaymentModel.findOne({order_id : req.body.order_id});
+  if(used_id){
+   res.render('repayment' , {alert : "alert"})
+  }else{
+      let saved_pay = await pay.save();
+      console.log(saved_pay);
+  
+    if(saved_pay){
+      res.send('hogya repayment ');
+    }else{
+      res.send('failed to repay ! better luck next time');
+    }  }
+})
+
+
+
+
+
+router.get('/adminRepayments' , tokenauth , ensureAdmin , async(req ,res)=> {
+  let repay = await PaymentModel.find();
+  res.render('adminrepayments' , {repay : repay} )
+})
+
+
 router.get('/repayment/approved/:id' , tokenauth , ensureAdmin , async(req , res)=> {
   let id  = req.params.id;
  let  repay = await PaymentModel.findById(id);
@@ -408,109 +525,17 @@ res.redirect('back')
    
 })
 
-
-
-router.get('/adminApproved' , tokenauth , ensureAdmin , async(req ,res)=> {
-  let approved  =await ApplicationModel.find({application_status : 'approved'})
-  res.render('adminapprovedplans' , {apps : approved} )
-})
-
-
-
-router.get('/adminTotal' , tokenauth , ensureAdmin , async(req ,res)=> {
-  let total  =await ApplicationModel.find();
-  res.render('admintotalplans' , {apps : total} )
-})
+// =========***** repayment route ended ****==========
 
 
 
 
-router.get('/adminPending' , tokenauth , ensureAdmin , async(req ,res)=> {
-  let pending  = await ApplicationModel.find({application_status : 'pending'})
-  res.render('adminpendingplans' , {apps : pending} )
-})
-
-
-
-
-
-router.get('/adminRepaid' , tokenauth , ensureAdmin , async(req ,res)=> {
-  let repaid  =await ApplicationModel.find({application_status : 'repaid'})
-  res.render('adminrepaidplans' , {apps : repaid} )
-})
-
-
-
-
-
-router.get('/adminRepayments' , tokenauth , ensureAdmin , async(req ,res)=> {
-  let repay = await PaymentModel.find();
-  res.render('adminrepayments' , {repay : repay} )
-})
-
-
-
-router.get('/admin/addBalance' , tokenauth , ensureAdmin , async(req , res) => {
-    let id = '61b0f52ff28a0a6319dd3ee2';
-    let total_bal = await AdmindataModel.findById(id);
-  res.render('adminaddbalance' , {total : total_bal})
-})
-
-
-router.post('/admin/addBalance' , tokenauth , ensureAdmin , async(req , res) => {
-  let bal = req.body.addBalance;
-  let amount = req.body.plan_amount;
-  let duration = req.body.plan_duration;
-  let charges = req.body.plan_charges;
-  let id = '61b0f52ff28a0a6319dd3ee2';
-  let updated_bal = await AdmindataModel.findByIdAndUpdate(id ,{total_funds:bal , plan_amount : amount , plan_duration : duration , plan_charges : charges})
-  res.redirect('addBalance')
-})
-
-
-router.get('/repayment' , tokenauth , async(req , res) =>{
-  res.render('repayment' , {alert : ''});
-})
-
-
-router.get('/admin/allusers', tokenauth , ensureAdmin , async(req , res )=>{
-  let users = await Usermodel.find()
-  console.log(users)
-  if(users){
-    res.render('admin_all_users' , {user: users})
-
-  }else{
-    res.send('no users')
-  }
-
-})
-
-
-
-
-
-router.post('/repayment' , tokenauth , async(req , res) => {
-      let pay = new PaymentModel({
-        phone : req.body.phone ,
-        order_id : req.body.order_id
-      })
-      let used_id = await PaymentModel.findOne({order_id : req.body.order_id});
-  if(used_id){
-   res.render('repayment' , {alert : "alert"})
-  }else{
-      let saved_pay = await pay.save();
-      console.log(saved_pay);
-  
-    if(saved_pay){
-      res.send('hogya repayment ');
-    }else{
-      res.send('failed to repay ! better luck next time');
-    }  }
-})
-
+// otp routeing started
 router.get('/otp' ,  (req , res)=> {
   res.render('otp');
 })
+
+
 router.post('/verify/otp' , async(req , res)=> {
   let otp = req.body.verify_otp;
   console.log(otp)
@@ -522,6 +547,7 @@ router.post('/verify/otp' , async(req , res)=> {
 res.redirect('/user/verify/otp')  
   }
 })
+ 
 
 router.post("/get/otp", async (req,res)=>{
   let reg_phone = req.body.reg_phone;
@@ -559,6 +585,7 @@ function generateOTP() {
   }
   return OTP;
 }
+// otp routeing ended
 
 
 

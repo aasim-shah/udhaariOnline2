@@ -233,11 +233,11 @@ const app = new ApplicationModel({
 });
   let result = await app.save();
 
-const userinfo = await Usermodel.findOneAndUpdate({phone : req.body.phone}, {
-  referrence2_name : req.body.referrence2_name , 
-  referrence2_contact : req.body.referrence2_contact 
-});
-console.log(userinfo);
+// const userinfo = await Usermodel.findOneAndUpdate({phone : req.body.phone}, {
+//   referrence2_name : req.body.referrence2_name , 
+//   referrence2_contact : req.body.referrence2_contact 
+// });
+// console.log(userinfo);
 res.redirect('/user/dashboard')
 })
 router.get('/login' , (req , res)=>{

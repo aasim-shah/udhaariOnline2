@@ -139,17 +139,15 @@ router.get('/logout' , tokenauth , (req , res) => {
 router.get('/info' , tokenauth, async(req ,res) => {
   let e = req.user.id;
   const user  = await Usermodel.findById(e);
-  res.render('userdata' , { user : user})
+  res.render('userdata' , { user : user , alert : ''})
 })
 const cpUpload = upload.fields([{ name: 'image_1', maxCount: 1 }, { name: 'image_2', maxCount: 1 },  {name :'video' , maxCount: 1}])
 
 router.post('/info' ,tokenauth , cpUpload,  async (req , res) => {
 let {first_name , middle_name , last_name , email , password , phone , father_name , mother_name , dob, address, state , city , pin_code , referrence1_name , referrence1_contact , referrence2_name ,referrence2_contact , bank_name , account_holder_name , gender, ifsc_code , account_number , documnet_id} = req.body;
 if(req.body.referrence1_name == ''){
-  res.redirect('back')
+  res.render('userdata' , {alert : 'alert' , user :req.body} )
 }else{
-  res.send('hogya info save')
-}
 const userInfo = {
   first_name : first_name ,
   middle_name : middle_name,
@@ -181,7 +179,9 @@ const userinfo = await Usermodel.findByIdAndUpdate(req.user.id , userInfo);
 console.log(req.user.id);
 console.log(userinfo);
 res.redirect('/user/package')
+}
 })
+
 router.get('/package' , tokenauth , async(req ,res)=> {
   let phone = req.user.phone;
   let id = '61b0f52ff28a0a6319dd3ee2';

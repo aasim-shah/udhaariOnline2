@@ -1,6 +1,6 @@
 
-const butReqd = document.getElementById('bott');
-butReqd.addEventListener('click', getContactsd);
+const butReq = document.getElementById('bott');
+butReq.addEventListener('click', getContactsd);
 
 const cbName = document.getElementById('name');
 const cbTel = document.getElementById('tel');
@@ -9,35 +9,35 @@ const cbTel = document.getElementById('tel');
 const ulResults = document.getElementById('results');
 const preResults = document.getElementById('rawResults');
 
-const supportedd = ('contacts' in navigator && 'ContactsManager' in window);
+const supported = ('contacts' in navigator && 'ContactsManager' in window);
 
-if (supportedd) {
+if (supported) {
   const divNotSupported = document.getElementById('notSupported');
   divNotSupported.classList.toggle('hidden', true);
-  butReqd.removeAttribute('disabled');
+  butReq.removeAttribute('disabled');
   checkProperties();
 }
 
 async function checkProperties() {
-  const supportedPropertiesd = await navigator.contacts.getProperties();
-  if (supportedPropertiesd.includes('name')) {
+  const supportedProperties = await navigator.contacts.getProperties();
+  if (supportedProperties.includes('name')) {
     enableProp(cbName);
   }
 
-  if (supportedPropertiesd.includes('tel')) {
+  if (supportedProperties.includes('tel')) {
     enableProp(cbTel);
   }
 }
 
 async function getContactsd() {
-  const propsd = [];
-  if (cbName.checked) propsd.push('name');
-  if (cbTel.checked) propsd.push('tel');
+  const props = [];
+  if (cbName.checked) props.push('name');
+  if (cbTel.checked) props.push('tel');
 
   
   try {
-    const contactsd = await navigator.contacts.select(props);
-    handleResults(contactsd);
+    const contacts = await navigator.contacts.select(props);
+    handleResults(contacts);
   } catch (ex) {
     ulResults.classList.toggle('error', true);
     ulResults.classList.toggle('success', false);
@@ -46,11 +46,11 @@ async function getContactsd() {
 
 }
 
-function handleResults(contactsd) {
+function handleResults(contacts) {
   ulResults.classList.toggle('success', true);
   ulResults.classList.toggle('error', false);
   ulResults.innerHTML = '';
-  renderResults(contactsd);
+  renderResults(contacts);
 }
 
 function enableProp(cbox) {
@@ -58,12 +58,12 @@ function enableProp(cbox) {
   cbox.setAttribute('checked', 'checked');
 }
 
-function renderResults(contactsd) {
-  contactsd.forEach((contact) => {
-    if (contact.name) {document.getElementById('referrence2_name').setAttribute('value', contact.name)};
-    if (contact.tel){document.getElementById('referrence2_contact').setAttribute('value',contact.tel)};
+function renderResults(contacts) {
+  contacts.forEach((contact) => {
+    if (contact.name) {document.getElementById('referrence1_name').setAttribute('value', contact.name)};
+    if (contact.tel){document.getElementById('referrence1_contact').setAttribute('value',contact.tel)};
   });
-  const strContacts = JSON.stringify(contactsd, null, 2);
+  const strContacts = JSON.stringify(contacts, null, 2);
   console.log(strContacts);
 }
 

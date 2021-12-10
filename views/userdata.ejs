@@ -23,6 +23,10 @@
 
 <div class="container main my-4">
     <div class="col-md-6 col-10 mx-auto">
+      <div class="general_info">
+        <h3 class="text-light">
+          General Information
+        </h3>
         <form action="/user/info"  method="post" enctype="multipart/form-data" >
             <div class="form-group">
 <!--                 <label for="first_name">First Name * :</label> -->
@@ -73,7 +77,13 @@
 <!--                 <label for="pin_code">Pin code * :</label> -->
                 <input type="text" name="pin_code" id="pin_code" required  class="form-control" placeholder="Pin Code *">
             </div>         
-            
+           <div class="py-2">
+            <hr>
+          </div>
+          <div class="general_info">
+        <h3 class="text-light">
+          Bank Details
+        </h3>
             <div class="form-group">
 <!--                 <label for="bank_name">bank_name * :</label> -->
                 <input type="text" name="bank_name" id="bank_name" required  class="form-control" placeholder="Bank Name *">
@@ -90,6 +100,16 @@
                 <input type="text" name="account_number" id="account_number" required  class="form-control" placeholder="Account Number *">
             </div>
           
+                </div> 
+      </div>
+
+          <div class="py-2">
+            <hr>
+          </div>
+          <div class="general_info">
+        <h3 class="text-light">
+          Contacts Information
+        </h3>
             <div class="form-group butmian" id="butmian">
             <p>
                 <button id="butRequest" type="button" disabled class="butrequest">
@@ -118,14 +138,27 @@
                 <input type="text" name="referrence2_contact" id="referrence2_contact" required  class="form-control" placeholder=" Contact Number">
             </div>
           
+                      </div>
+
           
           
           
+       
           
-            <div class="form-group">
+             <div class="py-2">
+            <hr>
+          </div>
+            
+            <div class="general_info">
+        <h3 class="text-light">
+          Personal Identity
+        </h3>
+               <div class="form-group">
 <!--                 <label for="documnet_id">documnet_id * :</label> -->
                 <input type="text" name="documnet_id" id="documnet_id" required  class="form-control" placeholder="AADHAR NUMBER *">
             </div>
+          
+          
             <div class="form-group">
                 <label for="image_1">Aadhar Front * :</label>
             <img id="uploadPreview1" style="height: 200px;" class="my-2 mx-auto" />
@@ -148,7 +181,8 @@
             <div class="form-group text-center mb-4">
            <input type="submit" value="submit" class="btn btn-sm btn-success w-100  py-2 mt-2"> </div>
         </form>
-    </div>
+    </div>            </div>
+
 </div>
 
 

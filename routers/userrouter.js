@@ -1,8 +1,6 @@
 const express = require('express')
 const conn = require('../db/conn')
 const bcrpyt = require('bcrypt')
-// const userController = require('../models/userModel')
-
 const passport = require('passport')
 const local = require('../passport/passportconfig')
 const tokenauth = require('../passport/authuser')
@@ -28,7 +26,7 @@ router.use(session({ secret: "cats" }));
 router.use(cookieParser())
 
 
-
+// multer config started
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
       cb(null, 'uploads')   
@@ -45,7 +43,10 @@ router.get('/' , tokenauth ,(req , res)=> {
   console.log('hahha');
 
 })
+// multer config ends 
 
+
+// otp verification middleware 
 const otpVerifeid = async function  (req , res , next ){
   let userr = await Usermodel.findOne({phone : req.body.phone});
   console.log('userrr')
@@ -55,10 +56,11 @@ const otpVerifeid = async function  (req , res , next ){
   }else{
   res.render('otp' , {reg_user : userr});
   }
-  
-
 }
+// otp verification middleware 
 
+
+// confirming admin middleware 
 const ensureAdmin = function(req, res, next) {
   if (req.isAuthenticated()) {
     if (req.user.isAdmin) {
@@ -69,9 +71,17 @@ const ensureAdmin = function(req, res, next) {
      res.redirect('/')
     }
   }}
+// confirming admin  middleware 
+
+
+
+// user register , login and logout routeing strted 
+// user registeration get route 
 router.get('/register' , (req, res)=>{
   res.render('registeration')
 })
+
+// user registeration post route 
 router.post('/register' , async(req ,res) => {
    let   password = req.body.password;
    let  cpassword = req.body.cpassword;
@@ -93,11 +103,15 @@ router.post('/register' , async(req ,res) => {
       }
     }else{
         console.log('cpas doesnt matches');
-    }
-    
-} )
+    }} )
 
 
+// user login get route
+router.get('/login' , (req , res)=>{
+  res.render('login');
+})
+
+// user loging in 
 router.post('/login', otpVerifeid, 
   passport.authenticate('local', { failureRedirect: '/user/login' }), async(req, res) => {
       const loginToken = await req.user.authuser_login()
@@ -124,18 +138,25 @@ router.post('/login', otpVerifeid,
        case 'repaid':
           res.redirect('/user/repaid')
           break;    
-          
       }
      }else{
       res.redirect('/user/package')
      }
   });
 
+
+// user logout 
 router.get('/logout' , tokenauth , (req , res) => {
   res.clearCookie('Token');
   console.log('logged out');
   res.redirect('/user/login')
 })
+
+// user registeration , login and logout ends here 
+
+
+
+
 router.get('/info' , tokenauth, async(req ,res) => {
   let e = req.user.id;
   const user  = await Usermodel.findById(e);
@@ -179,9 +200,11 @@ const userinfo = await Usermodel.findByIdAndUpdate(req.user.id , userInfo);
 console.log(req.user.id);
 console.log(userinfo);
 res.redirect('/user/package')
-}
-}
-           )
+}})
+
+
+
+
 
 router.get('/package' , tokenauth , async(req ,res)=> {
   let phone = req.user.phone;
@@ -227,6 +250,9 @@ if(checkapps ){
 }
 })
 
+
+
+// user plan confirmation start
 router.get('/sign' , tokenauth , async(req ,res) =>{
   res.render('signature')
 })
@@ -240,17 +266,13 @@ const app = new ApplicationModel({
   application_status : 'pending'
 });
   let result = await app.save();
-
-// const userinfo = await Usermodel.findOneAndUpdate({phone : req.body.phone}, {
-//   referrence2_name : req.body.referrence2_name , 
-//   referrence2_contact : req.body.referrence2_contact 
-// });
-// console.log(userinfo);
 res.redirect('/user/dashboard')
 })
-router.get('/login' , (req , res)=>{
-  res.render('login');
-})
+// user plan confirmation end
+
+
+
+// admin home page route start>
 router.get('/admin' ,tokenauth, ensureAdmin, async(req , res)=> {
     let total  =await ApplicationModel.count();
   let pending  =await ApplicationModel.count({application_status : 'pending'})
@@ -265,20 +287,14 @@ let id = '61b0f52ff28a0a6319dd3ee2';
 if(total){
   res.render('adminhome' , {apps : total, total: total_bal ,pending : pending , approved : approved , repay : repay , repaid : repaid , rejected : rejected})
 } else{res.render('adminhome')}
-
-
 })
-
-router.post('/admin/data' , tokenauth , ensureAdmin , async(req , res)=> {
-  let data = new AdmindataModel({
-    total_funds : req.body.total_funds
-  })
-  let dataSaved = await data.save();
-  console.log(dataSaved);
-})
+// admin home page route end>
 
 
 
+
+// updating user plan status from admin side start>
+// approving user plan 
 router.post('/approve' , tokenauth , ensureAdmin , async(req , res) =>{
   let id  = req.body.app_id;
   let phone = req.user.phone;
@@ -300,16 +316,9 @@ router.post('/approve' , tokenauth , ensureAdmin , async(req , res) =>{
   }else{
     res.send('No Enough Funds ')
   }
-  
-  
-  
   res.redirect('/user/admin')
   
 })
-
-
-
-// =========***** admin update user plan status route started ****==========
 
 // rejecting user plan 
 router.get('/reject/app/:id' , tokenauth , ensureAdmin , async(req , res) =>{
@@ -318,8 +327,15 @@ router.get('/reject/app/:id' , tokenauth , ensureAdmin , async(req , res) =>{
   console.log(approved);
   res.redirect('/user/admin')
 })
+// updating user plan status from admin side end>
 
-// viewing user plan 
+
+
+
+
+
+// =========***** admin view  user plan status route started ****==========
+// viewing all user plans admin side
 router.get('/view/app/:id' , tokenauth , ensureAdmin , async(req , res)=> {
   let id  = req.params.id;
  let  app = await ApplicationModel.findById(id);
@@ -336,7 +352,7 @@ res.render('viewapp' , {app : app , user: u})
 })
 
 
-// repaying user plan 
+// render repaid plans admin side 
 router.get('/view/repaid/app/:id' , tokenauth , ensureAdmin , async(req , res)=> {
   let id  = req.params.id;
  let  app = await ApplicationModel.findById(id);
@@ -352,7 +368,7 @@ res.render('viewrepaid_app' , {app : app , user: u})
 })
 
 
-// render approved  plan  
+// render approved  plan  admin side
 router.get('/view/approved/app/:id' , tokenauth , ensureAdmin , async(req , res)=> {
   let id  = req.params.id;
  let  app = await ApplicationModel.findById(id);
@@ -366,7 +382,7 @@ let   duration = app.duration;
   let u = user[0];
 res.render('viewapproved_app' , {app : app , user: u})
 })
-// =========***** admin update user plan status route started ****==========
+// =========***** admin view user plan status route started ****==========
 
 
 // =========***** user landing according to plan status route started ****==========

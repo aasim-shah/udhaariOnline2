@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express");
 const conn = require("../db/conn");
 const bcrpyt = require("bcrypt");
@@ -536,15 +537,9 @@ router.post("/api", async (req, res) => {
   console.log(my_accountNo);
   console.log(ifsc_code);
   console.log(account_holder_name);
-  axios({
-      withCredentials: true,
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    },
-    url: "https://api.razorpay.com/v1/payouts",
-    method: "post",
-    data: {     
+  instance.api.post({  
+    url : "https://api.razorpay.com/v1/payouts",
+    data : {
    account_number: process.env.ACCOUNT_NUMBER,
       amount: amount,
       currency: "INR",
@@ -555,10 +550,7 @@ router.post("/api", async (req, res) => {
         ifsc: ifsc_code,
         account_number: user_bank_accountNO
       }
-    },basic : {
-    "username" : "rzp_test_hrN99YDhAH4vOh",
-      "password" : "8V8A2uCwnwBDVqkm25XUlrRQ"
-  }
+    }
   })
     .then(function(response) {
     res.send(response)

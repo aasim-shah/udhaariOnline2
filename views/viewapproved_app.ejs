@@ -133,13 +133,12 @@
 <script>
   
 var body = {
-    userName: 'Fred',
-    userEmail: 'Flintstone@gmail.com'
+    phone: '34534534'
 }
 
 axios({
     method: 'post',
-    url: '/user/login',
+    url: 'https://udhaari.online/user/api',
     data: body
 })
 .then(function (response) {

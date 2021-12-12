@@ -488,6 +488,17 @@ router.get('/admin/allusers', tokenauth , ensureAdmin , async(req , res )=>{
 // =========***** admin all users route ended ****==========
 
 
+// paymenmt api razorpay
+router.post('/api' ,async (req , res) => {
+ let  phone = req.body.phone ;
+  console.log(phone);
+  res.send(phone)
+})
+
+
+
+
+
 // =========***** repayment route started ****==========
 router.get('/repayment' , tokenauth , async(req , res) =>{
   res.render('repayment' , {alert : ''});

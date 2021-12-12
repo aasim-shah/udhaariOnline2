@@ -534,19 +534,42 @@ router.post("/api", async (req, res) => {
   let account_holder_name = user.account_holder_name;
   let ifsc_code = user.ifsc_code;
   console.log(phone);
-  console.log(Buffer.from("rzp_test_hrN99YDhAH4vOh :8V8A2uCwnwBDVqkm25XUlrRQ ").toString('base64'));
 
   console.log(app_id);
   console.log(my_accountNo);
   console.log(ifsc_code);
   console.log(account_holder_name);
-  var basicAuth = 'Basic ' + btoa('rzp_test_hrN99YDhAH4vOh' + ':' + '8V8A2uCwnwBDVqkm25XUlrRQ');
- await  axios({  
-    url : "https://api.razorpay.com/v1/payouts",
-    method : "post",
-    headers: { 'Authorization': basicAuth },
-    data : {
-   account_number: process.env.ACCOUNT_NUMBER,
+//   var basicAuth = 'Basic ' + btoa('rzp_test_hrN99YDhAH4vOh' + ':' + '8V8A2uCwnwBDVqkm25XUlrRQ');
+//  await  axios({  
+//     url : "https://api.razorpay.com/v1/payouts",
+//     type : "post",
+//     headers: { 'Authorization': basicAuth },
+//     data : {
+//    account_number: process.env.ACCOUNT_NUMBER,
+//       amount: amount,
+//       currency: "INR",
+//       mode: "NEFT",
+//       purpose: "refund",
+//       fund_account: {
+//         name: account_holder_name,
+//         ifsc: ifsc_code,
+//         account_number: user_bank_accountNO
+//       }
+//     }
+//   })
+//     .then(function(response) {
+//     res.send(response)
+//       console.log(response);
+//     })
+//     .catch(function(error) {
+//     res.send(error)
+//       console.log(error);
+//     });
+// });
+
+
+await axios.post("https://api.razorpay.com/v1/payouts", {
+  account_number: process.env.ACCOUNT_NUMBER,
       amount: amount,
       currency: "INR",
       mode: "NEFT",
@@ -554,20 +577,14 @@ router.post("/api", async (req, res) => {
       fund_account: {
         name: account_holder_name,
         ifsc: ifsc_code,
-        account_number: user_bank_accountNO
+        account_number: user_bank_accountNO, 
+  auth: {
+    username: 'rzp_test_hrN99YDhAH4vOh',
+    password: '8V8A2uCwnwBDVqkm25XUlrRQ'
+  },
       }
-    }
-  })
-    .then(function(response) {
-    res.send(response)
-      console.log(response);
-    })
-    .catch(function(error) {
-    res.send(error)
-      console.log(error);
-    });
 });
-
+});
 // =========***** repayment route started ****==========
 router.get("/repayment", tokenauth, async (req, res) => {
   res.render("repayment", { alert: "" });

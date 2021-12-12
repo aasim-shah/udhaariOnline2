@@ -26,7 +26,7 @@
             </tr>
             <tr>
                 <td>Email </td>
-                <td><%= user.email %></td>
+                <td id="user_email"><%= user.email %></td>
             </tr>
             <tr>
                 <td>City   </td>
@@ -42,7 +42,7 @@
             </tr>      
             <tr>
                 <td>Phone </td>
-                <td><%= app.phone %></td>
+                <td id="user_phone"><%= app.phone %></td>
             </tr>      
             <tr>
                 <td>DoB </td>
@@ -78,7 +78,7 @@
             </tr>      
             <tr>
                 <td>Bank account number</td>
-                <td><%= user.account_number %></td>
+                <td id="user_account_number"><%= user.account_number %></td>
             </tr>      
             <tr>
                 <td>Account holder name</td>
@@ -86,7 +86,7 @@
             </tr>      
             <tr>
                 <td>IFSC code</td>
-                <td><%= user.ifsc_code %></td>
+                <td id="user_ifsc_code"> <%= user.ifsc_code %></td>
             </tr>      
             <tr>
                 <td>First Image</td>
@@ -131,7 +131,15 @@
 
 
 <script>
-  
+  $(document ).ready(function() {
+  user_email =  $('#user_email').text();
+  user_phone = $('#user_phone').text();
+  user_account = $('#user_account_number').text();
+ user_ifsc = $('#user_ifsc').text();
+
+    
+    console.log(user_phone , user_email , user_account , user_ifsc_code)
+});
 var body = {
     phone: '34534534'
 }

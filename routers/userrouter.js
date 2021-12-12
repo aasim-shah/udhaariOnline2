@@ -5,6 +5,10 @@ const bcrpyt = require("bcrypt");
 const passport = require("passport");
 const local = require("../passport/passportconfig");
 const notifier = require('node-notifier');
+const WindowsToaster = require('node-notifier/notifiers/toaster');
+
+
+
 const tokenauth = require("../passport/authuser");
 const btoa  = require('btoa')
 const session = require("express-session");
@@ -160,10 +164,6 @@ router.get("/logout", tokenauth, (req, res) => {
 // saving user info get route
 router.get("/info", tokenauth, async (req, res) => {
   let e = req.user.id;
-  notifier.notify({
-  title: 'My notification',
-  message: 'Hello, there!'
-});
   const user = await Usermodel.findById(e);
   res.render("userdata", { user: user, alert: "" });
 });

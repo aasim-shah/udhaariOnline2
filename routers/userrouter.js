@@ -475,7 +475,15 @@ router.get("/approvedapp", tokenauth, async (req, res) => {
 // =========***** user landing according to plan status route ended ****==========
 
 // admin notifications 
-router.get('/notificat')
+
+
+router.get("/adminNotifications", tokenauth, ensureAdmin, async (req, res) => {
+  let approved = await ApplicationModel.find({
+    application_status: "approved"
+  });
+  res.render("adminapprovedplans", { apps: approved });
+});
+
 
 
 

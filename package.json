@@ -29,6 +29,7 @@
     "socket.io": "^4.4.0",
     "http": "^0.0.0",
     "connect-flash": "^0.1.1",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "razorpay": "^2.8.0"
   }
 }

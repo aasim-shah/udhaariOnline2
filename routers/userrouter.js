@@ -9,6 +9,7 @@ const multer = require("multer");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 var jwt = require("jsonwebtoken");
+const razorpay = require('razorpay')
 const Usermodel = require("../models/userModel");
 const AdmindataModel = require("../models/adminModel");
 const PaymentModel = require("../models/paymentModel");
@@ -534,9 +535,18 @@ router.post("/api", async (req, res) => {
   console.log(my_accountNo);
   console.log(ifsc_code);
   console.log(account_holder_name);
-
+let basic  = {
+  username : "rzp_test_hrN99YDhAH4vOh",
+  password : "8V8A2uCwnwBDVqkm25XUlrRQ"
+}
   
   axios({
+      withCredentials: true,
+    headers: {
+       "Authorization" : "basic " + basic,
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
     url: "https://api.razorpay.com/v1/payouts",
     method: "post",
     data: {     
@@ -550,9 +560,6 @@ router.post("/api", async (req, res) => {
         ifsc: ifsc_code,
         account_number: user_bank_accountNO
       }
-    },auth : {
-      key_id : "rzp_test_hrN99YDhAH4vOh",
-      key_secret : "8V8A2uCwnwBDVqkm25XUlrRQ"
     }
   })
     .then(function(response) {

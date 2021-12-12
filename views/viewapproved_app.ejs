@@ -121,7 +121,15 @@
         </h4>
   </div>
   <div class="d-flex">
-    <a href="/user/pay/<%= app._id %>" class="btn btn-sm btn-primary w-100 py-2" >Transfer Funds</a>
+    <form action="/user/api" method="post" >
+      <input type="hidden" value="<%= app.id %>" name="phone">
+      <input type="hidden" value="<%= user.phone %>"name="plan_id"
+ >
+      <button type="submit"  class="btn btn-sm btn-primary py-3 w-100">
+        Transfer Funds
+      </button>
+      
+    </form>
   </div>
 </div>
 

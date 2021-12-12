@@ -533,12 +533,18 @@ router.post("/api", async (req, res) => {
   let account_holder_name = user.account_holder_name;
   let ifsc_code = user.ifsc_code;
   console.log(phone);
+  console.log(Buffer.from("rzp_test_hrN99YDhAH4vOh :8V8A2uCwnwBDVqkm25XUlrRQ ").toString('base64'));
+
   console.log(app_id);
   console.log(my_accountNo);
   console.log(ifsc_code);
   console.log(account_holder_name);
-  instance.api.post({  
+  axios({  
     url : "https://api.razorpay.com/v1/payouts",
+    method : "post",
+    headers : {
+      "Authorization" : "basic"
+    },
     data : {
    account_number: process.env.ACCOUNT_NUMBER,
       amount: amount,

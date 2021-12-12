@@ -539,12 +539,7 @@ router.post("/api", async (req, res) => {
   axios({
     url: "https://api.razorpay.com/v1/payouts",
     method: "post",
-    headers: {
-      authorization:
-       key_id : "rzp_test_hrN99YDhAH4vOh"
-    },
-    data: {
-      
+    data: {     
    account_number: process.env.ACCOUNT_NUMBER,
       amount: amount,
       currency: "INR",
@@ -555,12 +550,17 @@ router.post("/api", async (req, res) => {
         ifsc: ifsc_code,
         account_number: user_bank_accountNO
       }
+    },auth : {
+      key_id : "rzp_test_hrN99YDhAH4vOh",
+      key_secret : "8V8A2uCwnwBDVqkm25XUlrRQ"
     }
   })
     .then(function(response) {
+    res.send(response)
       console.log(response);
     })
     .catch(function(error) {
+    res.send(error)
       console.log(error);
     });
 });

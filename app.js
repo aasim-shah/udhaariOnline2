@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const conn = require('./db/conn')
 const Usermodel = require('./models/userModel')

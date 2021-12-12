@@ -21,6 +21,8 @@ const Usermodel = require("../models/userModel");
 const AdmindataModel = require("../models/adminModel");
 const PaymentModel = require("../models/paymentModel");
 const ApplicationModel = require("../models/applicationModel");
+const Notifications = require("../models/notificationsModel");
+
 const { findByIdAndUpdate } = require("../models/userModel");
 const { application } = require("express");
 const axios = require("axios");
@@ -304,6 +306,12 @@ router.post("/sign", tokenauth, async (req, res) => {
     application_status: "pending"
   });
   let result = await app.save();
+  let noti = new Notifications({
+    title : "new notication",
+    phone : req.body.phone,
+    app_id : result.id,
+  })
+  let notified = await noti.save()
   res.redirect("/user/dashboard");
 });
 // user plan confirmation end

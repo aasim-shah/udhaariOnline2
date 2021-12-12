@@ -7,6 +7,6 @@ const notificationsSchema = mongoose.Schema({
   "app_id" : String
 })
 
-const NotificationsModel = mongoose.model('admin_data' , notificationsSchema)
+const NotificationsModel = mongoose.model('notification' , notificationsSchema)
 
 module.exports = NotificationsModel;

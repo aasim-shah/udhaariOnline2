@@ -10,6 +10,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 const ejs = require('ejs')
+const notifier = require('node-notifier');
 
 
 const app = express()
@@ -43,7 +44,7 @@ var storage = multer.diskStorage({
 })
 const port = process.env.PORT || 3000;
 
-app.get('/' , (req , res) => {
+app.get('/' ,async (req , res) => {
   res.render('home');
 
 })

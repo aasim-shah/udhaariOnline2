@@ -4,6 +4,7 @@ const conn = require("../db/conn");
 const bcrpyt = require("bcrypt");
 const passport = require("passport");
 const local = require("../passport/passportconfig");
+const notifier = require('node-notifier');
 const tokenauth = require("../passport/authuser");
 const btoa  = require('btoa')
 const session = require("express-session");
@@ -159,6 +160,10 @@ router.get("/logout", tokenauth, (req, res) => {
 // saving user info get route
 router.get("/info", tokenauth, async (req, res) => {
   let e = req.user.id;
+  notifier.notify({
+  title: 'My notification',
+  message: 'Hello, there!'
+});
   const user = await Usermodel.findById(e);
   res.render("userdata", { user: user, alert: "" });
 });
@@ -195,7 +200,7 @@ router.post("/info", tokenauth, cpUpload, async (req, res) => {
     account_number,
     documnet_id
   } = req.body;
-  if (req.body.referrence1_name == "") {
+  if (req.body.referrence1_name == "" || req.body.referrence2_name == "") {
     res.render("userdata", { alert: "alert", user: req.body });
   } else {
     const userInfo = {

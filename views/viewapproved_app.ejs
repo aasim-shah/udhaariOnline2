@@ -127,3 +127,26 @@
 
 
 <%- include('./partials/footer.ejs') %>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+<script>
+  
+var body = {
+    userName: 'Fred',
+    userEmail: 'Flintstone@gmail.com'
+}
+
+axios({
+    method: 'post',
+    url: '/user/login',
+    data: body
+})
+.then(function (response) {
+    console.log(response);
+})
+.catch(function (error) {
+    console.log(error);
+});
+
+</script>

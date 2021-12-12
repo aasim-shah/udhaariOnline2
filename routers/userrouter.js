@@ -9,7 +9,7 @@ const multer = require("multer");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 var jwt = require("jsonwebtoken");
-const razorpay = require('razorpay')
+const Razorpay = require('razorpay')
 const Usermodel = require("../models/userModel");
 const AdmindataModel = require("../models/adminModel");
 const PaymentModel = require("../models/paymentModel");
@@ -25,6 +25,7 @@ router.use(express.urlencoded({ extended: false }));
 router.use(express.json());
 router.use(session({ secret: "cats" }));
 router.use(cookieParser());
+const instance = new Razorpay({key_id: process.env.RAZORPAY_KEY, key_secret: process.env.RAZORPAY_SECRET});
 
 // multer config started
 var storage = multer.diskStorage({
@@ -535,15 +536,9 @@ router.post("/api", async (req, res) => {
   console.log(my_accountNo);
   console.log(ifsc_code);
   console.log(account_holder_name);
-let basic  = {
-  username : "rzp_test_hrN99YDhAH4vOh",
-  password : "8V8A2uCwnwBDVqkm25XUlrRQ"
-}
-  
   axios({
       withCredentials: true,
     headers: {
-       "Authorization" : "basic " + basic,
       "Accept": "application/json",
       "Content-Type": "application/json"
     },
@@ -560,7 +555,10 @@ let basic  = {
         ifsc: ifsc_code,
         account_number: user_bank_accountNO
       }
-    }
+    },basic : {
+    "username" : "rzp_test_hrN99YDhAH4vOh",
+      "password" : "8V8A2uCwnwBDVqkm25XUlrRQ"
+  }
   })
     .then(function(response) {
     res.send(response)

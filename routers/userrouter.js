@@ -493,9 +493,12 @@ router.post('/api' ,async (req , res) => {
   let phone = req.body.phone ;
   let app_id = req.body.plan_id;
   let my_accountNo = process.env.ACCOUNT_NUMBER;
+  let app = await ApplicationModel.findOne({_id : app_id})
+  let amount = app.amount
   console.log(phone)
   console.log(app_id)
   console.log(my_accountNo)
+  console.log(amount)
   
  let d ={
     "account_number": process.env.ACCOUNT_NUMBER,

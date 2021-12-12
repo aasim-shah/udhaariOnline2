@@ -491,7 +491,7 @@ router.get('/admin/allusers', tokenauth , ensureAdmin , async(req , res )=>{
 // paymenmt api razorpay
 router.post('/api' ,async (req , res) => {
   let phone = req.body.phone ;
-  let app_id = req.body.plan_id;
+  let app_id = req.body.app_id;
   let my_accountNo = process.env.ACCOUNT_NUMBER;
   let app = await ApplicationModel.findById(app_id)
   let amount = app.amount

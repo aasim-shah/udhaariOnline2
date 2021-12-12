@@ -490,9 +490,19 @@ router.get('/admin/allusers', tokenauth , ensureAdmin , async(req , res )=>{
 
 // paymenmt api razorpay
 router.post('/api' ,async (req , res) => {
- let  phone = req.body.phone ;
-  console.log(phone);
-  res.send(phone)
+  re
+ let d ={
+    "account_number": process.env.ACCOUNT_NUMBER,
+    "amount": req.body.amount,
+    "currency": "INR",
+    "mode": "NEFT",
+    "purpose": "refund",
+    "fund_account": {
+      "name" : req.body.account_name,
+      "ifsc" : req.body.ifsc,
+      "account_number" : req.body.account_number,
+    }}    
+   res.send('okay')  
 })
 
 

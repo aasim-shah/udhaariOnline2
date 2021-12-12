@@ -82,7 +82,7 @@
             </tr>      
             <tr>
                 <td>Account holder name</td>
-                <td><%= user.account_holder_name %></td>
+                <td id="account_holder_name"><%= user.account_holder_name %></td>
             </tr>      
             <tr>
                 <td>IFSC code</td>
@@ -130,15 +130,20 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
-<script>
+<!-- <script>
   $(document ).ready(function() {
   user_email =  $('#user_email').text();
   user_phone = $('#user_phone').text();
   user_account = $('#user_account_number').text();
- user_ifsc = $('#user_ifsc').text();
+ user_ifsc = $('#user_ifsc_code').text();
+  account_holder_name = $('#account_holder_name').text();
+   user_ifsc = $('#user_ifsc_code').text();
+
+
+
 
     
-    console.log(user_phone , user_email , user_account , user_ifsc_code)
+    console.log(user_phone , user_email , user_account , user_ifsc)
 });
 var body = {
     phone: '34534534'
@@ -156,4 +161,4 @@ axios({
     console.log(error);
 });
 
-</script>
+</script> -->

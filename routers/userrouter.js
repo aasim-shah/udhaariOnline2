@@ -307,7 +307,7 @@ router.post("/sign", tokenauth, async (req, res) => {
   });
   let result = await app.save();
   let noti = new Notifications({
-    title : "new notication",
+    title : "New Application Request Recived",
     phone : req.body.phone,
     app_id : result.id,
   })
@@ -331,6 +331,7 @@ router.get("/admin", tokenauth, ensureAdmin, async (req, res) => {
   let total_bal = await AdmindataModel.findById(id);
 
   let repay = await PaymentModel.count();
+  let notifications = await Notifications.count()
 
   if (total) {
     res.render("adminhome", {
@@ -340,7 +341,8 @@ router.get("/admin", tokenauth, ensureAdmin, async (req, res) => {
       approved: approved,
       repay: repay,
       repaid: repaid,
-      rejected: rejected
+      rejected: rejected,
+      notifications : notifications
     });
   } else {
     res.render("adminhome");
@@ -471,6 +473,11 @@ router.get("/approvedapp", tokenauth, async (req, res) => {
 });
 
 // =========***** user landing according to plan status route ended ****==========
+
+// admin notifications 
+router.get('/notificat')
+
+
 
 // =========***** admin fetch according to plan status  route started ****==========
 

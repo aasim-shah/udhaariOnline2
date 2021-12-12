@@ -493,25 +493,39 @@ router.post('/api' ,async (req , res) => {
   let phone = req.body.phone ;
   let app_id = req.body.app_id;
   let my_accountNo = process.env.ACCOUNT_NUMBER;
-  let app = await ApplicationModel.findByI(app_id)
+  let app = await ApplicationModel.findById(app_id)
+  let user = await Usermodel.findOne({phone : phone})
   let amount = app.amount
-  console.log(phone)
+  let user_bank_accountNO = user.account_number;
+  let account_holder_name = user.account_holder_name;
+  let ifsc_code = user.ifsc_code;
+console.log(phone)
   console.log(app_id)
   console.log(my_accountNo)
-  // console.log(amount)
-  
- let d ={
+  console.log(ifsc_code)
+  console.log(account_holder_name)
+
+ 
+ axios.post('/user', {
     "account_number": process.env.ACCOUNT_NUMBER,
-    "amount": req.body.amount,
+    "amount": amount,
     "currency": "INR",
     "mode": "NEFT",
     "purpose": "refund",
     "fund_account": {
-      "name" : req.body.account_name,
-      "ifsc" : req.body.ifsc,
-      "account_number" : req.body.account_number,
-    }}    
-   res.send('okay')  
+      "name" : account_holder_name,
+      "ifsc" : ifsc_code,
+      "account_number" :user_bank_accountNO ,
+    }
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+ 
+ 
 })
 
 

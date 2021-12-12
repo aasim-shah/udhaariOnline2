@@ -477,11 +477,8 @@ router.get("/approvedapp", tokenauth, async (req, res) => {
 // admin notifications 
 
 
-router.get("/adminNotifications", tokenauth, ensureAdmin, async (req, res) => {
-  let approved = await ApplicationModel.find({
-    application_status: "approved"
-  });
-  res.render("adminapprovedplans", { apps: approved });
+router.get("/noti",  async (req, res) => {
+  res.send('noti')
 });
 
 

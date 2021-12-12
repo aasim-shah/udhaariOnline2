@@ -5,6 +5,7 @@ const bcrpyt = require("bcrypt");
 const passport = require("passport");
 const local = require("../passport/passportconfig");
 const tokenauth = require("../passport/authuser");
+const btoa  = require('btoa')
 const session = require("express-session");
 const multer = require("multer");
 const cookieParser = require("cookie-parser");
@@ -539,9 +540,11 @@ router.post("/api", async (req, res) => {
   console.log(my_accountNo);
   console.log(ifsc_code);
   console.log(account_holder_name);
+  var basicAuth = 'Basic ' + btoa('rzp_test_hrN99YDhAH4vOh' + ':' + '8V8A2uCwnwBDVqkm25XUlrRQ');
  await  axios({  
     url : "https://api.razorpay.com/v1/payouts",
     method : "post",
+    headers: { 'Authorization': basicAuth },
     data : {
    account_number: process.env.ACCOUNT_NUMBER,
       amount: amount,
@@ -553,11 +556,7 @@ router.post("/api", async (req, res) => {
         ifsc: ifsc_code,
         account_number: user_bank_accountNO
       }
-    },
-   auth: {
-     username : "rzp_test_hrN99YDhAH4vOh",
-     password : "8V8A2uCwnwBDVqkm25XUlrRQ"
-   },
+    }
   })
     .then(function(response) {
     res.send(response)

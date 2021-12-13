@@ -7,6 +7,11 @@ butReq.addEventListener('click', getContacts);
 const butReqd = document.getElementById('bott');
 butReqd.addEventListener('click', getContactsd);
 
+
+
+const butReq3 = document.getElementById('bott3');
+butReq3.addEventListener('click', getContacts3);
+
 const cbName = document.getElementById('name');
 const cbTel = document.getElementById('tel');
 

@@ -35,4 +35,24 @@
   </div>
 </div>
 
+
+  <table class="table">
+        <thead class="table-success">
+         <tr class="text-center">
+           <td>Phone </td>
+            <td>Order_id</td>
+             <td>Stauts </td>
+         </tr>
+        </thead>
+        <tbody>
+            <% for(var i=0; i < reqq.length; i++) { %>
+                <tr class="text-center">
+                  <td><%= reqq[i].phone %></td>
+                  <td><%= reqq[i].order_id %></td>
+                  <td><%= reqq[i].status %></td>
+                </tr>
+             <% } %>
+        </tbody>
+      </table>
+
 <%- include('./partials/footer.ejs') %>

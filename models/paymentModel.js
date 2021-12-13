@@ -4,6 +4,7 @@ const conn = require('../db/conn')
 const paymentSchema = mongoose.Schema({
    phone : String, 
    order_id : String,
+  status : String
 
 })
 

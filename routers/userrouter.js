@@ -633,9 +633,9 @@ await axios.post("https://api.razorpay.com/v1/payouts", {
 // =========***** repayment route started ****==========
 router.get("/repayment", tokenauth, async (req, res) => {
   let phone = req.user.phone;
-  let repayment_req = await PaymentModel.findOne({phone : phone})
+  let repayment_req = await PaymentModel.find({phone : phone})
   console.log(repayment_req)
-  res.render("repayment", { alert: ""  , requests : repayment_req});
+  res.render("repayment", { alert: ""  , reqq : repayment_req});
 });
 
 router.post("/repayment", tokenauth, async (req, res) => {
@@ -694,6 +694,12 @@ router.get(
       { phone: phone },
       {
         application_status: "repaid"
+      }
+    );
+    let repayment_req = await PaymentModel.findOneAndUpdate(
+      { phone: phone },
+      {
+        status: "Approved"
       }
     );
     if (app) {

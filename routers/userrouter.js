@@ -4,8 +4,7 @@ const conn = require("../db/conn");
 const bcrpyt = require("bcrypt");
 const passport = require("passport");
 const local = require("../passport/passportconfig");
-const notifier = require('node-notifier');
-const WindowsToaster = require('node-notifier/notifiers/toaster');
+const nodemailer = require('nodemailer');
 
 
 
@@ -474,13 +473,20 @@ router.get("/approvedapp", tokenauth, async (req, res) => {
 
 // =========***** user landing according to plan status route ended ****==========
 
-// admin notifications 
+//node mailer 
 
-
-router.get("/noti",  async (req, res) => {
-  res.send('noti')
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'asimshah8110@gmail.com',
+    pass: 'Noob@developer'
+  }
 });
 
+router.post('/mail' ,  async (req , res)=> {
+res.json('okay')
+
+})
 
 
 

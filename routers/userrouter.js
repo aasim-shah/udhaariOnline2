@@ -501,35 +501,7 @@ router.get("/approvedapp", tokenauth, async (req, res) => {
 
 // =========***** user landing according to plan status route ended ****==========
 
-//node mailer 
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'asimshah8110@gmail.com',
-    pass: 'Noob@developer'
-  }
-});
 
-router.post('/mail' ,  async (req , res)=> {
-var mailOptions = {
-  from: 'asimshah8110@gmail.com',
-  to: req.body.tuu ,
-  subject: req.body.sub ,
-  text: req.body.text ,
-};
-  
-  
-  await transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
-    res.send(error);
-  console.log('last errror')
-  } else {
-    res.send('email send')
-    console.log('Email sent: ' + info.response);
-  }
-});
-
-})
 
 
 // =========***** admin fetch according to plan status  route started ****==========
@@ -674,8 +646,9 @@ router.post("/repayment", tokenauth, async (req, res) => {
   } else {
     let saved_pay = await pay.save();
     console.log(saved_pay);
-
     if (saved_pay) {
+      
+      
       res.send("hogya repayment ");
     } else {
       res.send("failed to repay ! better luck next time");

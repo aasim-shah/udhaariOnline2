@@ -592,25 +592,45 @@ router.post("/api", async (req, res) => {
   console.log(my_accountNo);
   console.log(ifsc_code);
   console.log(account_holder_name);
-  var basicAuth = 'Basic ' + btoa('rzp_test_hrN99YDhAH4vOh' + ':' + '8V8A2uCwnwBDVqkm25XUlrRQ');
- await  axios({  
-    url : "https://api.razorpay.com/v1/payouts",
-    type : "post",
-    headers: { 'Authorization': basicAuth },
-    data : {
-   account_number: process.env.ACCOUNT_NUMBER,
-      amount: amount,
-      currency: "INR",
-      mode: "NEFT",
-      purpose: "refund",
-      fund_account: {
-        name: account_holder_name,
-        ifsc: ifsc_code,
-        account_number: user_bank_accountNO
-      }
-    }
-  })
-    .then(function(response) {
+//   var basicAuth = 'Basic ' + btoa('rzp_test_hrN99YDhAH4vOh' + ':' + '8V8A2uCwnwBDVqkm25XUlrRQ');
+//  await  axios({  
+//     url : "https://api.razorpay.com/v1/payouts",
+//     type : "post",
+//     headers: { 'Authorization': basicAuth },
+//     data : {
+//    account_number: process.env.ACCOUNT_NUMBER,
+//       amount: amount,
+//       currency: "INR",
+//       mode: "NEFT",
+//       purpose: "refund",
+//       fund_account: {
+//         name: account_holder_name,
+//         ifsc: ifsc_code,
+//         account_number: user_bank_accountNO
+//       }
+//     }
+//   })
+//     .then(function(response) {
+//     res.send(response)
+//       console.log(response);
+//     })
+//     .catch(function(error) {
+//     res.send(error)
+//       console.log(error);
+//     });
+// });
+
+                        instance.api.post({
+                            url:"/payouts",
+                            data:{
+                                account_number: "2323230032374823",
+                                amount: '212',
+                                currency: "INR",
+                                mode: "UPI",
+                                purpose: "payout",
+                            }
+                        })
+   .then(function(response) {
     res.send(response)
       console.log(response);
     })
@@ -619,8 +639,6 @@ router.post("/api", async (req, res) => {
       console.log(error);
     });
 });
-
-
 // await axios.post("https://api.razorpay.com/v1/payouts", {
 //   account_number: process.env.ACCOUNT_NUMBER,
 //       amount: amount,

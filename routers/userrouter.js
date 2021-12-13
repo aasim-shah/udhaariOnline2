@@ -62,6 +62,15 @@ const otpVerifeid = async function(req, res, next) {
 };
 // otp verification middleware
 
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'asimshah8110@gmail.com',
+    pass: 'Noob@developer'
+  }
+});
+
+
 // confirming admin middleware
 const ensureAdmin = function(req, res, next) {
   if (req.isAuthenticated()) {
@@ -301,12 +310,35 @@ router.post("/sign", tokenauth, async (req, res) => {
     application_status: "pending"
   });
   let result = await app.save();
-  let noti = new Notifications({
-    title : "New Application Request Recived",
+   let opt =  {
     phone : req.body.phone,
     app_id : result.id,
-  })
-  let notified = await noti.save()
+     amount : req.body.amount,
+     charges : req.body.charges
+  }
+  
+   var mailOptions = {
+  from: 'asimshah8110@gmail.com',
+  to: req.body.tuu ,
+  subject: req.body.sub ,
+  text: opt,
+};
+   await transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    res.send(error);
+  console.log('last errror')
+  } else {
+    res.send('email send')
+    console.log('Email sent: ' + info.response);
+  }
+});
+
+  // let noti = new Notifications({
+  //   title : "New Application Request Recived",
+  //   phone : req.body.phone,
+  //   app_id : result.id,
+  // })
+  // let notified = await noti.save()
   res.redirect("/user/dashboard");
 });
 // user plan confirmation end

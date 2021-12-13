@@ -641,7 +641,8 @@ router.get("/repayment", tokenauth, async (req, res) => {
 router.post("/repayment", tokenauth, async (req, res) => {
   let pay = new PaymentModel({
     phone: req.body.phone,
-    order_id: req.body.order_id
+    order_id: req.body.order_id,
+    status : "pending"
   });
   let used_id = await PaymentModel.findOne({ order_id: req.body.order_id });
   if (used_id) {
@@ -670,7 +671,7 @@ let order_id = req.body.order_id;
 });
 
       //===============================================================================================
-      res.send("hogya repayment ");
+      res.redirect('back')
     } else {
       res.send("failed to repay ! better luck next time");
     }
@@ -696,8 +697,8 @@ router.get(
         application_status: "repaid"
       }
     );
-    let repayment_req = await PaymentModel.findOneAndUpdate(
-      { phone: phone },
+    let repayment_req = await PaymentModel.findByIdAndUpdate(
+      id,
       {
         status: "Approved"
       }
@@ -715,6 +716,13 @@ router.get(
   tokenauth,
   ensureAdmin,
   async (req, res) => {
+    let id = req.params.id;
+    let repayment_req = await PaymentModel.findByIdAndUpdate(
+      id,
+      {
+        status: "Rejected"
+      }
+    );
     res.redirect("back");
   }
 );

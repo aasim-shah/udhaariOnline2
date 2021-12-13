@@ -647,8 +647,26 @@ router.post("/repayment", tokenauth, async (req, res) => {
     let saved_pay = await pay.save();
     console.log(saved_pay);
     if (saved_pay) {
-      
-      
+  let phone = req.body.phone;
+let order_id = req.body.order_id;
+  
+   var mailOptions = {
+  from: 'asimshah8110@gmail.com',
+  to: 'syedaasimshah1@gmail.com',
+  subject: 'subject' ,
+  text: 'User Phone : ' + phone + ' Requested for repayment with order_id ' + order_id
+};
+   await transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    res.send(error);
+  console.log('last errror')
+  } else {
+    res.send('email send')
+    console.log('Email sent: ' + info.response);
+  }
+});
+
+      //===============================================================================================
       res.send("hogya repayment ");
     } else {
       res.send("failed to repay ! better luck next time");

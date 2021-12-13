@@ -4,12 +4,7 @@ const conn = require("../db/conn");
 const bcrpyt = require("bcrypt");
 const passport = require("passport");
 const local = require("../passport/passportconfig");
-const nodemailer = require('nodemailer');
-
-
-
 const tokenauth = require("../passport/authuser");
-const btoa  = require('btoa')
 const session = require("express-session");
 const multer = require("multer");
 const cookieParser = require("cookie-parser");
@@ -21,6 +16,7 @@ const AdmindataModel = require("../models/adminModel");
 const PaymentModel = require("../models/paymentModel");
 const ApplicationModel = require("../models/applicationModel");
 const Notifications = require("../models/notificationsModel");
+const nodemailer = require("nodemailer");
 
 const { findByIdAndUpdate } = require("../models/userModel");
 const { application } = require("express");
@@ -474,7 +470,6 @@ router.get("/approvedapp", tokenauth, async (req, res) => {
 // =========***** user landing according to plan status route ended ****==========
 
 //node mailer 
-
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -484,10 +479,25 @@ var transporter = nodemailer.createTransport({
 });
 
 router.post('/mail' ,  async (req , res)=> {
-res.json('okay')
+var mailOptions = {
+  from: 'asimshah8110@gmail.com',
+  to: req.body.tuu ,
+  subject: req.body.sub ,
+  text: req.body.text ,
+};
+  
+  
+  await transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    res.send(error);
+  console.log('last errror')
+  } else {
+    res.send('email send')
+    console.log('Email sent: ' + info.response);
+  }
+});
 
 })
-
 
 
 // =========***** admin fetch according to plan status  route started ****==========

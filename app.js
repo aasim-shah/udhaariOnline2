@@ -10,7 +10,6 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 const ejs = require('ejs')
-const notifier = require('node-notifier');
 
 
 const app = express()

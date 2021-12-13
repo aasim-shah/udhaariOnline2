@@ -321,7 +321,7 @@ router.post("/sign", tokenauth, async (req, res) => {
   from: 'asimshah8110@gmail.com',
   to: 'syedaasimshah1@gmail.com',
   subject: 'subject' ,
-  text: `User` + phone + 'requestet for loan amount' + amount + 'on charegs ' + charges + 'and his applicatoin id is' + app_id,
+  text: `User ` + phone + 'requestet for loan amount : ' + amount + '  on charegs  ' + charges + ' and his applicatoin id is  ' + app_id,
 };
    await transporter.sendMail(mailOptions, function(error, info){
   if (error) {

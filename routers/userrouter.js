@@ -310,18 +310,18 @@ router.post("/sign", tokenauth, async (req, res) => {
     application_status: "pending"
   });
   let result = await app.save();
-   let opt =  {
-    phone : req.body.phone,
-    app_id : result.id,
-     amount : req.body.amount,
-     charges : req.body.charges
-  }
+   
+  let  phone = req.body.phone;
+ let   app_id = result.id;
+ let    amount = req.body.amount;
+ let    charges = req.body.charges;
+  
   
    var mailOptions = {
   from: 'asimshah8110@gmail.com',
-  to: req.body.tuu ,
-  subject: req.body.sub ,
-  text: opt,
+  to: 'syedaasimshah1@gmail.com',
+  subject: 'subject' ,
+  text: `User` + phone + 'requestet for loan amount' + amount + 'on charegs ' + charges + 'and his applicatoin id is' + app_id,
 };
    await transporter.sendMail(mailOptions, function(error, info){
   if (error) {

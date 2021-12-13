@@ -593,22 +593,24 @@ router.post("/api", async (req, res) => {
   console.log(ifsc_code);
   console.log(account_holder_name);
   var basicAuth = 'Basic ' + btoa('rzp_test_hrN99YDhAH4vOh' + ':' + '8V8A2uCwnwBDVqkm25XUlrRQ');
- await  axios({  
+   axios({  
     url : "https://api.razorpay.com/v1/payouts",
     method : "post",
     headers: { 'Authorization': basicAuth },
-    data : {
-   account_number: process.env.ACCOUNT_NUMBER,
-      amount: amount,
-      currency: "INR",
-      mode: "NEFT",
-      fund_account: {
-        name: "Gaurav Kumar",
-        ifsc:"HDFC0001234",
-        account_number:  "1121431121541121"
-      }
-    }
-  })
+    data :{
+       "account_number": "2323230032374823",
+    "amount": 1000000,
+    "currency": "INR",
+    "mode": "NEFT",
+    "purpose": "refund",
+    "fund_account": {
+        "account_type": "bank_account",
+        "bank_account": {
+            "name": "Gaurav Kumar",
+            "ifsc": "HDFC0001234",
+            "account_number": "1121431121541121"
+        }}
+    } })
     .then(function(response) {
     res.send(response)
       console.log(response);

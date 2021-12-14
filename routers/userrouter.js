@@ -576,10 +576,12 @@ router.get("/admin/allusers", tokenauth, ensureAdmin, async (req, res) => {
 // =========***** admin all users route ended ****==========
 
 // paymenmt api razorpay
-var instance = new Razorpay({ key_id: 'rzp_test_hrN99YDhAH4vOh', key_secret: '8V8A2uCwnwBDVqkm25XUlrRQ' })
+var instance = new Razorpay({ key_id: 'rzp_test_k1kZX1GsWpK5jl', key_secret: 'qkgPz3aB4xZt4crNIfZBno6I' })
 
 router.post("/api", async (req, res) => {
-  instance.paymentLink.create({
+try{
+  
+await instance.paymentLink.create({
   amount: 500,
   currency: "INR",
   accept_partial: true,
@@ -598,6 +600,10 @@ router.post("/api", async (req, res) => {
   callback_method: "get"
 })
 
+}catch(e){
+  console.log(e)
+  
+}
   
   
   // let phone = req.body.phone;

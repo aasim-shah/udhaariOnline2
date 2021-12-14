@@ -581,7 +581,7 @@ var instance = new Razorpay({ key_id: 'rzp_test_k1kZX1GsWpK5jl', key_secret: 'qk
 router.post("/api", async (req, res) => {
 try{
   
-await instance.paymentLink.create({
+  instance.paymentLink.create({
   amount: 500,
   currency: "INR",
   accept_partial: true,
@@ -592,14 +592,17 @@ await instance.paymentLink.create({
     email: "gaurav.kumar@example.com",
     contact: 919999999999
   },
+  notify: {
+    sms: true,
+    email: true
+  },
   reminder_enable: true,
   notes: {
     policy_name: "Jeevan Bima"
   },
-  callback_url: "https://udhaari.online/user/admin/",
+  callback_url: "https://example-callback-url.com/",
   callback_method: "get"
 })
-
 }catch(e){
   console.log(e)
   

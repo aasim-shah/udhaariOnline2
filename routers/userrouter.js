@@ -579,7 +579,7 @@ router.get("/admin/allusers", tokenauth, ensureAdmin, async (req, res) => {
 // paymenmt api razorpay
 
 router.post('/payout' , async(req , res) => {
-  var basicAuth = "basic" +  btoa("rzp_test_hrN99YDhAH4vOh" + ' : ' + "8V8A2uCwnwBDVqkm25XUlrRQ");
+  var basicAuth = "basic " +  btoa("rzp_test_HrfFfCSg1FXvax" + ':' + "zo6cc4i2lvXq0VGt8mxgo8IG");
  await axios({
     url : "https://api.razorpay.com/v1/payouts",
     method : "post",

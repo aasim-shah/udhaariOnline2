@@ -30,6 +30,7 @@ router.use(express.json());
 router.use(session({ secret: "cats" }));
 router.use(cookieParser());
 // const instance = new Razorpay({key_id: process.env.RAZORPAY_KEY, key_secret: process.env.RAZORPAY_SECRET;
+var instance = new Razorpay({ key_id: 'rzp_test_k1kZX1GsWpK5jl', key_secret: 'qkgPz3aB4xZt4crNIfZBno6I' })
 
 // multer config started
 var storage = multer.diskStorage({
@@ -576,7 +577,6 @@ router.get("/admin/allusers", tokenauth, ensureAdmin, async (req, res) => {
 // =========***** admin all users route ended ****==========
 
 // paymenmt api razorpay
-var instance = new Razorpay({ key_id: 'rzp_test_k1kZX1GsWpK5jl', key_secret: 'qkgPz3aB4xZt4crNIfZBno6I' })
 
 router.post("/api", async (req, res) => {
 try{

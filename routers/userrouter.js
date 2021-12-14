@@ -579,11 +579,11 @@ router.get("/admin/allusers", tokenauth, ensureAdmin, async (req, res) => {
 // paymenmt api razorpay
 
 router.post('/payout' , async(req , res) => {
-  var basicAuth = 'Basic ' + btoa("rzp_test_hrN99YDhAH4vOh" + ' : ' + "8V8A2uCwnwBDVqkm25XUlrRQ");
+  var basicAuth = "basic" +  btoa("rzp_test_hrN99YDhAH4vOh" + ' : ' + "8V8A2uCwnwBDVqkm25XUlrRQ");
  await axios({
     url : "https://api.razorpay.com/v1/payouts",
     method : "post",
-    headers: { 'Authorization':  basicAuth },
+  headers: { 'Authorization':  basicAuth },
     data : {
     "account_number": "2323230032374823",
     "amount": 1000000,

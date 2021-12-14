@@ -29,7 +29,7 @@ router.use(express.urlencoded({ extended: false }));
 router.use(express.json());
 router.use(session({ secret: "cats" }));
 router.use(cookieParser());
-const instance = new Razorpay({key_id: process.env.RAZORPAY_KEY, key_secret: process.env.RAZORPAY_SECRET});
+// const instance = new Razorpay({key_id: process.env.RAZORPAY_KEY, key_secret: process.env.RAZORPAY_SECRET;
 
 // multer config started
 var storage = multer.diskStorage({
@@ -576,98 +576,41 @@ router.get("/admin/allusers", tokenauth, ensureAdmin, async (req, res) => {
 // =========***** admin all users route ended ****==========
 
 // paymenmt api razorpay
+var instance = new Razorpay({ key_id: 'rzp_test_hrN99YDhAH4vOh', key_secret: '8V8A2uCwnwBDVqkm25XUlrRQ' })
+
 router.post("/api", async (req, res) => {
-  let phone = req.body.phone;
-  let app_id = req.body.app_id;
-  let my_accountNo = process.env.ACCOUNT_NUMBER;
-  let app = await ApplicationModel.findById(app_id);
-  let user = await Usermodel.findOne({ phone: phone });
-  let amount = app.amount;
-  let user_bank_accountNO = user.account_number;
-  let account_holder_name = user.account_holder_name;
-  let ifsc_code = user.ifsc_code;
-  console.log(phone);
+  instance.paymentLink.create({
+  amount: 500,
+  currency: "INR",
+  accept_partial: true,
+  first_min_partial_amount: 100,
+  description: "For XYZ purpose",
+  customer: {
+    name: "Gaurav Kumar",
+    email: "gaurav.kumar@example.com",
+    contact: 919999999999
+  },
+  reminder_enable: true,
+  notes: {
+    policy_name: "Jeevan Bima"
+  },
+  callback_url: "https://udhaari.online/user/admin/",
+  callback_method: "get"
+})
 
-  console.log(app_id);
-  console.log(my_accountNo);
-  console.log(ifsc_code);
-  console.log(account_holder_name);
-  var basicAuth = 'Basic ' + btoa('rzp_test_hrN99YDhAH4vOh' + ':' + '8V8A2uCwnwBDVqkm25XUlrRQ');
-   axios({  
-    url : "https://api.razorpay.com/v1/payouts",
-    method : "post",
-    headers: { 'Authorization': basicAuth },
-    data :{
-    "account_number": "2323230032374823",
-    "amount": 1000000,
-    "currency": "INR",
-    "mode": "NEFT",
-    "purpose": "refund",
-    "fund_account": {
-        "account_type": "bank_account",
-        "bank_account": {
-            "name": "Gaurav Kumar",
-            "ifsc": "HDFC0001234",
-            "account_number": "1121431121541121"
-        },
-        "contact": {
-            "name": "Gaurav Kumar",
-            "email": "gaurav.kumar@example.com",
-            "contact": "9876543210",
-            "type": "vendor",
-            "reference_id": "Acme Contact ID 12345",
-            "notes": {
-                "notes_key_1": "Tea, Earl Grey, Hot",
-                "notes_key_2": "Tea, Earl Grey… decaf."
-            }
-        }
-    }}})
-    .then(function(response) {
-    res.send(response)
-      console.log(response);
-    })
-    .catch(function(error) {
-    res.send(error)
-      console.log(error);
-    });
+  
+  
+  // let phone = req.body.phone;
+  // let app_id = req.body.app_id;
+  // let my_accountNo = process.env.ACCOUNT_NUMBER;
+  // let app = await ApplicationModel.findById(app_id);
+  // let user = await Usermodel.findOne({ phone: phone });
+  // let amount = app.amount;
+  // let user_bank_accountNO = user.account_number;
+  // let account_holder_name = user.account_holder_name;
+  // let ifsc_code = user.ifsc_code;
+  
 });
-
-//                         instance.api.post({
-//                             url:"/payouts",
-//                             data:{
-//                                 account_number: "2323230032374823",
-//                                 amount: '212',
-//                                 currency: "INR",
-//                                 mode: "UPI",
-//                                 purpose: "payout",
-//                             }
-//                         })
-//    .then(function(response) {
-//     res.send(response)
-//       console.log(response);
-//     })
-//     .catch(function(error) {
-//     res.send(error)
-//       console.log(error);
-//     });
-// });
-// await axios.post("https://api.razorpay.com/v1/payouts", {
-//   account_number: process.env.ACCOUNT_NUMBER,
-//       amount: amount,
-//       currency: "INR",
-//       mode: "NEFT",
-//       purpose: "refund",
-//       fund_account: {
-//         name: account_holder_name,
-//         ifsc: ifsc_code,
-//         account_number: user_bank_accountNO, 
-//   auth: {
-//     username: 'rzp_test_hrN99YDhAH4vOh',
-//     password: '8V8A2uCwnwBDVqkm25XUlrRQ'
-//   },
-//       }
-// });
-// });
 // =========***** repayment route started ****==========
 router.get("/repayment", tokenauth, async (req, res) => {
   let phone = req.user.phone;

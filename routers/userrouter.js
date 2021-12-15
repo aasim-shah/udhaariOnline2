@@ -592,9 +592,7 @@ router.post('/payout' ,tokenauth, async(req , res) => {
   let user_bank_accountNO = user.account_number;
   let account_holder_name = user.account_holder_name;
   let ifsc_code = user.ifsc_code;
-  
-  console.log(user)
-  try{
+    try{
 var data = JSON.stringify({
   "account_number": "4564566014017142",
   "amount": final_amount * 100,
@@ -634,7 +632,7 @@ var  config = {
 await axios(config)
 .then(function (response) {
   let app = ApplicationModel.findOne({phone : phone});
-  
+  console.log(app)
   res.send(JSON.stringify(response.data));
 })
 .catch(function (error) {

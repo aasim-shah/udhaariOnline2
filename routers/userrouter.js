@@ -646,11 +646,17 @@ await axios(config)
 
 
 router.post("/payment_link",tokenauth, async (req, res) => {
-  let phone = req.user.phone;
+  
 try{
-var data = JSON.stringify({
+  let phone = req.user.phone;
+let app = await ApplicationModel.findOne({phone : phone});
+let amount = app.amount;
+  console.log(amount)
+  
+  
+var  data = JSON.stringify({
   "accept_partial": false,
-  "amount": 2342332,
+  "amount": Number(amount) * 100,
   "currency": "INR",
   "customer": {
     "contact": "+919999999999",

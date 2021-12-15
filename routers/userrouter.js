@@ -585,6 +585,8 @@ router.post('/payout' ,tokenauth, async(req , res) => {
   let app = await ApplicationModel.findById(app_id);
   let user = await Usermodel.findOne({ phone: phone });
   let amount = app.amount;
+  let charges = app.charges;
+  let final_amount = amount - charges ;
   let user_bank_accountNO = user.account_number;
   let account_holder_name = user.account_holder_name;
   let ifsc_code = user.ifsc_code;
@@ -592,7 +594,7 @@ router.post('/payout' ,tokenauth, async(req , res) => {
   try{
 var data = JSON.stringify({
   "account_number": "2323230032374823",
-  "amount": amount * 100,
+  "amount": final_amount * 100,
   "currency": "INR",
   "mode": "NEFT",
   "purpose": "refund",
@@ -624,7 +626,7 @@ var  config = {
   method: 'post',
   url: 'https://api.razorpay.com/v1/payouts',
   headers: { 
-    'Authorization': 'Basic cnpwX3Rlc3RfSHJmRmZDU2cxRlh2YXg6em82Y2M0aTJsdlhxMFZHdDhteGdvOElH', 
+    'Authorization': 'Basic cnpwX3Rlc3RfV0ZQTUhTZ1Q3Z1l0Ymw6dkZiN29ZdHpaeUFvbndNcWRQcm5uc3Fr', 
     'Content-Type': 'application/json'
   },
   data : data

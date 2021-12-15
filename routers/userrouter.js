@@ -618,11 +618,7 @@ var data = JSON.stringify({
   "queue_if_low_balance": true,
   "reference_id": "Acme Transaction ID 12345",
   "narration": "Acme Corp Fund Transfer",
-  "notes": {
-    "notes_key_1": "Beam me up Scotty",
-    "notes_key_2": "Engage"
-  
-  }});
+  });
 
 var  config = {
   method: 'post',

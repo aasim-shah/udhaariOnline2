@@ -645,30 +645,42 @@ await axios(config)
 
 
 
-router.post("/api", async (req, res) => {
+router.post("/payment_link", async (req, res) => {
 try{
-  instance.paymentLink.create({
-  amount: 500,
-  currency: "INR",
-  accept_partial: true,
-  first_min_partial_amount: 100,
-  description: "For XYZ purpose",
-  customer: {
-    name: "Gaurav Kumar",
-    email: "gaurav.kumar@example.com",
-    contact: '919999999999'
+var data = JSON.stringify({
+  "accept_partial": false,
+  "amount": 2342332,
+  "currency": "INR",
+  "customer": {
+    "contact": "+919999999999",
+    "email": "gaurav.kumar@example.com",
+    "name": "Gaurav Kumar"
   },
-  notify: {
-    sms: true,
-    email: true
+  "description": "Payment for policy no #23456",
+  "notify": {
+    "email": true,
+    "sms": true
+  }
+});
+
+var config = {
+  method: 'post',
+  url: 'https://api.razorpay.com/v1/payment_links/',
+  headers: { 
+    'Authorization': 'Basic cnpwX3Rlc3RfbVVvR1JpVEVibVhCMUs6QURzNzBFcnRMdEx0MnFKT2lMVWo5WE1U', 
+    'Content-Type': 'application/json'
   },
-  reminder_enable: true,
-  notes: {
-    policy_name: "Jeevan Bima"
-  },
-  callback_url: "https://example-callback-url.com/",
-  callback_method: "get"
+  data : data
+};
+
+await axios(config)
+.then(function (response) {
+  res.send(JSON.stringify(response.data));
 })
+.catch(function (error) {
+  res.send(error);
+});
+
 }catch(e){
   console.log(e)
   

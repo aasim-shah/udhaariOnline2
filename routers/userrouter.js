@@ -586,17 +586,19 @@ router.post('/payout' ,tokenauth, async(req , res) => {
   let user = await Usermodel.findOne({ phone: phone });
   let amount = app.amount;
   let charges = app.charges;
+  let first_nam
   let final_amount = amount - charges ;
   let user_bank_accountNO = user.account_number;
   let account_holder_name = user.account_holder_name;
   let ifsc_code = user.ifsc_code;
+  
   console.log(user)
   try{
 var data = JSON.stringify({
   "account_number": "2323230032374823",
   "amount": final_amount * 100,
   "currency": "INR",
-  "mode": "NEFT",
+  "mode": "IMPS",
   "purpose": "refund",
   "fund_account": {
     "account_type": "bank_account",
@@ -608,7 +610,7 @@ var data = JSON.stringify({
     "contact": {
       "name": "Gaurav Kumar",
       "email": "gaurav.kumar@example.com",
-      "contact": "9876543210",
+      "contact": phone,
       "type": "vendor",
       "reference_id": "Acme Contact ID 12345",
       "notes": {

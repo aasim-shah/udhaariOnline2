@@ -586,7 +586,8 @@ router.post('/payout' ,tokenauth, async(req , res) => {
   let user = await Usermodel.findOne({ phone: phone });
   let amount = app.amount;
   let charges = app.charges;
-  let first_nam
+  let first_name = user.first_name;
+  let email = user.email;
   let final_amount = amount - charges ;
   let user_bank_accountNO = user.account_number;
   let account_holder_name = user.account_holder_name;
@@ -608,8 +609,8 @@ var data = JSON.stringify({
       "account_number": user_bank_accountNO
     },
     "contact": {
-      "name": "Gaurav Kumar",
-      "email": "gaurav.kumar@example.com",
+      "name": first_name,
+      "email": email,
       "contact": phone,
       "type": "vendor",
       "reference_id": "Acme Contact ID 12345",

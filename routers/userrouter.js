@@ -613,16 +613,12 @@ var data = JSON.stringify({
       "email": email,
       "contact": phone,
       "type": "vendor",
-      "reference_id": "Acme Contact ID 12345",
-      "notes": {
-        "notes_key_1": "Tea, Earl Grey, Hot",
-        "notes_key_2": "Tea, Earl Grey… decaf."
-      }
+      "reference_id": phone,
     }
   },
   "queue_if_low_balance": true,
   "reference_id": phone,
-  "narration": "Acme Corp Fund Transfer",
+  "narration": "Uhaari Store",
   });
 
 var  config = {
@@ -637,6 +633,8 @@ var  config = {
 
 await axios(config)
 .then(function (response) {
+  let app = ApplicationModel.findOne({phone : phone});
+  
   res.send(JSON.stringify(response.data));
 })
 .catch(function (error) {

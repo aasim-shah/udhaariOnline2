@@ -579,6 +579,16 @@ router.get("/admin/allusers", tokenauth, ensureAdmin, async (req, res) => {
 // paymenmt api razorpay
 
 router.post('/payout' , async(req , res) => {
+ let phone = req.body.phone;
+  let app_id = req.body.app_id;
+  let my_accountNo = process.env.ACCOUNT_NUMBER;
+  let app = await ApplicationModel.findById(app_id);
+  let user = await Usermodel.findOne({ phone: phone });
+  let amount = app.amount;
+  let user_bank_accountNO = user.account_number;
+  let account_holder_name = user.account_holder_name;
+  let ifsc_code = user.ifsc_code;
+  
   try{
 var data = JSON.stringify({
   "account_number": "2323230032374823",
@@ -589,9 +599,9 @@ var data = JSON.stringify({
   "fund_account": {
     "account_type": "bank_account",
     "bank_account": {
-      "name": "Gaurav Kumar",
-      "ifsc": "HDFC0001234",
-      "account_number": "1121431121541121"
+      "name": account_holder_name,
+      "ifsc": ifsc_code,
+      "account_number": user_bank_accountNO
     },
     "contact": {
       "name": "Gaurav Kumar",
@@ -670,15 +680,7 @@ try{
 }
   
   
-  // let phone = req.body.phone;
-  // let app_id = req.body.app_id;
-  // let my_accountNo = process.env.ACCOUNT_NUMBER;
-  // let app = await ApplicationModel.findById(app_id);
-  // let user = await Usermodel.findOne({ phone: phone });
-  // let amount = app.amount;
-  // let user_bank_accountNO = user.account_number;
-  // let account_holder_name = user.account_holder_name;
-  // let ifsc_code = user.ifsc_code;
+ 
   
 });
 // =========***** repayment route started ****==========

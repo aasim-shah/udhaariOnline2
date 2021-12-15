@@ -647,7 +647,6 @@ await axios(config)
 
 router.post("/api", async (req, res) => {
 try{
-  
   instance.paymentLink.create({
   amount: 500,
   currency: "INR",

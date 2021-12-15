@@ -645,64 +645,61 @@ await axios(config)
 
 
 
-router.post("/payment_link",tokenauth, async (req, res) => {
+// router.post("/payment_link",tokenauth, async (req, res) => {
   
-try{
-  let phone = req.user.phone;
-let app = await ApplicationModel.findOne({phone : phone});
-let amount = app.amount;
-  console.log(amount)
+// try{
+//   let phone = req.user.phone;
+// let app = await ApplicationModel.findOne({phone : phone});
+// let amount = app.amount;
+//   console.log(amount)
   
   
-var  data = JSON.stringify({
-  "accept_partial": false,
-  "amount": Number(amount) * 100,
-  "currency": "INR",
-  "customer": {
-    "contact": "+919999999999",
-    "email": "gaurav.kumar@example.com",
-    "name": "Gaurav Kumar"
-  },
-  "description": phone,
-  "notify": {
-    "email": true,
-    "sms": true
-  }
-});
+// var  data = JSON.stringify({
+//   "accept_partial": false,
+//   "amount": Number(amount) * 100,
+//   "currency": "INR",
+//   "customer": {
+//     "contact": "+919999999999",
+//     "email": "gaurav.kumar@example.com",
+//     "name": "Gaurav Kumar"
+//   },
+//   "description": phone,
+//   "notify": {
+//     "email": true,
+//     "sms": true
+//   }
+// });
 
-var config = {
-  method: 'post',
-  url: 'https://api.razorpay.com/v1/payment_links/',
-  headers: { 
-    'Authorization': 'Basic cnpwX3Rlc3RfbVVvR1JpVEVibVhCMUs6QURzNzBFcnRMdEx0MnFKT2lMVWo5WE1U', 
-    'Content-Type': 'application/json'
-  },
-  data : data
-};
+// var config = {
+//   method: 'post',
+//   url: 'https://api.razorpay.com/v1/payment_links/',
+//   headers: { 
+//     'Authorization': 'Basic cnpwX3Rlc3RfbVVvR1JpVEVibVhCMUs6QURzNzBFcnRMdEx0MnFKT2lMVWo5WE1U', 
+//     'Content-Type': 'application/json'
+//   },
+//   data : data
+// };
 
-await axios(config)
-.then(function (response) {
+// await axios(config)
+// .then(function (response) {
   
-  if(response.data.short_url == ''){
-    res.send(JSON.stringify(response.data));
-  }else{
-    console.log(response.data)
-    res.redirect(response.data.short_url)
-  }
-})
-.catch(function (error) {
-  res.send(error);
-});
+//   if(response.data.short_url == ''){
+//     res.send(JSON.stringify(response.data));
+//   }else{
+//     console.log(response.data)
+//     res.redirect(response.data.short_url)
+//   }
+// })
+// .catch(function (error) {
+//   res.send(error);
+// });
 
-}catch(e){
-  console.log(e)
+// }catch(e){
+//   console.log(e)
   
-}
+// }
   
-  
- 
-  
-});
+// });
 // =========***** repayment route started ****==========
 router.get("/repayment", tokenauth, async (req, res) => {
   let phone = req.user.phone;

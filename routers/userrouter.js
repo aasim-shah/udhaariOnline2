@@ -592,7 +592,7 @@ router.post('/payout' , async(req , res) => {
   try{
 var data = JSON.stringify({
   "account_number": "2323230032374823",
-  "amount": 1000000,
+  "amount": amount * 100,
   "currency": "INR",
   "mode": "NEFT",
   "purpose": "refund",
@@ -621,10 +621,10 @@ var data = JSON.stringify({
   "notes": {
     "notes_key_1": "Beam me up Scotty",
     "notes_key_2": "Engage"
-  }
-});
+  
+  }});
 
-var config = {
+var  config = {
   method: 'post',
   url: 'https://api.razorpay.com/v1/payouts',
   headers: { 
@@ -634,7 +634,7 @@ var config = {
   data : data
 };
 
-axios(config)
+await axios(config)
 .then(function (response) {
   res.send(JSON.stringify(response.data));
 })

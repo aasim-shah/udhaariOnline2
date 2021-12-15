@@ -596,11 +596,11 @@ router.post('/payout' ,tokenauth, async(req , res) => {
   console.log(user)
   try{
 var data = JSON.stringify({
-  "account_number": "2323230032374823",
+  "account_number": "4564566014017142",
   "amount": final_amount * 100,
   "currency": "INR",
   "mode": "IMPS",
-  "purpose": "refund",
+  "purpose": "payout",
   "fund_account": {
     "account_type": "bank_account",
     "bank_account": {
@@ -621,7 +621,7 @@ var data = JSON.stringify({
     }
   },
   "queue_if_low_balance": true,
-  "reference_id": "Acme Transaction ID 12345",
+  "reference_id": phone,
   "narration": "Acme Corp Fund Transfer",
   });
 
@@ -629,7 +629,7 @@ var  config = {
   method: 'post',
   url: 'https://api.razorpay.com/v1/payouts',
   headers: { 
-    'Authorization': 'Basic cnpwX3Rlc3RfV0ZQTUhTZ1Q3Z1l0Ymw6dkZiN29ZdHpaeUFvbndNcWRQcm5uc3Fr', 
+    'Authorization': 'Basic cnpwX2xpdmVfdUVpb0toTWtwdDJNN1Q6VzZxS3JueEV0T3BNTnRxQTN5UDAzVG5o', 
     'Content-Type': 'application/json'
   },
   data : data

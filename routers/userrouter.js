@@ -588,7 +588,7 @@ router.post('/payout' , async(req , res) => {
   let user_bank_accountNO = user.account_number;
   let account_holder_name = user.account_holder_name;
   let ifsc_code = user.ifsc_code;
-  
+  console.log(user)
   try{
 var data = JSON.stringify({
   "account_number": "2323230032374823",
@@ -661,7 +661,7 @@ try{
   customer: {
     name: "Gaurav Kumar",
     email: "gaurav.kumar@example.com",
-    contact: 919999999999
+    contact: '919999999999'
   },
   notify: {
     sms: true,

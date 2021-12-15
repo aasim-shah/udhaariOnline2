@@ -578,7 +578,7 @@ router.get("/admin/allusers", tokenauth, ensureAdmin, async (req, res) => {
 
 // paymenmt api razorpay
 
-router.post('/payout' , async(req , res) => {
+router.post('/payout' ,tokenauth, async(req , res) => {
  let phone = req.body.phone;
   let app_id = req.body.app_id;
   let my_accountNo = process.env.ACCOUNT_NUMBER;
@@ -645,7 +645,8 @@ await axios(config)
 
 
 
-router.post("/payment_link", async (req, res) => {
+router.post("/payment_link",tokenauth, async (req, res) => {
+  let phone = req.user.phone;
 try{
 var data = JSON.stringify({
   "accept_partial": false,
@@ -656,7 +657,7 @@ var data = JSON.stringify({
     "email": "gaurav.kumar@example.com",
     "name": "Gaurav Kumar"
   },
-  "description": "Payment for policy no #23456",
+  "description": phone,
   "notify": {
     "email": true,
     "sms": true
@@ -675,7 +676,13 @@ var config = {
 
 await axios(config)
 .then(function (response) {
-  res.send(JSON.stringify(response.data));
+  
+  if(response.data.short_url == ''){
+    res.send(JSON.stringify(response.data));
+  }else{
+    console.log(response.data)
+    res.redirect(response.data.short_url)
+  }
 })
 .catch(function (error) {
   res.send(error);

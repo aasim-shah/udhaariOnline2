@@ -478,6 +478,7 @@ router.get(
     let user = await Usermodel.find({ phone: phone });
     let u = user[0];
     console.log(payout_id)
+    console.log(app)
       if(payout_id){
             res.render("viewapproved_app", { app: app, user: u , msg:false , payout : true});
 
@@ -638,7 +639,7 @@ var  config = {
 
 await axios(config)
 .then(async function  (response) {
-  let app = await ApplicationModel.findOne({phone : phone});
+  let app = await ApplicationModel.findOneAndUpdate({phone : phone}, {payout_id : response.data.id});
    let u = await Usermodel.findOne({phone : phone})
   if(app){
     res.render("viewapproved_app", { app: app, user: u , msg : true , payout : true});

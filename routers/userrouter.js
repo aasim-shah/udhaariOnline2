@@ -470,14 +470,14 @@ router.get(
     let id = req.params.id;
     let app = await ApplicationModel.findById(id);
     let applied_date = app.applied_on;
+    let payout_id = app.payout_id;
     let duration = app.duration;
     let day = applied_date.getUTCDay() - 1;
     let month = applied_date.getUTCMonth() + 1;
-    console.log(Number(day) + Number(duration));
     let phone = app.phone;
     let user = await Usermodel.find({ phone: phone });
     let u = user[0];
-    let payout_id = app.payout_id;
+    console.log(payout_id)
       if(payout_id){
             res.render("viewapproved_app", { app: app, user: u , msg:false , payout : true});
 

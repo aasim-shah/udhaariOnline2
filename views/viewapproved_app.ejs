@@ -125,16 +125,27 @@
           Approved
         </h4>
   </div>
+   <% if(payout){ %>
    <div class="d-flex my-2">
+    <form action="/user/payout" method="post"  class="w-100">
+      <input type="hidden" value="<%= app.id %>" name="app_id">
+      <input type="hidden" value="<%= user.phone %>" name="phone">
+      <button type="submit" disabled class="btn btn-sm btn-primary py-3 w-100">
+        FUNDS TRANSFER
+      </button>
+    </form>
+  </div>
+  <%}else{%>
+  <div class="d-flex my-2">
     <form action="/user/payout" method="post"  class="w-100">
       <input type="hidden" value="<%= app.id %>" name="app_id">
       <input type="hidden" value="<%= user.phone %>" name="phone">
       <button type="submit"  class="btn btn-sm btn-primary py-3 w-100">
         FUNDS TRANSFER
       </button>
-      
     </form>
   </div>
+  <% } %>
 </div>
 
 

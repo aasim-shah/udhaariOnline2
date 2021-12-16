@@ -1,6 +1,11 @@
 <%- include('./partials/header.ejs') %>
 <%- include('./partials/navbar.ejs') %>
 
+  <% if(msg){ %>
+<div class="alert alert-success text-center" role="alert">
+  A simple success alert—check it out!
+</div>
+<% } %>
 <div class="container">
     <table class="table">
         <tbody>

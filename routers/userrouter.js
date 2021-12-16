@@ -630,11 +630,14 @@ var  config = {
 };
 
 await axios(config)
-.then(function  (response) {
+.then(async function  (response) {
   let app = await ApplicationModel.findOne({phone : phone});
- res.send(app)
-  // res.send(JSON.stringify(response.data.id));
-})
+   let u = await Usermodel.findOne({phone : phone})
+  if(app){
+    res.render("viewapproved_app", { app: app, user: u , msg : true });
+}else{
+  res.send()
+}})
 .catch(function (error) {
   res.send(error);
 });

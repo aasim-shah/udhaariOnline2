@@ -630,10 +630,10 @@ var  config = {
 };
 
 await axios(config)
-.then(function (response) {
-  let app = ApplicationModel.findOne({phone : phone});
-  console.log(app)
-  res.send(JSON.stringify(response.data));
+.then(function  (response) {
+  let app = await ApplicationModel.findOne({phone : phone});
+ res.send(app)
+  // res.send(JSON.stringify(response.data.id));
 })
 .catch(function (error) {
   res.send(error);

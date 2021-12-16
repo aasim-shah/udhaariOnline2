@@ -477,7 +477,7 @@ router.get(
     let phone = app.phone;
     let user = await Usermodel.find({ phone: phone });
     let u = user[0];
-    res.render("viewapproved_app", { app: app, user: u });
+    res.render("viewapproved_app", { app: app, user: u , msg:false });
   }
 );
 // =========***** admin view user plan status route started ****==========

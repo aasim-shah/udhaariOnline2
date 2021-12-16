@@ -477,7 +477,14 @@ router.get(
     let phone = app.phone;
     let user = await Usermodel.find({ phone: phone });
     let u = user[0];
-    res.render("viewapproved_app", { app: app, user: u , msg:false });
+    let payout_id = app.payout_id;
+      if(payout_id){
+            res.render("viewapproved_app", { app: app, user: u , msg:false , payout : true});
+
+      }else{
+            res.render("viewapproved_app", { app: app, user: u , msg:false , payout :false});
+
+      }
   }
 );
 // =========***** admin view user plan status route started ****==========
@@ -634,7 +641,7 @@ await axios(config)
   let app = await ApplicationModel.findOne({phone : phone});
    let u = await Usermodel.findOne({phone : phone})
   if(app){
-    res.render("viewapproved_app", { app: app, user: u , msg : true });
+    res.render("viewapproved_app", { app: app, user: u , msg : true , payout : true});
 }else{
   res.send()
 }})

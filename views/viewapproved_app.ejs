@@ -113,7 +113,14 @@
             <tr>
                 <td>Applied </td>
                 <td><%= app.applied_on.toString().split('T')[0] %></td>
-            </tr>        
+            </tr>
+             <% if(payout){ %>
+          <tr>
+                <td>Payout ID</td>
+                <td><%= app.payout_id %></td>
+            </tr>     
+            <%}%>
+
             <tr>
                 <td>Repayment date</td>
                 <td><%= app.repayment_date %></td>

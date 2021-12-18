@@ -231,6 +231,7 @@ router.post("/info", tokenauth, cpUpload, async (req, res) => {
       dob: dob,
       address: address,
       state: state,
+      gender : req.body.gender,
       city: city,
       pin_code: pin_code,
       referrence1_name: referrence1_name,

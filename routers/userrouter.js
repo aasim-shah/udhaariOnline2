@@ -213,7 +213,7 @@ router.post("/info", tokenauth, cpUpload, async (req, res) => {
   } = req.body;
   if (req.body.referrence1_name == "" || req.body.referrence2_name == "" || req.body.referrence3_name == "" || req.body.referrence4_name == "" ) {
     res.render("userdata", { alert: "alert", user: req.body });
-  }if (req.body.referrence1_contact == req.body.referrence2_contact ||  req.body.referrence3_contact ==  req.body.referrence4_contact || req.body.referrence2_contact == req.body.referrence3_contact){
+  }if (req.body.referrence1_contact == req.body.referrence2_contact ||  req.body.referrence3_contact ==  req.body.referrence4_contact || req.body.referrence2_contact == req.body.referrence3_contact || req.body.referrence1_contact == req.body.referrence4_contact || req.body.referrence1_contact == req.body.referrence3_contact || req.body.referrence2_contact == req.body.referrence4_contact ){
     res.render("userdata", { alert: "alert", user: req.body });
   }else{
     const userInfo = {

@@ -54,12 +54,16 @@ router.get("/", tokenauth, (req, res) => {
 const otpVerifeid = async function(req, res, next) {
   let userr = await Usermodel.findOne({ phone: req.body.phone });
   console.log("userrr");
-  let verified = userr.verified;
+if(userr){
+    let verified = userr.verified;
   if (verified) {
     return next();
   } else {
     res.render("otp", { reg_user: userr });
   }
+}else{
+  res.redirect('/user/login')
+}
 };
 // otp verification middleware
 

@@ -217,7 +217,8 @@ router.post("/info", tokenauth, cpUpload, async (req, res) => {
   } = req.body;
   if (req.body.referrence1_name == "" || req.body.referrence2_name == "" || req.body.referrence3_name == "" || req.body.referrence4_name == "" ) {
     res.render("userdata", { alert: "alert", user: req.body });
-  }if (req.body.referrence1_contact == req.body.referrence2_contact ||  req.body.referrence3_contact ==  req.body.referrence4_contact || req.body.referrence2_contact == req.body.referrence3_contact || req.body.referrence1_contact == req.body.referrence4_contact || req.body.referrence1_contact == req.body.referrence3_contact || req.body.referrence2_contact == req.body.referrence4_contact ){
+  }else{
+    if (req.body.referrence1_contact == req.body.referrence2_contact ||  req.body.referrence3_contact ==  req.body.referrence4_contact || req.body.referrence2_contact == req.body.referrence3_contact || req.body.referrence1_contact == req.body.referrence4_contact || req.body.referrence1_contact == req.body.referrence3_contact || req.body.referrence2_contact == req.body.referrence4_contact ){
     res.render("userdata", { alert: "same", user: req.body });
   }else{
     const userInfo = {
@@ -245,7 +246,6 @@ router.post("/info", tokenauth, cpUpload, async (req, res) => {
       bank_name: req.body.bank_name,
       account_holder_name: account_holder_name,
       ifsc_code: req.body.ifsc_code,
-      gender: gender,
       account_number: account_number,
       document_id: documnet_id,
       image_1: "/" + req.files["image_1"][0].originalname,
@@ -256,7 +256,7 @@ router.post("/info", tokenauth, cpUpload, async (req, res) => {
     console.log(req.user.id);
     console.log(userinfo);
     res.redirect("/user/package");
-  }
+  }}
 });
 // updating user info post route ends
 

@@ -415,7 +415,7 @@ router.post("/approve", tokenauth, ensureAdmin, async (req, res) => {
   } else {
     res.send("No Enough Funds ");
   }
-  res.redirect("/user/admin");
+  res.redirect("/user/adminApproved");
 });
 
 // rejecting user plan

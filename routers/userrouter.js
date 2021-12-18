@@ -211,7 +211,7 @@ router.post("/info", tokenauth, cpUpload, async (req, res) => {
     account_number,
     documnet_id
   } = req.body;
-  if (req.body.referrence1_name == "" || req.body.referrence2_name == "" ) {
+  if (req.body.referrence1_name == "" || req.body.referrence2_name == "" || req.body.referrence3_name == "" || req.body.referrence4_name == "" ) {
     res.render("userdata", { alert: "alert", user: req.body });
   } else {
     const userInfo = {

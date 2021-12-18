@@ -582,9 +582,9 @@ router.get('/admin/marking' , tokenauth , ensureAdmin , async (req , res)=> {
  let male_user = await Usermodel.find({gender : 'male'})
  let cities = ['pes' , 'kar' , 'swt']
  let city_user = await Usermodel.find({city : {$in : cities}})
- let age_user = await Usermodel.find()
- let age = age_user.dob;
- console.log(age_user)
+ let user = await Usermodel.find()
+ let age = user.dob;
+ console.log(user.dob)
   res.send('okay')
 })
 

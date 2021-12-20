@@ -594,8 +594,11 @@ let theage = parseFloat(ageInYears).toFixed(0);
  let   update_date = await Usermodel.findOneAndUpdate({phone : element.phone},{user_age_points : '10'})
   }
 });
-let cities = ['pesh' , 'swatt' , 'mardan']
-
+let cities = ['Jalgaon' , 'dfsdfsadf' , 'Ratangari ']
+let user_city = await Usermodel.find({city : {$in : cities}})
+user_city.forEach(async item=> {
+  
+} )
  res.send('okay')
  
 });

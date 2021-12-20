@@ -16,6 +16,7 @@ const userSchema = mongoose.Schema({
     user_age_points : String,
     user_city_points : String,
     user_gender_points : String,
+  user_total_points : String,
     gender : String,
     address : String,
     state : {type : String   },

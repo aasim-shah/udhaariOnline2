@@ -601,23 +601,24 @@ user_city.forEach(async item=> {
 })
 let user_gender = await Usermodel.find({gender : 'male'})
 user_gender.forEach(async item=> {
-   let   update_byCity = await Usermodel.findOneAndUpdate({phone : item.phone},{user_gender_points : '10'})
+   let   update_byCity = await Usermodel.findOneAndUpdate({phone : item.phone},{user_gender_points : 10})
 })
   
 let u = await Usermodel.find();
   u.forEach(async item => {
-    if(item.user_age_points){   
+    if(item.user_gender_points){   
+                    let   update_byCity = await Usermodel.findOneAndUpdate({phone : item.phone},{user_total_points : 10})
       if(item.user_city_points){
-     console.log(item.phone)
-        if(item.user_gender_points){
-          console.log(item.phone)
+              let   update_byCity = await Usermodel.findOneAndUpdate({phone : item.phone},{user_total_points : 20})
+        if(item.user_age_points){
+              let   update_byCity = await Usermodel.findOneAndUpdate({phone : item.phone},{user_total_points : 30})
         }
       }
 
   }
   })
   
-  res.render('admin_view_marking')
+ res.send('okkay')
 });
 
 

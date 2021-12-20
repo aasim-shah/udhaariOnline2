@@ -607,16 +607,17 @@ user_gender.forEach(async item=> {
 let u = await Usermodel.find();
   u.forEach(async item => {
     if(item.user_age_points){   
-  let d = item.user_age_points;
       if(item.user_city_points){
-      let e = d + item.user_city_points;
-        console.log(e)
+     console.log(item.phone)
+        if(item.user_gender_points){
+          console.log(item.phone)
+        }
       }
 
   }
   })
   
- res.send('okay')
+  res.render('admin_view_marking')
 });
 
 

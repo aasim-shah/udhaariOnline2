@@ -15,6 +15,7 @@ const userSchema = mongoose.Schema({
     otp : {type: String},
     user_age_points : String,
     user_city_points : String,
+    user_gender_points : String,
     gender : String,
     address : String,
     state : {type : String   },

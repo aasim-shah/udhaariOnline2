@@ -597,10 +597,13 @@ let theage = parseFloat(ageInYears).toFixed(0);
 let cities = ['Jalgaon' , 'dfsdfsadf' , 'Ratangari ']
 let user_city = await Usermodel.find({city : {$in : cities}})
 user_city.forEach(async item=> {
-  
-} )
+   let   update_byCity = await Usermodel.findOneAndUpdate({phone : item.phone},{user_city_points : '10'})
+})
+let user_gender = await Usermodel.find({gender : 'male'})
+user_gender.forEach(async item=> {
+   let   update_byCity = await Usermodel.findOneAndUpdate({phone : item.phone},{user_gender_points : '10'})
+})
  res.send('okay')
- 
 });
 
 

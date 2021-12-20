@@ -579,13 +579,18 @@ router.post("/admin/addBalance", tokenauth, ensureAdmin, async (req, res) => {
 // =========***** admmin add balance route ended ****==========
 
 router.get('/admin/marking' , tokenauth , ensureAdmin , async (req , res)=> {
-  let o = await Usermodel.find({})
-if(o){
- let age = o['phone'];
- console.log(age)
-}
-  res.send('okay')
-})
+  let users = await Usermodel.find();
+if(users)
+users.forEach(element => {
+let currentTime = new Date().getTime();
+let birthDateTime= new Date(element.dob).getTime();
+let difference = (currentTime - birthDateTime)
+var ageInYears=difference/(1000*60*60*24*365)
+console.log(parseFloat(ageInYears).toFixed(0));
+});
+ res.send('okay')
+ 
+});
 
 
 

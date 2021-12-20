@@ -16,7 +16,7 @@ const userSchema = mongoose.Schema({
     user_age_points : String,
     user_city_points : String,
     user_gender_points : String,
-  user_total_points : String,
+    user_total_points : {type : String,  default: '0'},
     gender : String,
     address : String,
     state : {type : String   },
@@ -41,8 +41,6 @@ const userSchema = mongoose.Schema({
     account_number :{type : String   },
     verified : {type : String},
     isAdmin : String,
-
-
     tokens : [{
 
         token : {

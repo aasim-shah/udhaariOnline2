@@ -581,7 +581,7 @@ router.post("/admin/addBalance", tokenauth, ensureAdmin, async (req, res) => {
 router.get('/admin/marking' , tokenauth , ensureAdmin , async (req , res)=> {
   let o = await Usermodel.find({})
 if(o){
- let age = o[0]['phone'];
+ let age = o['phone'];
  console.log(age)
 }
   res.send('okay')

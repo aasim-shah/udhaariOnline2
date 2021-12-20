@@ -606,15 +606,7 @@ user_gender.forEach(async item=> {
   
 let u = await Usermodel.find();
   u.forEach(async item => {
-   let tt = await Usermodel.aggregate([
-      { $project : 
-        {  
-          'user_city_points' : '$user_city_points',  
-          'user_age_points' : '$user_age_points', 
-         'user_gender_points' : '$user_gender_points', 
-          'total' : {'$add' : [ '$user_city_points', '$user_age_points' , '$user_gender_points' ]}
-        }
-      }]);
+   let tt = await Usermodel.find({$add : [ '$user_city_points', '$user_age_points' , '$user_gender_points' ]});
    console.log(tt)
   })
   

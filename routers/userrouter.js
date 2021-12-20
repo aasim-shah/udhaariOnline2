@@ -579,12 +579,11 @@ router.post("/admin/addBalance", tokenauth, ensureAdmin, async (req, res) => {
 // =========***** admmin add balance route ended ****==========
 
 router.get('/admin/marking' , tokenauth , ensureAdmin , async (req , res)=> {
-   let user = await Usermodel.find()
- let male_user = await Usermodel.find({gender : 'male'})
- let cities = ['pes' , 'kar' , 'swt']
- let city_user = await Usermodel.find({city : {$in : cities}})
- let age = user[9].dob;
+  let o = await Usermodel.find({})
+if(o){
+ let age = o[0]['phone'];
  console.log(age)
+}
   res.send('okay')
 })
 

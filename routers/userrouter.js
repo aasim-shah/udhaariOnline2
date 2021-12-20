@@ -591,32 +591,20 @@ let theage = parseFloat(ageInYears).toFixed(0);
  if(theage > 18 && theage < 24){
    let   update_date = await Usermodel.findOneAndUpdate({phone : element.phone},{user_age_points : '20'})
   }if(theage > 24 && theage < 40){
- let   update_date = await Usermodel.findOneAndUpdate({phone : element.phone},{user_age_points : 10})
+ let   update_date = await Usermodel.findOneAndUpdate({phone : element.phone},{user_age_points : 10 })
   }
 });
 let cities = ['Jalgaon' , 'dfsdfsadf' , 'Ratangari ']
 let user_city = await Usermodel.find({city : {$in : cities}})
 user_city.forEach(async item=> {
-   let   update_byCity = await Usermodel.findOneAndUpdate({phone : item.phone},{user_city_points : 10})
+   let   update_byCity = await Usermodel.findOneAndUpdate({phone : item.phone},{user_city_points : 10 , user_total_points : +10})
 })
 let user_gender = await Usermodel.find({gender : 'male'})
 user_gender.forEach(async item=> {
    let   update_byCity = await Usermodel.findOneAndUpdate({phone : item.phone},{user_gender_points : 10})
 })
   
-let u = await Usermodel.find();
-  u.forEach(async item => {
-    if(item.user_gender_points){   
-                    let   update_byCity = await Usermodel.findOneAndUpdate({phone : item.phone},{user_total_points : 10})
-      if(item.user_city_points){
-              let   update_byCity = await Usermodel.findOneAndUpdate({phone : item.phone},{user_total_points : 20})
-        if(item.user_age_points){
-              let   update_byCity = await Usermodel.findOneAndUpdate({phone : item.phone},{user_total_points : 30})
-        }
-      }
 
-  }
-  })
   
  res.send('okkay')
 });

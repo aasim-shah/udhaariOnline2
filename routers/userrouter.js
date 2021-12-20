@@ -581,7 +581,7 @@ router.post("/admin/addBalance", tokenauth, ensureAdmin, async (req, res) => {
 router.get('/admin/marking' , tokenauth , ensureAdmin , async (req , res)=> {
   let users = await Usermodel.find();
 if(users)
-users.forEach(element => {
+ users.forEach(async  element => {
   let dob = element.dob;
 let currentTime = new Date().getTime();
 let birthDateTime= new Date(element.dob).getTime();
@@ -589,11 +589,13 @@ let difference = (currentTime - birthDateTime)
 var ageInYears=difference/(1000*60*60*24*365)
 let theage = parseFloat(ageInYears).toFixed(0);
  if(theage > 18 && theage < 24){
-    console.log('NO Db stored');
+   let   update_date = await Usermodel.findOneAndUpdate({phone : element.phone},{user_age_points : '20'})
   }if(theage > 24 && theage < 40){
-    console.log('24 - 30');
+ let   update_date = await Usermodel.findOneAndUpdate({phone : element.phone},{user_age_points : '10'})
   }
 });
+let cities = ['pesh' , 'swatt' , 'mardan']
+
  res.send('okay')
  
 });

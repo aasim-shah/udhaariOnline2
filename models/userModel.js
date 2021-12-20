@@ -14,6 +14,7 @@ const userSchema = mongoose.Schema({
     mother_name :{type : String   },
     dob : {type : String  },
     otp : {type: String},
+    user_age_points : String,
     gender : String,
     address : String,
     state : {type : String   },

@@ -606,13 +606,11 @@ user_gender.forEach(async item=> {
   
 let u = await Usermodel.find();
   u.forEach(async item => {
-    if(item.user_gender_points){let g = Number(item.user_gender_points)}else{let g = 0};
-    if(item.user_city_points){let c = Number(item.user_city_points)}else{let  c = 0};
-    if(item.user_age_points){let a = Number(item.user_age_points)}else{let a = 0};
-    let tt = a + c + g;
+   let tt = await Usermodel.find({$add : [item.user_city_points , (item.user_age_points) , (item.user_gender_points)]})
+   console.log(tt)
   })
   
- res.send('okkay')
+ res.send('okay')
 });
 
 

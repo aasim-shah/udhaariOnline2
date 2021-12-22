@@ -543,7 +543,7 @@ let image = user.image_1;
 const img = "https://tesseract.projectnaptha.com/img/eng_bw.png"
 if(image){
 Tesseract.recognize(
-  'https://tesseract.projectnaptha.com/img/eng_bw.png',
+  'uploads/'+image,
   'eng',
   { logger: m => console.log(m) }
 ).then(({ data: { text } }) => {

@@ -589,7 +589,7 @@ let difference = (currentTime - birthDateTime)
 var ageInYears=difference/(1000*60*60*24*365)
 let theage = parseFloat(ageInYears).toFixed(0);
  if(theage > 18 && theage < 24){
-   let   update_date = await Usermodel.findOneAndUpdate({phone : element.phone},{user_age_points : '20'})
+   let   update_date = await Usermodel.findOneAndUpdate({phone : element.phone},{user_age_points : 20})
   }if(theage > 24 && theage < 40){
  let   update_date = await Usermodel.findOneAndUpdate({phone : element.phone},{user_age_points : 10})
   }

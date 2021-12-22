@@ -540,8 +540,8 @@ router.get('/image' ,tokenauth , async(req ,res) => {
 let user = await Usermodel.findOne({phone : phone})
 let image = user.image_1;
 const img = "https://tesseract.projectnaptha.com/img/eng_bw.png"
-
-  tesseract
+if(image){
+ await tesseract
   .recognize(image , config)
   .then((text) => {
  res.send( text)
@@ -549,7 +549,7 @@ const img = "https://tesseract.projectnaptha.com/img/eng_bw.png"
   .catch((error) => {
     res.send(error.message)
   })
-
+}
 })
 
 // =========***** admin fetch according to plan status  route started ****==========

@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require("express");
 const conn = require("../db/conn");
+const tesseract = require("node-tesseract-ocr")
 const bcrpyt = require("bcrypt");
 const passport = require("passport");
 const local = require("../passport/passportconfig");
@@ -525,6 +526,25 @@ router.get("/approvedapp", tokenauth, async (req, res) => {
 
 // =========***** user landing according to plan status route ended ****==========
 
+
+const config = {
+  lang: "eng",
+  oem: 1,
+  psm: 3,
+}
+router.get('/image' , async(req ,res) => {
+  const img = "https://tesseract.projectnaptha.com/img/eng_bw.png"
+
+tesseract
+  .recognize(img, config)
+  .then((text) => {
+  res.send("Result:", text)
+  })
+  .catch((error) => {
+    res.send(error.message)
+  })
+  
+})
 
 
 

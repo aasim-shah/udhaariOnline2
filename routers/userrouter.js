@@ -610,15 +610,8 @@ if(users)
     let total = await Usermodel.findOneAndUpdate({phone : element.phone},{user_total_points : marks})
    })
     
-res.redirect('/user/admin/marked')
+res.redirect('back')
 });
-
- router.get('/admin/marked' ,tokenauth, ensureAdmin , async(req , res)=> {
- 
-   
-   
-  res.send('kkkk')
- });
 
 
 

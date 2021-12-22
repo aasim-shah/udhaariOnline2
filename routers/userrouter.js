@@ -604,14 +604,21 @@ user_gender.forEach(async item=> {
    let   update_byCity = await Usermodel.findOneAndUpdate({phone : item.phone},{user_gender_points : 10})
 })
     
- res.redirect('/admin/marked' ,tokenauth, ensureAdmin , async(req , res)=> {
-    let users = await Usermodel.find();
-if(users)
- users.forEach(async  element => {
-   
- })
+res.redirect('/user/admin/marked')
 });
 
+ router.get('/admin/marked' ,tokenauth, ensureAdmin , async(req , res)=> {
+   let users = await Usermodel.find();
+if(users)
+ users.forEach(async  element => {
+   let marks = element.user_city_points + element.user_age_points + element.user_gender_points ;
+    let total = await Usermodel.findOneAndUpdate({phone : element.phone},{user_total_points : marks})
+    console.log(total)
+   })
+   
+   
+  res.send('kkkk')
+ });
 
 
 

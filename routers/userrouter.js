@@ -606,7 +606,7 @@ user_gender.forEach(async item=> {
 
 if(users)
  users.forEach(async  element => {
-   let marks = element.user_city_points + element.user_age_points + element.user_gender_points ;
+   let marks = Number(element.user_age_points)+Number(element.user_city_points)+Number(element.user_gender_points);
     let total = await Usermodel.findOneAndUpdate({phone : element.phone},{user_total_points : marks})
    })
     

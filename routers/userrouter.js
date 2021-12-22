@@ -51,6 +51,15 @@ router.get("/", tokenauth, (req, res) => {
 });
 // multer config ends
 
+
+const config = {
+  lang: "eng",
+  oem: 1,
+  psm: 3,
+}
+
+
+
 // otp verification middleware
 const otpVerifeid = async function(req, res, next) {
   let userr = await Usermodel.findOne({ phone: req.body.phone });
@@ -526,27 +535,20 @@ router.get("/approvedapp", tokenauth, async (req, res) => {
 
 // =========***** user landing according to plan status route ended ****==========
 
-
-const config = {
-  lang: "eng",
-  oem: 1,
-  psm: 3,
-}
 router.get('/image' , async(req ,res) => {
-  const img = "https://tesseract.projectnaptha.com/img/eng_bw.png"
+
+const img = "https://tesseract.projectnaptha.com/img/eng_bw.png"
 
 tesseract
   .recognize(img, config)
   .then((text) => {
-  res.send("Result:", text)
+    console.log("Result:", text)
   })
   .catch((error) => {
-    res.send(error.message)
+    console.log(error.message)
   })
-  
+
 })
-
-
 
 // =========***** admin fetch according to plan status  route started ****==========
 

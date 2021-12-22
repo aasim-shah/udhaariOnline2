@@ -535,17 +535,19 @@ router.get("/approvedapp", tokenauth, async (req, res) => {
 
 // =========***** user landing according to plan status route ended ****==========
 
-router.get('/image' , async(req ,res) => {
-
+router.get('/image' ,tokenauth , async(req ,res) => {
+  let phone = req.user.phone;
+let user = await Usermodel.findOne({phone : phone})
+let image = user.image_1;
 const img = "https://tesseract.projectnaptha.com/img/eng_bw.png"
 
-tesseract
-  .recognize(img, config)
+  tesseract
+  .recognize(image , config)
   .then((text) => {
-    console.log("Result:", text)
+ res.send( text)
   })
   .catch((error) => {
-    console.log(error.message)
+    res.send(error.message)
   })
 
 })

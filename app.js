@@ -1,6 +1,8 @@
 require('dotenv').config()
 const express = require('express')
 const conn = require('./db/conn')
+const tesseract = require("node-tesseract-ocr")
+
 const Usermodel = require('./models/userModel')
 const Planmodel = require('./models/applicationModel')
 const userRouter = require('./routers/userrouter')

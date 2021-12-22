@@ -547,9 +547,11 @@ Tesseract.recognize(
   'eng',
   { logger: m => console.log(m) }
 ).then(({ data: { text } }) => {
- res.send(text);
+ res.redirect('/')
 })
 }
+  
+  res.send('oka')
 })
 
 // =========***** admin fetch according to plan status  route started ****==========

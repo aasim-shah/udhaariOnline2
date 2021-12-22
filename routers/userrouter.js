@@ -603,17 +603,13 @@ let user_gender = await Usermodel.find({gender : 'male'})
 user_gender.forEach(async item=> {
    let   update_byCity = await Usermodel.findOneAndUpdate({phone : item.phone},{user_gender_points : 10})
 })
-  
-let u = await Usermodel.find();
-  u.forEach(async item => {
-   let tt = await Usermodel.updateMany(
-     {_id : item._id},[
-   { $set: { user_total_points : { $add : [ "$user_gender_points", "$user_age_points" , "$user_city_points"] } } }
-])
-   console.log(tt)
-  })
-  
- res.send('okay')
+    
+ res.redirect('/admin/marked' ,tokenauth, ensureAdmin , async(req , res)=> {
+    let users = await Usermodel.find();
+if(users)
+ users.forEach(async  element => {
+   
+ })
 });
 
 

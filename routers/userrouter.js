@@ -1,8 +1,7 @@
 require('dotenv').config()
 const express = require("express");
 const conn = require("../db/conn");
-const tesseract = require("node-tesseract-ocr")
-const Tesseract = require('tesseract.js')
+
 const bcrpyt = require("bcrypt");
 const passport = require("passport");
 const local = require("../passport/passportconfig");
@@ -51,13 +50,6 @@ router.get("/", tokenauth, (req, res) => {
   console.log("hahha");
 });
 // multer config ends
-
-
-const config = {
-  lang: "eng",
-  oem: 1,
-  psm: 3,
-}
 
 
 
@@ -536,22 +528,6 @@ router.get("/approvedapp", tokenauth, async (req, res) => {
 
 // =========***** user landing according to plan status route ended ****==========
 
-router.get('/image' ,tokenauth , async(req ,res) => {
-  let phone = req.user.phone;
-let user = await Usermodel.findOne({phone : phone})
-let image = user.image_1;
-const img = "https://tesseract.projectnaptha.com/img/eng_bw.png"
-if(image){
-Tesseract.recognize(
- image,
-  'eng',
-  { logger: m => console.log(m) }
-).then(({ data: { text } }) => {
-  console.log(text);
-})
-}
-  res.send('ahhha')
-})
 
 // =========***** admin fetch according to plan status  route started ****==========
 

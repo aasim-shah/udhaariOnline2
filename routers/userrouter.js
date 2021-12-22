@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require("express");
 const conn = require("../db/conn");
 const tesseract = require("node-tesseract-ocr")
+const Tesseract = require('tesseract.js')
 const bcrpyt = require("bcrypt");
 const passport = require("passport");
 const local = require("../passport/passportconfig");
@@ -541,14 +542,13 @@ let user = await Usermodel.findOne({phone : phone})
 let image = user.image_1;
 const img = "https://tesseract.projectnaptha.com/img/eng_bw.png"
 if(image){
- await tesseract
-  .recognize(image , config)
-  .then((text) => {
- res.send( text)
-  })
-  .catch((error) => {
-    res.send(error.message)
-  })
+Tesseract.recognize(
+  'https://tesseract.projectnaptha.com/img/eng_bw.png',
+  'eng',
+  { logger: m => console.log(m) }
+).then(({ data: { text } }) => {
+ res.send(text);
+})
 }
 })
 

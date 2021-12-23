@@ -402,15 +402,33 @@ router.post('/investors' ,tokenauth, async(req , res) => {
   res.render('investors_landing')
 })
 
-router.get('/admin/investors' , async(req , res) => {
-  res.render('handle_investors')
+router.get('/approve/investor/:id' , tokenauth , ensureAdmin , async(req ,res ) => {
+  const id = req.params.id
+  const investor = await InvestorsModel.findByIdAndUpdate(id , {
+    status : 'approved'
+  })
+  console.log(investor)
+ res.redirect('/user/admin/investors')
 })
+
+
+router.get('/reject/investor/:id' , tokenauth , ensureAdmin , async(req ,res ) => {
+  const id = req.params.id
+  const investor = await InvestorsModel.findByIdAndUpdate(id , {
+    status : 'rejected'
+  })
+  console.log(investor)
+ res.redirect('/user/admin/investors')
+})
+
 
 
 // investrors admin side 
 
 router.get('/admin/investors' , tokenauth , ensureAdmin , async(req ,res ) => {
-  res.render('admininvestors')
+  const investors = await InvestorsModel.find()
+  
+  res.render('admininvestors' , {investors })
 })
 // investrors admin side 
 

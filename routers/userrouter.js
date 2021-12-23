@@ -77,7 +77,7 @@ var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'asimshah8110@gmail.com',
-    pass: 'Noob@developer'
+    pass: 'something'
   }
 });
 
@@ -135,20 +135,21 @@ router.get("/register", (req, res) => {
 router.post("/register", async (req, res) => {
   let password = req.body.password;
   let cpassword = req.body.cpassword;
+  let ref_code = req.body.ref_code;
   if (password === cpassword) {
     let encpassword = await bcrpyt.hash(password, 10);
+    let ref_matched = await Usermodel.findOne({ref_code : ref_code})
+    console.log(ref_matched)
     const user = new Usermodel({
       phone: req.body.phone,
       password: encpassword
     });
     const registered_user = await Usermodel.findOne({ phone: req.body.phone });
-    console.log(registered_user);
     const userregistered = await user.save();
     if (registered_user) {
       res.redirect("/user/login");
     } else {
       const regtoken = await user.authuser();
-      console.log(userregistered);
       res.render("otp", { reg_user: userregistered });
     }
   } else {
@@ -380,9 +381,8 @@ router.post("/sign", tokenauth, async (req, res) => {
 };
    await transporter.sendMail(mailOptions, function(error, info){
   if (error) {
-  console.log('last errror')
+  console.log(error)
   } else {
-    
     console.log('Email sent: ' + info.response);
   }
 });
@@ -495,7 +495,6 @@ res.render('adminregister_agent' , {msg : true})
 
 
 router.get('/agent/dashboard' , tokenauth, isAgent ,async(req , res) =>{
-  console.log(rand)
  res.render('agent_dashboard') 
 })
 

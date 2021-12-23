@@ -470,7 +470,7 @@ router.get('/admin/create/agent' , tokenauth , ensureAdmin , async(req ,res) => 
 router.post('/admin/create/agent' , tokenauth , ensureAdmin , async(req ,res) => {
   const pass = req.body.password;
  let encpassword = await bcrpyt.hash(pass, 10);
- let rand = await cryptoRandomInt(111111 , 9999999);
+ let rand = await cryptoRandomInt(111111, 999999);
   const data = new Usermodel({
     first_name : req.body.name,
     phone : req.body.phone,

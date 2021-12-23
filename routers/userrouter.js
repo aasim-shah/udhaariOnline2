@@ -88,7 +88,7 @@ const isInvestor = function(req, res, next) {
       console.log("isInvestor");
       return next();
     } else {
-      console.log("not admin");
+      console.log("not investor");
       res.redirect("/");
     }
   }
@@ -381,7 +381,7 @@ router.post("/sign", tokenauth, async (req, res) => {
 
 
 // investors route 
-router.get('/investors' ,tokenauth, async(req , res) => {
+router.get('/investors' ,tokenauth, isInvestor,  async(req , res) => {
   res.render('investors_landing' )
 })
 
@@ -403,10 +403,12 @@ router.post('/investors' ,tokenauth, async(req , res) => {
 })
 
 router.get('/approve/investor/:id' , tokenauth , ensureAdmin , async(req ,res ) => {
-  const id = req.params.id
+  const id = req.params.id;
+  const phone = req.user.phone;
   const investor = await InvestorsModel.findByIdAndUpdate(id , {
     status : 'approved'
   })
+  const approved_investor = await Usermodel.findOneAndUpdate({phone : phone}, {inInvestor : true})
   console.log(investor)
  res.redirect('/user/admin/investors')
 })
@@ -431,6 +433,11 @@ router.get('/admin/investors' , tokenauth , ensureAdmin , async(req ,res ) => {
   res.render('admininvestors' , {investors })
 })
 // investrors admin side 
+
+
+// investors dashboarad
+router.get('/investor/dashboard' , )
+// investors dashboarad
 
 
 

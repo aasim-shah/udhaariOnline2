@@ -448,11 +448,28 @@ router.get('/investor/dashboard' , tokenauth, isInvestor ,async(req , res) =>{
 
 // agent routes 
 router.get('/admin/create/agent' , tokenauth , ensureAdmin , async(req ,res) => {
-  res.render('adminregister_agent')
+  res.render('adminregister_agent' , {msg : false})
 })
 
 router.post('/admin/create/agent' , tokenauth , ensureAdmin , async(req ,res) => {
-  res.render('adminregister_agent')
+  const pass = req.body.password;
+ let encpassword = await bcrpyt.hash(pass, 10);
+  const data = new Usermodel({
+    first_name : req.body.name,
+    phone : req.body.phone,
+    email : req.body.email,
+    password : encpassword,
+    agent_role : req.body.agent_role,
+    verified : 'true',
+    isAgent : 'true',
+  })
+  const agent_created = await data.save()
+  if(agent_created){
+    console.log(data)
+  }else{
+      console.log('failed to create agent')
+  }
+res.render('adminregister_agent' , {msg : true})
 })
 
 

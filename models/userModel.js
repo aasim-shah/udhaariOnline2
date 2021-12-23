@@ -40,8 +40,11 @@ const userSchema = mongoose.Schema({
     ifsc_code :{type : String },
     account_number :{type : String   },
     verified : {type : String},
+  agent_role : String,
     isAdmin : String,
-    isInvestor : String,
+    isInvestor : String,    
+    isAgent : String,
+
     tokens : [{
 
         token : {

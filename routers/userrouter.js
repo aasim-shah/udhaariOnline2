@@ -516,7 +516,7 @@ router.get("/agentApproved", tokenauth, isAgent, async (req, res) => {
     const phone = req.user.phone;
   const agent = await Usermodel.findOne({phone : phone})
   const ref_code = agent.ref_code;
-     let approved = await ApplicationModel.count({ $and : [{ref_code: ref_code }, { application_status : 'approved'}]});
+     let approved = await ApplicationModel.find({ $and : [{ref_code: ref_code }, { application_status : 'approved'}]});
   res.render("agent_approved", { apps: approved });
 });
 
@@ -525,7 +525,7 @@ router.get("/agentRejected", tokenauth, isAgent, async (req, res) => {
     const phone = req.user.phone;
   const agent = await Usermodel.findOne({phone : phone})
   const ref_code = agent.ref_code;
-     let rejected = await ApplicationModel.count({ $and : [{ref_code: ref_code }, { application_status : 'rejected'}]});
+     let rejected = await ApplicationModel.find({ $and : [{ref_code: ref_code }, { application_status : 'rejected'}]});
   res.render("agent_rejected", { apps: rejected });
 });
 

@@ -145,12 +145,16 @@ router.post("/register", async (req, res) => {
       password: encpassword
     });
     const registered_user = await Usermodel.findOne({ phone: req.body.phone });
-    const userregistered = await user.save();
     if (registered_user) {
       res.redirect("/user/login");
     } else {
+    if(ref_matched){
+          const userregistered = await user.save();
       const regtoken = await user.authuser();
       res.render("otp", { reg_user: userregistered });
+    }else{
+      res.redirect('back')
+    }
     }
   } else {
     console.log("cpas doesnt matches");

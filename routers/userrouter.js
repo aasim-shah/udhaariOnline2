@@ -379,7 +379,16 @@ router.post("/sign", tokenauth, async (req, res) => {
 
 
 // investors route 
-router.get('/investors' , async(req , res) => {
+router.get('/investors' ,tokenauth, async(req , res) => {
+  const phone  = req.user.phone;
+  const user = await Usermodel.findOne({phone : phone})
+  console.log(user.phone)
+  res.render('investors_landing' , {user : user})
+})
+
+
+router.post('/investors' ,tokenauth, async(req , res) => {
+  let phone = 
   res.render('investors_landing')
 })
 

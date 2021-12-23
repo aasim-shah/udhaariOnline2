@@ -19,13 +19,13 @@
 </div>
   <div class="container my-3 col-12 col-sm-12 col-md-5">
     <div class="d-flex justify-content-center">
-    <div class="reqcard mx-2 text-light w-50 text-center rounded py-3 px-2 bg-dark"><a href="/user/adminPending" class="text-light text-decoration-none">
+    <div class="reqcard mx-2 text-light w-50 text-center rounded py-3 px-2 bg-dark"><a href="/user/agentApproved" class="text-light text-decoration-none">
             <p class="card-title">Approved </p>
             <h2><%= approved %></h2></a>
         </div>
-        <div class="reqcard text-light mx-2 w-50 text-center py-3 px-1 rounded bg-dark"><a href="" class="text-light text-decoration-none">
+        <div class="reqcard text-light mx-2 w-50 text-center py-3 px-1 rounded bg-dark"><a href="/user/agentRejected" class="text-light text-decoration-none">
             <p class="card-title">Rejected </p>
-           <h2></h2></a>
+           <h2><%=  rejected %></h2></a>
       </div>
     </div>
 </div>

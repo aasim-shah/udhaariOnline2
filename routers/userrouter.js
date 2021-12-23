@@ -504,11 +504,31 @@ router.get('/agent/dashboard' , tokenauth, isAgent ,async(req , res) =>{
   const agent = await Usermodel.findOne({phone : phone})
   const ref_code = agent.ref_code;
    
-    let approved = await ApplicationModel.count({
-    ref_code: ref_code} );
+    let approved = await ApplicationModel.count({ $and : [{ref_code: ref_code }, { application_status : 'approved'}]});
+      let rejected = await ApplicationModel.count({ $and : [{ref_code: ref_code }, { application_status : 'rejected'}]});
 
- res.render('agent_dashboard' , {user : agent , approved : approved}) 
-} )
+
+ res.render('agent_dashboard' , {user : agent , approved , rejected }) 
+})
+
+
+router.get("/agentApproved", tokenauth, isAgent, async (req, res) => {
+    const phone = req.user.phone;
+  const agent = await Usermodel.findOne({phone : phone})
+  const ref_code = agent.ref_code;
+     let approved = await ApplicationModel.count({ $and : [{ref_code: ref_code }, { application_status : 'approved'}]});
+  res.render("agent_approved", { apps: approved });
+});
+
+
+router.get("/agentRejected", tokenauth, isAgent, async (req, res) => {
+    const phone = req.user.phone;
+  const agent = await Usermodel.findOne({phone : phone})
+  const ref_code = agent.ref_code;
+     let rejected = await ApplicationModel.count({ $and : [{ref_code: ref_code }, { application_status : 'rejected'}]});
+  res.render("agent_rejected", { apps: rejected });
+});
+
 
 // agent routes 
 

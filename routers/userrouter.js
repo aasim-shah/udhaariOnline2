@@ -16,6 +16,8 @@ const Usermodel = require("../models/userModel");
 const AdmindataModel = require("../models/adminModel");
 const PaymentModel = require("../models/paymentModel");
 const ApplicationModel = require("../models/applicationModel");
+const InvestorsModel = require("../models/investorsmodel");
+
 const Notifications = require("../models/notificationsModel");
 const nodemailer = require("nodemailer");
 const btoa = require('btoa')
@@ -380,15 +382,23 @@ router.post("/sign", tokenauth, async (req, res) => {
 
 // investors route 
 router.get('/investors' ,tokenauth, async(req , res) => {
-  const phone  = req.user.phone;
-  const user = await Usermodel.findOne({phone : phone})
-  console.log(user.phone)
-  res.render('investors_landing' , {user : user})
+  res.render('investors_landing' )
 })
 
 
 router.post('/investors' ,tokenauth, async(req , res) => {
-  let phone = 
+  let phone = req.user.phone;
+  let investor = new InvestorsModel({
+    phone : phone,
+    status : 'pending'
+  })
+  
+  const investor_saved = await investor.save()
+  if(investor_saved){
+    console.log('saveed')
+  }else{
+    console.log('failed to save investor')
+  }
   res.render('investors_landing')
 })
 
@@ -397,7 +407,19 @@ router.get('/admin/investors' , async(req , res) => {
 })
 
 
+// investrors admin side 
+
+router.get('/admin/investors' , tokenauth , ensureAdmin , async(req ,res ) => {
+  res.render('admininvestors')
+})
+// investrors admin side 
+
+
+
 // investors route 
+
+
+
 
 
 

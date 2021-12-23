@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require("express");
 const conn = require("../db/conn");
+const cryptoRandomInt = require("crypto-random-int");
 
 const bcrpyt = require("bcrypt");
 const passport = require("passport");
@@ -469,12 +470,14 @@ router.get('/admin/create/agent' , tokenauth , ensureAdmin , async(req ,res) => 
 router.post('/admin/create/agent' , tokenauth , ensureAdmin , async(req ,res) => {
   const pass = req.body.password;
  let encpassword = await bcrpyt.hash(pass, 10);
+ let rand = await cryptoRandomInt(111111 , 9999999);
   const data = new Usermodel({
     first_name : req.body.name,
     phone : req.body.phone,
     email : req.body.email,
     password : encpassword,
-    agent_role : req.body.agent_role,
+    agent_role : req.body.agent_role ,
+    ref_code : 'UDHAARI'+rand,
     verified : 'true',
     isAgent : 'true',
   })
@@ -489,6 +492,7 @@ res.render('adminregister_agent' , {msg : true})
 
 
 router.get('/agent/dashboard' , tokenauth, isAgent ,async(req , res) =>{
+  console.log(rand)
  res.render('agent_dashboard') 
 })
 

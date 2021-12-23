@@ -1,0 +1,24 @@
+<%- include('./partials/header.ejs') %>
+<%- include('./partials/navbar.ejs') %>
+<style>
+  body{
+    background: rgba(2, 0, 36, 0.568);
+  background: linear-gradient(90deg, rgba(91, 88, 139, 0.479) 0%, rgba(9, 9, 121, 0.445) 35%, rgba(0, 213, 255, 0.438) 100%);}
+  
+  .main{
+    margin-top:30%;
+  }
+</style>
+<div class="container main" >
+    <div class="col-10 col-md-7 mx-auto">
+        <form action="/user/register" method="post">
+             <input type="text" name="name" id="" placeholder="Name" class="form-control mt-2" required>
+            <input type="text" name="bank_name" id="" placeholder="Bank Name" class="form-control mt-2" maxlength="10"  minlength="8" required>
+            <input type="text" name="ifsc_code" id="" placeholder="Ifsc Code" class="form-control mt-2" required>
+            <input type="text" name="account_number" id="" placeholder="Account Number" class="form-control mt-2" required>            
+            <div class="d-flex justify-content-center mt-3">  <button type="submit" class="btn btn-sm btn-success w-100 py-2" style="font-weight:600;">REGISTER</button>
+            </div>
+        </form>
+    </div>
+</div>
+<%- include('./partials/footer.ejs') %>

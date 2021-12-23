@@ -530,6 +530,11 @@ router.get("/agentRejected", tokenauth, isAgent, async (req, res) => {
 });
 
 
+
+
+router.get('/agent/payout' , tokenauth , isAgent , async (req , res) => {
+  res.render('agent_payout')
+})
 // agent routes 
 
 

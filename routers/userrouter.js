@@ -499,10 +499,16 @@ res.render('adminregister_agent' , {msg : true})
 
 
 router.get('/agent/dashboard' , tokenauth, isAgent ,async(req , res) =>{
+ 
   const phone = req.user.phone;
   const agent = await Usermodel.findOne({phone : phone})
- res.render('agent_dashboard' , {user : agent}) 
-})
+  const ref_code = agent.ref_code;
+   
+    let approved = await ApplicationModel.count({
+    ref_code: ref_code} );
+
+ res.render('agent_dashboard' , {user : agent , approved : approved}) 
+} )
 
 // agent routes 
 

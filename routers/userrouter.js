@@ -381,7 +381,7 @@ router.post("/sign", tokenauth, async (req, res) => {
 
 
 // investors route 
-router.get('/investors' ,tokenauth, isInvestor,  async(req , res) => {
+router.get('/investors' ,tokenauth,   async(req , res) => {
   res.render('investors_landing' )
 })
 
@@ -408,7 +408,7 @@ router.get('/approve/investor/:id' , tokenauth , ensureAdmin , async(req ,res ) 
   const investor = await InvestorsModel.findByIdAndUpdate(id , {
     status : 'approved'
   })
-  const approved_investor = await Usermodel.findOneAndUpdate({phone : phone}, {inInvestor : true})
+  const approved_investor = await Usermodel.findOneAndUpdate({phone : phone}, {isInvestor : 'true'})
   console.log(investor)
  res.redirect('/user/admin/investors')
 })
@@ -436,7 +436,9 @@ router.get('/admin/investors' , tokenauth , ensureAdmin , async(req ,res ) => {
 
 
 // investors dashboarad
-router.get('/investor/dashboard' , )
+router.get('/investor/dashboard' , tokenauth, isInvestor ,async(req , res) =>{
+ res.render('investor_dashboard') 
+})
 // investors dashboarad
 
 

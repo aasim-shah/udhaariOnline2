@@ -446,7 +446,18 @@ router.get('/investor/dashboard' , tokenauth, isInvestor ,async(req , res) =>{
 // investors route 
 
 
+// agent routes 
+router.get('/admin/create/agent' , tokenauth , ensureAdmin , async(req ,res) => {
+  res.render('adminregister_agent')
+})
 
+router.post('/admin/create/agent' , tokenauth , ensureAdmin , async(req ,res) => {
+  res.render('adminregister_agent')
+})
+
+
+
+// agent routes 
 
 
 

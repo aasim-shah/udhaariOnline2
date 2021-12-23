@@ -11,13 +11,15 @@
 </style>
 <div class="container main" >
     <div class="col-10 col-md-7 mx-auto">
-      <% if()
+      <% if(msg){%>
+        <div class="alert alert-success" role="alert">Agent Created Successfuly   </div>
+      <% }%>
         <form action="/user/admin/create/agent" method="post">
-            <input type="text" name="name" id="" placeholder="Name " class="form-control mt-2" >
-            <input type="text" name="phone" id="" placeholder="Phone" class="form-control mt-2" maxlength="10"  minlength="8">
+            <input type="text" name="name" id="" placeholder="Name " class="form-control mt-2"  required>
+            <input type="text" name="phone" id="" placeholder="Phone" class="form-control mt-2" maxlength="10"  minlength="8" required>
              <input type="email" name="email" id="" placeholder="Email" class="form-control mt-2" >
             <input type="text" name="agent_role" id="" placeholder="Agent Role" class="form-control mt-2" >
-            <input type="password" name="password" id="" placeholder="Password" class="form-control mt-2" >
+            <input type="password" name="password" id="" placeholder="Password" class="form-control mt-2" required>
                       
             <div class="d-flex justify-content-center mt-3">  <button type="submit" class="btn btn-sm btn-success w-100 py-2" style="font-weight:600;">REGISTER</button>
             </div>

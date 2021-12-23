@@ -95,6 +95,21 @@ const isInvestor = function(req, res, next) {
 };
 
 
+
+const isAgent = function(req, res, next) {
+  if (req.isAuthenticated()) {
+    if (req.user.isAgent) {
+      console.log("isAgent");
+      return next();
+    } else {
+      console.log("not investor");
+      res.redirect("/");
+    }
+  }
+};
+
+
+
 // confirming admin middleware
 const ensureAdmin = function(req, res, next) {
   if (req.isAuthenticated()) {
@@ -473,6 +488,9 @@ res.render('adminregister_agent' , {msg : true})
 })
 
 
+router.get('/agent/dashboard' , tokenauth, isAgent ,async(req , res) =>{
+ res.render('agent_dashboard') 
+})
 
 // agent routes 
 

@@ -41,6 +41,7 @@ const userSchema = mongoose.Schema({
     account_number :{type : String   },
     verified : {type : String},
     isAdmin : String,
+    isInvestor : String,
     tokens : [{
 
         token : {

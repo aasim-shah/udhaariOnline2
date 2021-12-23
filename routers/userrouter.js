@@ -79,6 +79,20 @@ var transporter = nodemailer.createTransport({
 });
 
 
+
+const isInvestor = function(req, res, next) {
+  if (req.isAuthenticated()) {
+    if (req.user.isInvestor) {
+      console.log("isInvestor");
+      return next();
+    } else {
+      console.log("not admin");
+      res.redirect("/");
+    }
+  }
+};
+
+
 // confirming admin middleware
 const ensureAdmin = function(req, res, next) {
   if (req.isAuthenticated()) {
@@ -361,6 +375,22 @@ router.post("/sign", tokenauth, async (req, res) => {
   res.redirect("/user/dashboard");
 });
 // user plan confirmation end
+
+
+
+// investors route 
+router.get('/investors' , async(req , res) => {
+  res.render('investors_landing')
+})
+
+router.get('/admin/investors' , async(req , res) => {
+  res.render('handle_investors')
+})
+
+
+// investors route 
+
+
 
 // admin home page route start>
 router.get("/admin", tokenauth, ensureAdmin, async (req, res) => {

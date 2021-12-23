@@ -10,6 +10,7 @@ const applicationSchema = mongoose.Schema({
    application_status :String,
    approved_date : {type :Date },
     repayment_date : String,
+    ref_code : String,
   payout_id : String,
    applied_on : { type : Date , default : Date.now()}
 

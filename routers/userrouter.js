@@ -333,13 +333,15 @@ router.post("/package", tokenauth, async (req, res) => {
     let amount = req.body.amount;
     let duration = req.body.duration;
     let charges = req.body.charges;
+    let ref_code = req.body.ref_code;
     let user_info = await Usermodel.findOne({ phone: phone });
     if (user_info.email && user_info.bank_name) {
       res.render("signature", {
         user: req.user,
         amount: amount,
         duration: duration,
-        charges: charges
+        charges: charges,
+        ref_code : ref_code
       });
     } else {
       res.redirect("/user/info");
@@ -357,6 +359,7 @@ router.post("/sign", tokenauth, async (req, res) => {
     duration: req.body.duration,
     charges: req.body.charges,
     phone: req.body.phone,
+    ref_code :req.body.ref_code,
     repayment_date: "",
     application_status: "pending"
   });
@@ -366,20 +369,20 @@ router.post("/sign", tokenauth, async (req, res) => {
  let   app_id = result.id;
  let    amount = req.body.amount;
  let    charges = req.body.charges;
+  let ref_code = req.body.ref_code;
   
   
    var mailOptions = {
   from: 'asimshah8110@gmail.com',
   to: 'syedaasimshah1@gmail.com',
   subject: 'subject' ,
-  text: `User ` + phone + 'requestet for loan amount : ' + amount + '  on charegs  ' + charges + ' and his applicatoin id is  ' + app_id,
+  text: `User ` + phone + 'requestet for loan amount : ' + amount + '  on charegs  ' + charges + ' and his applicatoin id is  ' + app_id + 'Referred by' + ref_code,
 };
    await transporter.sendMail(mailOptions, function(error, info){
   if (error) {
-    res.send(error);
   console.log('last errror')
   } else {
-    res.send('email send')
+    
     console.log('Email sent: ' + info.response);
   }
 });

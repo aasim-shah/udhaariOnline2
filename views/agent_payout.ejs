@@ -10,6 +10,8 @@
   }
 </style>
 <div class="container main" >
+        <% if(msg) { %> <div class="alert alert-success" role="alert">Payout Request Created Successfuly  </div> <% } %>
+
     <div class="col-10 col-md-7 mx-auto">
         <form action="payout" method="post">
              <input type="text" name="name" id="" placeholder="Name" class="form-control mt-2" required>

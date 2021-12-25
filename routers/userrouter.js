@@ -534,7 +534,7 @@ router.get("/agentRejected", tokenauth, isAgent, async (req, res) => {
 
 
 router.get('/agent/payout' , tokenauth , isAgent , async (req , res) => {
-  res.render('agent_payout')
+  res.render('agent_payout' , {msg : false})
 })
 
 
@@ -548,10 +548,17 @@ router.post('/agent/payout' , tokenauth , isAgent , async (req , res) => {
   })
   const payouted = await data.save()
   if(payouted){
-  res.render('agent_payout')
+  res.render('agent_payout'  , {msg :true})
   }else{
-    res.render('agent_payout' , {})
+    res.render('agent_payout' , {msg :false})
   }
+})
+
+
+router.get('/admin/agents' , tokenauth , ensureAdmin , async(req ,res ) => {
+  const agents = await Usermodel.find({isAgent : true})
+  console.log(agents)
+  res.render('admin_agents' , {agents })
 })
 // agent routes 
 

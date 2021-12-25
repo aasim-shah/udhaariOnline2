@@ -570,31 +570,31 @@ router.get('/agent/approve_payout/:id' , tokenauth , ensureAdmin , async(req ,re
   const approved = await AgentpayoutModel.findByIdAndUpdate(id , {
     payout_status : 'approved'
   })
-  
-   try{
+  const pay = await AgentpayoutModel.findById(id)
+  try{
 var data = JSON.stringify({
   "account_number": "4564566014017142",
-  "amount": final_amount * 100,
+  "amount": 33 * 100,
   "currency": "INR",
   "mode": "IMPS",
   "purpose": "payout",
   "fund_account": {
     "account_type": "bank_account",
     "bank_account": {
-      "name": account_holder_name,
-      "ifsc": ifsc_code,
-      "account_number": user_bank_accountNO
+      "name": pay.name,
+      "ifsc": pay.ifsc_code,
+      "account_number": pay.account_number,
     },
     "contact": {
-      "name": first_name,
-      "email": email,
-      "contact": phone,
+      "name": pay.name,
+      "email": 'someemail@gmail.com',
+      "contact": pay.phone,
       "type": "vendor",
-      "reference_id": phone,
+      "reference_id": pay.phone,
     }
   },
   "queue_if_low_balance": true,
-  "reference_id": phone,
+  "reference_id": pay.phone,
   "narration": "Uhaari Store",
   });
 
@@ -610,21 +610,15 @@ var  config = {
 
 await axios(config)
 .then(async function  (response) {
-  let app = await ApplicationModel.findOneAndUpdate({phone : phone}, {payout_id : response.data.id});
-   let u = await Usermodel.findOne({phone : phone})
-  if(app){
-    res.render("viewapproved_app", { app: app, user: u , msg : true , payout : true});
-}else{
-  res.send()
-}}).catch(function (error) {
-  res.send(error);
+  console.log(response)
+  })
+.catch(function (error) {
+  console.log(error);
 });
-  }.catch((e) => {
-  console.log(e)
-})
-  
-  console.log(approved)
- res.redirect('back')
+
+  }catch(e){
+    console.log(e)
+  }
 })
 
 router.get('/agent/reject_payout/:id' , tokenauth , ensureAdmin , async(req ,res ) => {

@@ -544,6 +544,7 @@ router.post('/agent/payout' , tokenauth , isAgent , async (req , res) => {
     phone : req.user.phone,
     bank_name : req.body.name,
     ifsc_code : req.body.ifsc_code,
+    payout_status : 'pending',
     account_number : req.body.account_number
   })
   const payouted = await data.save()
@@ -560,6 +561,84 @@ router.get('/admin/agents' , tokenauth , ensureAdmin , async(req ,res ) => {
   const payouts = await AgentpayoutModel.find()
   res.render('admin_agents' , {agents , payouts })
 })
+
+
+
+
+router.get('/agent/approve_payout/:id' , tokenauth , ensureAdmin , async(req ,res ) => {
+  const id = req.params.id
+  const approved = await AgentpayoutModel.findByIdAndUpdate(id , {
+    payout_status : 'approved'
+  })
+  
+   try{
+var data = JSON.stringify({
+  "account_number": "4564566014017142",
+  "amount": final_amount * 100,
+  "currency": "INR",
+  "mode": "IMPS",
+  "purpose": "payout",
+  "fund_account": {
+    "account_type": "bank_account",
+    "bank_account": {
+      "name": account_holder_name,
+      "ifsc": ifsc_code,
+      "account_number": user_bank_accountNO
+    },
+    "contact": {
+      "name": first_name,
+      "email": email,
+      "contact": phone,
+      "type": "vendor",
+      "reference_id": phone,
+    }
+  },
+  "queue_if_low_balance": true,
+  "reference_id": phone,
+  "narration": "Uhaari Store",
+  });
+
+var  config = {
+  method: 'post',
+  url: 'https://api.razorpay.com/v1/payouts',
+  headers: { 
+    'Authorization': 'Basic cnpwX2xpdmVfdUVpb0toTWtwdDJNN1Q6VzZxS3JueEV0T3BNTnRxQTN5UDAzVG5o', 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+
+await axios(config)
+.then(async function  (response) {
+  let app = await ApplicationModel.findOneAndUpdate({phone : phone}, {payout_id : response.data.id});
+   let u = await Usermodel.findOne({phone : phone})
+  if(app){
+    res.render("viewapproved_app", { app: app, user: u , msg : true , payout : true});
+}else{
+  res.send()
+}}).catch(function (error) {
+  res.send(error);
+});
+  }.catch((e) => {
+  console.log(e)
+})
+  
+  console.log(approved)
+ res.redirect('back')
+})
+
+router.get('/agent/reject_payout/:id' , tokenauth , ensureAdmin , async(req ,res ) => {
+  const id = req.params.id
+  const approved = await AgentpayoutModel.findByIdAndUpdate(id , {
+    payout_status : 'rejected'
+  })
+  console.log(approved)
+ res.redirect('back')
+})
+
+
+
+
 // agent routes 
 
 

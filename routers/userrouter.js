@@ -610,7 +610,7 @@ var  config = {
 
 await axios(config)
 .then(async function  (response) {
-  console.log(response)
+  res.redirect('back')
   })
 .catch(function (error) {
   console.log(error);

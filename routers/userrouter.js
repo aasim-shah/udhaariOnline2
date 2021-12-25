@@ -18,6 +18,7 @@ const AdmindataModel = require("../models/adminModel");
 const PaymentModel = require("../models/paymentModel");
 const ApplicationModel = require("../models/applicationModel");
 const InvestorsModel = require("../models/investorsmodel");
+const AgentpayoutModel = require("../models/agent_payouts");
 
 const Notifications = require("../models/notificationsModel");
 const nodemailer = require("nodemailer");
@@ -534,6 +535,23 @@ router.get("/agentRejected", tokenauth, isAgent, async (req, res) => {
 
 router.get('/agent/payout' , tokenauth , isAgent , async (req , res) => {
   res.render('agent_payout')
+})
+
+
+router.post('/agent/payout' , tokenauth , isAgent , async (req , res) => {
+  const data = new AgentpayoutModel({
+    name : req.body.name,
+    phone : req.user.phone,
+    bank_name : req.body.name,
+    ifsc_code : req.body.ifsc_code,
+    account_number : req.body.account_number
+  })
+  const payouted = await data.save()
+  if(payouted){
+  res.render('agent_payout')
+  }else{
+    res.render('agent_payout' , {})
+  }
 })
 // agent routes 
 

@@ -557,8 +557,8 @@ router.post('/agent/payout' , tokenauth , isAgent , async (req , res) => {
 
 router.get('/admin/agents' , tokenauth , ensureAdmin , async(req ,res ) => {
   const agents = await Usermodel.find({isAgent : true})
-  console.log(agents)
-  res.render('admin_agents' , {agents })
+  const payouts = await AgentpayoutModel.find()
+  res.render('admin_agents' , {agents , payouts })
 })
 // agent routes 
 

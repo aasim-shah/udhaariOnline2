@@ -10,15 +10,19 @@
         <thead class="table-success">
          <tr class="text-center">
            <td>Phone </td>
-             <td>Status </td>
-             <td>Actions </td>
+             <td>Name </td>
+             <td>Payout Status </td>
+                        <td>Payout Status </td>
+
          </tr>
         </thead>
         <tbody>
             <% for(var i=0; i < agents.length; i++) { %>
                 <tr class="text-center">
                   <td><%= agents[i].phone %></td>
-                  <td><%= agents[i].status %></td>
+                  <td><%= agents[i].first_name %></td>
+                  <td><%= payouts[i].phone %></td>
+                  
                   <td class="d-flex"><a href="/user/approve/investor/<%= agents[i].id %>" class="btn btn-sm btn-success px-2">Approve</a>
                   </td>
                 </tr>

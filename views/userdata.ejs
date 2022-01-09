@@ -332,7 +332,6 @@
     function PreviewImage3() {
         var oFReader = new FileReader();
         oFReader.readAsDataURL(document.getElementById("image_3").files[0]);
-
         oFReader.onload = function (oFREvent) {
            document.getElementById("uploadPreview3").style.display="block";
             document.getElementById("uploadPreview3").src = oFREvent.target.result;

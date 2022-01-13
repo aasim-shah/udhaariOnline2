@@ -6,6 +6,7 @@
  * @version 0.7.3
  */
 
+(function( $ ) {
 $(document).ready(function(){
 	$('body').on('click', '.bcPaint-palette-color', function(){
 		$(this).parent().find('.selected').removeClass('selected');
@@ -23,7 +24,6 @@ $(document).ready(function(){
 });
 
 
-(function( $ ) {
 	/**
 	* Private variables
 	**/

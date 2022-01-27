@@ -84,31 +84,31 @@ var transporter = nodemailer.createTransport({
 
 
 
-const isInvestor = function(req, res, next) {
-  if (req.isAuthenticated()) {
-    if (req.user.isInvestor) {
-      console.log("isInvestor");
-      return next();
-    } else {
-      console.log("not investor");
-      res.redirect("/");
-    }
-  }
-};
+// const isInvestor = function(req, res, next) {
+//   if (req.isAuthenticated()) {
+//     if (req.user.isInvestor) {
+//       console.log("isInvestor");
+//       return next();
+//     } else {
+//       console.log("not investor");
+//       res.redirect("/");
+//     }
+//   }
+// };
 
 
 
-const isAgent = function(req, res, next) {
-  if (req.isAuthenticated()) {
-    if (req.user.isAgent) {
-      console.log("isAgent");
-      return next();
-    } else {
-      console.log("not investor");
-      res.redirect("/");
-    }
-  }
-};
+// const isAgent = function(req, res, next) {
+//   if (req.isAuthenticated()) {
+//     if (req.user.isAgent) {
+//       console.log("isAgent");
+//       return next();
+//     } else {
+//       console.log("not investor");
+//       res.redirect("/");
+//     }
+//   }
+// };
 
 
 
@@ -136,11 +136,8 @@ router.get("/register", (req, res) => {
 router.post("/register", async (req, res) => {
   let password = req.body.password;
   let cpassword = req.body.cpassword;
-  let ref_code = req.body.ref_code;
   if (password === cpassword) {
     let encpassword = await bcrpyt.hash(password, 10);
-    let ref_matched = await Usermodel.findOne({ref_code : ref_code})
-    console.log(ref_matched)
     const user = new Usermodel({
       phone: req.body.phone,
       password: encpassword
@@ -149,13 +146,9 @@ router.post("/register", async (req, res) => {
     if (registered_user) {
       res.redirect("/user/login");
     } else {
-    if(ref_matched){
           const userregistered = await user.save();
       const regtoken = await user.authuser();
       res.render("otp", { reg_user: userregistered });
-    }else{
-      res.redirect('back')
-    }
     }
   } else {
     console.log("cpas doesnt matches");
@@ -405,9 +398,9 @@ router.post("/sign", tokenauth, async (req, res) => {
 
 
 // investors route 
-router.get('/investors' ,tokenauth,   async(req , res) => {
-  res.render('investors_landing' )
-})
+// router.get('/investors' ,tokenauth,   async(req , res) => {
+//   res.render('investors_landing' )
+// })
 
 
 router.post('/investors' ,tokenauth, async(req , res) => {

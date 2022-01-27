@@ -403,59 +403,59 @@ router.post("/sign", tokenauth, async (req, res) => {
 // })
 
 
-router.post('/investors' ,tokenauth, async(req , res) => {
-  let phone = req.user.phone;
-  let investor = new InvestorsModel({
-    phone : phone,
-    status : 'pending'
-  })
+// router.post('/investors' ,tokenauth, async(req , res) => {
+//   let phone = req.user.phone;
+//   let investor = new InvestorsModel({
+//     phone : phone,
+//     status : 'pending'
+//   })
   
-  const investor_saved = await investor.save()
-  if(investor_saved){
-    console.log('saveed')
-  }else{
-    console.log('failed to save investor')
-  }
-  res.render('investors_landing')
-})
+//   const investor_saved = await investor.save()
+//   if(investor_saved){
+//     console.log('saveed')
+//   }else{
+//     console.log('failed to save investor')
+//   }
+//   res.render('investors_landing')
+// })
 
-router.get('/approve/investor/:id' , tokenauth , ensureAdmin , async(req ,res ) => {
-  const id = req.params.id;
-  const phone = req.user.phone;
-  const investor = await InvestorsModel.findByIdAndUpdate(id , {
-    status : 'approved'
-  })
-  const approved_investor = await Usermodel.findOneAndUpdate({phone : phone}, {isInvestor : 'true'})
-  console.log(investor)
- res.redirect('/user/admin/investors')
-})
+// router.get('/approve/investor/:id' , tokenauth , ensureAdmin , async(req ,res ) => {
+//   const id = req.params.id;
+//   const phone = req.user.phone;
+//   const investor = await InvestorsModel.findByIdAndUpdate(id , {
+//     status : 'approved'
+//   })
+//   const approved_investor = await Usermodel.findOneAndUpdate({phone : phone}, {isInvestor : 'true'})
+//   console.log(investor)
+//  res.redirect('/user/admin/investors')
+// })
 
 
-router.get('/reject/investor/:id' , tokenauth , ensureAdmin , async(req ,res ) => {
-  const id = req.params.id
-  const investor = await InvestorsModel.findByIdAndUpdate(id , {
-    status : 'rejected'
-  })
-  console.log(investor)
- res.redirect('/user/admin/investors')
-})
+// router.get('/reject/investor/:id' , tokenauth , ensureAdmin , async(req ,res ) => {
+//   const id = req.params.id
+//   const investor = await InvestorsModel.findByIdAndUpdate(id , {
+//     status : 'rejected'
+//   })
+//   console.log(investor)
+//  res.redirect('/user/admin/investors')
+// })
 
 
 
 // investrors admin side 
 
-router.get('/admin/investors' , tokenauth , ensureAdmin , async(req ,res ) => {
-  const investors = await InvestorsModel.find()
+// router.get('/admin/investors' , tokenauth , ensureAdmin , async(req ,res ) => {
+//   const investors = await InvestorsModel.find()
   
-  res.render('admininvestors' , {investors })
-})
+//   res.render('admininvestors' , {investors })
+// })
 // investrors admin side 
 
 
 // investors dashboarad
-router.get('/investor/dashboard' , tokenauth, isInvestor ,async(req , res) =>{
- res.render('investor_dashboard') 
-})
+// router.get('/investor/dashboard' , tokenauth, isInvestor ,async(req , res) =>{
+//  res.render('investor_dashboard') 
+// })
 // investors dashboarad
 
 
@@ -464,164 +464,164 @@ router.get('/investor/dashboard' , tokenauth, isInvestor ,async(req , res) =>{
 
 
 // agent routes 
-router.get('/admin/create/agent' , tokenauth , ensureAdmin , async(req ,res) => {
-  res.render('adminregister_agent' , {msg : false})
-})
+// router.get('/admin/create/agent' , tokenauth , ensureAdmin , async(req ,res) => {
+//   res.render('adminregister_agent' , {msg : false})
+// })
 
-router.post('/admin/create/agent' , tokenauth , ensureAdmin , async(req ,res) => {
-  const pass = req.body.password;
- let encpassword = await bcrpyt.hash(pass, 10);
- let rand = await cryptoRandomInt(111111, 999999);
-  const data = new Usermodel({
-    first_name : req.body.name,
-    phone : req.body.phone,
-    email : req.body.email,
-    password : encpassword,
-    agent_role : req.body.agent_role ,
-    ref_code : 'UDHAARI'+rand,
-    verified : 'true',
-    isAgent : 'true',
-  })
-  const agent_created = await data.save()
-  if(agent_created){
-    console.log(data)
-  }else{
-      console.log('failed to create agent')
-  }
-res.render('adminregister_agent' , {msg : true})
-})
+// router.post('/admin/create/agent' , tokenauth , ensureAdmin , async(req ,res) => {
+//   const pass = req.body.password;
+//  let encpassword = await bcrpyt.hash(pass, 10);
+//  let rand = await cryptoRandomInt(111111, 999999);
+//   const data = new Usermodel({
+//     first_name : req.body.name,
+//     phone : req.body.phone,
+//     email : req.body.email,
+//     password : encpassword,
+//     agent_role : req.body.agent_role ,
+//     ref_code : 'UDHAARI'+rand,
+//     verified : 'true',
+//     isAgent : 'true',
+//   })
+//   const agent_created = await data.save()
+//   if(agent_created){
+//     console.log(data)
+//   }else{
+//       console.log('failed to create agent')
+//   }
+// res.render('adminregister_agent' , {msg : true})
+// })
 
 
-router.get('/agent/dashboard' , tokenauth, isAgent ,async(req , res) =>{
+// router.get('/agent/dashboard' , tokenauth, isAgent ,async(req , res) =>{
  
-  const phone = req.user.phone;
-  const agent = await Usermodel.findOne({phone : phone})
-  const ref_code = agent.ref_code;
+//   const phone = req.user.phone;
+//   const agent = await Usermodel.findOne({phone : phone})
+//   const ref_code = agent.ref_code;
    
-    let approved = await ApplicationModel.count({ $and : [{ref_code: ref_code }, { application_status : 'approved'}]});
-      let rejected = await ApplicationModel.count({ $and : [{ref_code: ref_code }, { application_status : 'rejected'}]});
+//     let approved = await ApplicationModel.count({ $and : [{ref_code: ref_code }, { application_status : 'approved'}]});
+//       let rejected = await ApplicationModel.count({ $and : [{ref_code: ref_code }, { application_status : 'rejected'}]});
 
 
- res.render('agent_dashboard' , {user : agent , approved , rejected }) 
-})
+//  res.render('agent_dashboard' , {user : agent , approved , rejected }) 
+// })
 
 
-router.get("/agentApproved", tokenauth, isAgent, async (req, res) => {
-    const phone = req.user.phone;
-  const agent = await Usermodel.findOne({phone : phone})
-  const ref_code = agent.ref_code;
-     let approved = await ApplicationModel.find({ $and : [{ref_code: ref_code }, { application_status : 'approved'}]});
-  res.render("agent_approved", { apps: approved });
-});
+// router.get("/agentApproved", tokenauth, isAgent, async (req, res) => {
+//     const phone = req.user.phone;
+//   const agent = await Usermodel.findOne({phone : phone})
+//   const ref_code = agent.ref_code;
+//      let approved = await ApplicationModel.find({ $and : [{ref_code: ref_code }, { application_status : 'approved'}]});
+//   res.render("agent_approved", { apps: approved });
+// });
 
 
-router.get("/agentRejected", tokenauth, isAgent, async (req, res) => {
-    const phone = req.user.phone;
-  const agent = await Usermodel.findOne({phone : phone})
-  const ref_code = agent.ref_code;
-     let rejected = await ApplicationModel.find({ $and : [{ref_code: ref_code }, { application_status : 'rejected'}]});
-  res.render("agent_rejected", { apps: rejected });
-});
-
-
-
-
-router.get('/agent/payout' , tokenauth , isAgent , async (req , res) => {
-  res.render('agent_payout' , {msg : false})
-})
-
-
-router.post('/agent/payout' , tokenauth , isAgent , async (req , res) => {
-  const data = new AgentpayoutModel({
-    name : req.body.name,
-    phone : req.user.phone,
-    bank_name : req.body.name,
-    ifsc_code : req.body.ifsc_code,
-    payout_status : 'pending',
-    account_number : req.body.account_number
-  })
-  const payouted = await data.save()
-  if(payouted){
-  res.render('agent_payout'  , {msg :true})
-  }else{
-    res.render('agent_payout' , {msg :false})
-  }
-})
-
-
-router.get('/admin/agents' , tokenauth , ensureAdmin , async(req ,res ) => {
-  const agents = await Usermodel.find({isAgent : true})
-  const payouts = await AgentpayoutModel.find()
-  res.render('admin_agents' , {agents , payouts })
-})
+// router.get("/agentRejected", tokenauth, isAgent, async (req, res) => {
+//     const phone = req.user.phone;
+//   const agent = await Usermodel.findOne({phone : phone})
+//   const ref_code = agent.ref_code;
+//      let rejected = await ApplicationModel.find({ $and : [{ref_code: ref_code }, { application_status : 'rejected'}]});
+//   res.render("agent_rejected", { apps: rejected });
+// });
 
 
 
 
-router.get('/agent/approve_payout/:id' , tokenauth , ensureAdmin , async(req ,res ) => {
-  const id = req.params.id
-  const approved = await AgentpayoutModel.findByIdAndUpdate(id , {
-    payout_status : 'approved'
-  })
-  const pay = await AgentpayoutModel.findById(id)
-  try{
-var data = JSON.stringify({
-  "account_number": "4564566014017142",
-  "amount": 33 * 100,
-  "currency": "INR",
-  "mode": "IMPS",
-  "purpose": "payout",
-  "fund_account": {
-    "account_type": "bank_account",
-    "bank_account": {
-      "name": pay.name,
-      "ifsc": pay.ifsc_code,
-      "account_number": pay.account_number,
-    },
-    "contact": {
-      "name": pay.name,
-      "email": 'someemail@gmail.com',
-      "contact": pay.phone,
-      "type": "vendor",
-      "reference_id": pay.phone,
-    }
-  },
-  "queue_if_low_balance": true,
-  "reference_id": pay.phone,
-  "narration": "Uhaari Store",
-  });
+// router.get('/agent/payout' , tokenauth , isAgent , async (req , res) => {
+//   res.render('agent_payout' , {msg : false})
+// })
 
-var  config = {
-  method: 'post',
-  url: 'https://api.razorpay.com/v1/payouts',
-  headers: { 
-    'Authorization': 'Basic cnpwX2xpdmVfdUVpb0toTWtwdDJNN1Q6VzZxS3JueEV0T3BNTnRxQTN5UDAzVG5o', 
-    'Content-Type': 'application/json'
-  },
-  data : data
-};
 
-await axios(config)
-.then(async function  (response) {
-  res.redirect('back')
-  })
-.catch(function (error) {
-  console.log(error);
-});
+// router.post('/agent/payout' , tokenauth , isAgent , async (req , res) => {
+//   const data = new AgentpayoutModel({
+//     name : req.body.name,
+//     phone : req.user.phone,
+//     bank_name : req.body.name,
+//     ifsc_code : req.body.ifsc_code,
+//     payout_status : 'pending',
+//     account_number : req.body.account_number
+//   })
+//   const payouted = await data.save()
+//   if(payouted){
+//   res.render('agent_payout'  , {msg :true})
+//   }else{
+//     res.render('agent_payout' , {msg :false})
+//   }
+// })
 
-  }catch(e){
-    console.log(e)
-  }
-})
 
-router.get('/agent/reject_payout/:id' , tokenauth , ensureAdmin , async(req ,res ) => {
-  const id = req.params.id
-  const approved = await AgentpayoutModel.findByIdAndUpdate(id , {
-    payout_status : 'rejected'
-  })
-  console.log(approved)
- res.redirect('back')
-})
+// router.get('/admin/agents' , tokenauth , ensureAdmin , async(req ,res ) => {
+//   const agents = await Usermodel.find({isAgent : true})
+//   const payouts = await AgentpayoutModel.find()
+//   res.render('admin_agents' , {agents , payouts })
+// })
+
+
+
+
+// router.get('/agent/approve_payout/:id' , tokenauth , ensureAdmin , async(req ,res ) => {
+//   const id = req.params.id
+//   const approved = await AgentpayoutModel.findByIdAndUpdate(id , {
+//     payout_status : 'approved'
+//   })
+//   const pay = await AgentpayoutModel.findById(id)
+//   try{
+// var data = JSON.stringify({
+//   "account_number": "4564566014017142",
+//   "amount": 33 * 100,
+//   "currency": "INR",
+//   "mode": "IMPS",
+//   "purpose": "payout",
+//   "fund_account": {
+//     "account_type": "bank_account",
+//     "bank_account": {
+//       "name": pay.name,
+//       "ifsc": pay.ifsc_code,
+//       "account_number": pay.account_number,
+//     },
+//     "contact": {
+//       "name": pay.name,
+//       "email": 'someemail@gmail.com',
+//       "contact": pay.phone,
+//       "type": "vendor",
+//       "reference_id": pay.phone,
+//     }
+//   },
+//   "queue_if_low_balance": true,
+//   "reference_id": pay.phone,
+//   "narration": "Uhaari Store",
+//   });
+
+// var  config = {
+//   method: 'post',
+//   url: 'https://api.razorpay.com/v1/payouts',
+//   headers: { 
+//     'Authorization': 'Basic cnpwX2xpdmVfdUVpb0toTWtwdDJNN1Q6VzZxS3JueEV0T3BNTnRxQTN5UDAzVG5o', 
+//     'Content-Type': 'application/json'
+//   },
+//   data : data
+// };
+
+// await axios(config)
+// .then(async function  (response) {
+//   res.redirect('back')
+//   })
+// .catch(function (error) {
+//   console.log(error);
+// });
+
+//   }catch(e){
+//     console.log(e)
+//   }
+// })
+
+// router.get('/agent/reject_payout/:id' , tokenauth , ensureAdmin , async(req ,res ) => {
+//   const id = req.params.id
+//   const approved = await AgentpayoutModel.findByIdAndUpdate(id , {
+//     payout_status : 'rejected'
+//   })
+//   console.log(approved)
+//  res.redirect('back')
+// })
 
 
 
